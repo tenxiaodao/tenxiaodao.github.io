@@ -1,0 +1,638 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>scrapy安装与部署详细教程 | 首页</title><meta name="author" content="周一鄂"><meta name="copyright" content="周一鄂"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="scrapy安装与部署详细教程"><meta name="application-name" content="scrapy安装与部署详细教程"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="scrapy安装与部署详细教程"><meta property="og:url" content="http://example.com/2024/09/12/9-12%E5%AE%89%E8%A3%85%E4%B8%8E%E9%83%A8%E7%BD%B2%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/index.html"><meta property="og:site_name" content="首页"><meta property="og:description" content="Windows 10 环境下 Scrapy 安装与部署详细教程1. Scrapy 简介Scrapy 是一个开源的、功能强大的 Python 爬虫框架。它可以帮助开发者高效地抓取网站数据，并提取其中的结构化数据。Scrapy 支持多种数据格式的输出，如 JSON、XML、CSV 等，广泛应用于数据采集"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://bu.dusays.com/2024/07/17/6697840c2cbb5.jpg"><meta property="article:author" content="周一鄂"><meta property="article:tag"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://bu.dusays.com/2024/07/17/6697840c2cbb5.jpg"><meta name="description" content="Windows 10 环境下 Scrapy 安装与部署详细教程1. Scrapy 简介Scrapy 是一个开源的、功能强大的 Python 爬虫框架。它可以帮助开发者高效地抓取网站数据，并提取其中的结构化数据。Scrapy 支持多种数据格式的输出，如 JSON、XML、CSV 等，广泛应用于数据采集"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="http://example.com/2024/09/12/9-12%E5%AE%89%E8%A3%85%E4%B8%8E%E9%83%A8%E7%BD%B2%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/"><link rel="preconnect" href="//cdn.cbd.int"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/swiper/swiper.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2023/09/03/125766904/ee23df8517f3c3e3efc4145658269c06_5714860933110284659.png"},
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: {"enable":true,"default":"晚上好👋","list":[{"greeting":"晚安😴","startTime":0,"endTime":5},{"greeting":"早上好鸭👋, 祝你一天好心情！","startTime":6,"endTime":9},{"greeting":"上午好👋, 状态很好，鼓励一下～","startTime":10,"endTime":10},{"greeting":"11点多啦, 在坚持一下就吃饭啦～","startTime":11,"endTime":11},{"greeting":"午安👋, 宝贝","startTime":12,"endTime":14},{"greeting":"🌈充实的一天辛苦啦！","startTime":14,"endTime":18},{"greeting":"19点喽, 奖励一顿丰盛的大餐吧🍔。","startTime":19,"endTime":19},{"greeting":"晚上好👋, 在属于自己的时间好好放松😌~","startTime":20,"endTime":24}]},
+  twikooEnvId: 'https://yuhaozhe-twikoo.hf.space',
+  commentBarrageConfig:undefined,
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: {"skills":["🤖️ 数码科技爱好者","🔍 分享与热心帮助","🏠 智能家居小能手","🔨 设计开发一条龙","🤝 专修交互与设计","🏃 脚踏实地行动派","🧱 团队小组发动机","💢 壮汉人狠话不多"]},
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: 周一鄂","link":"链接: ","source":"来源: 首页","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: '首页',
+  title: 'scrapy安装与部署详细教程',
+  postAI: '',
+  pageFillDescription: 'Windows 10 环境下 Scrapy 安装与部署详细教程, 1. Scrapy 简介, 2. 环境准备, 2.1. 安装 Python 和 pip, 3. 安装 Scrapy 所需的依赖, 3.1. 安装 pywin32, 安装步骤：, 3.2. 安装 Twisted, 安装步骤：, 4. 安装 Scrapy, 安装步骤：, 5. 创建 Scrapy 项目, 项目创建步骤：, 5.1. Scrapy 项目结构, 6. 编写第一个爬虫, 爬虫创建步骤：, 运行爬虫：, 输出数据到文件：, 7. 总结与常见问题, 7.1. 常见问题, 7.2. 小结, Linux 系统下的 Scrapy 安装与部署教程, 1. 环境准备, 2. 安装 Python 和 pip, 2.1. 检查系统是否已安装 Python 和 pip, 2.2. 安装 Python 3 和 pip, 3. 安装 Scrapy 所需的依赖, 3.1. 安装必要的系统库, 3.2. 安装 Twisted 依赖, 4. 安装 Scrapy, 4.1. 使用 pip 安装 Scrapy, 4.2. 验证安装, 5. 创建 Scrapy 项目, 5.1. 创建新项目, 5.2. 项目目录结构, 6. 编写你的第一个爬虫, 6.1. 创建爬虫, 6.2. 运行爬虫, 6.3. 保存抓取数据, 7. 常见问题与解决, 7.1. Twisted 相关问题, 7.2. 缺少编译工具, 7.3. 安装虚拟环境（可选）环境下安装与部署详细教程简介是一个开源的功能强大的爬虫框架它可以帮助开发者高效地抓取网站数据并提取其中的结构化数据支持多种数据格式的输出如等广泛应用于数据采集信息监控自动化测试等领域在环境下安装可能会涉及多个依赖的安装与配置本文将一步步指导你如何通过和下的依赖来安装并运行环境准备在开始安装之前确保系统满足以下基本要求操作系统及以上本文针对的配置包管理工具必要的依赖包如安装和下载并安装版本安装时务必勾选选项这会将添加到系统环境变量中使你可以在命令行中直接使用安装完成后打开命令提示符输入以下命令确认和是否安装成功如果你的系统中还没有使用你上传的文件来安装它将放置在某个文件夹中并在命令行中导航到该文件夹运行以下命令安装安装成功后可以再次输入来验证安装所需的依赖在上的安装通常会遇到依赖问题特别是和包的安装你已经提供了这些包的安装文件下面我们将逐步讲解如何使用这些文件来完成安装安装是在环境下的一个重要依赖它提供了对的支持使用它来与操作系统进行交互你上传了文件这是适用于版本的安装包安装步骤双击文件按照安装向导提示完成安装安装完成后验证是否安装成功如果能看到包的信息说明安装成功安装是的核心依赖它是一个用于处理网络通信的异步框架由于依赖编译器在上直接安装通常会出现问题你提供了一个文件这是针对和版本的预编译包安装步骤将文件放在某个文件夹中在命令行中导航到该文件夹并运行以下命令安装安装完成后验证是否安装成功如果输出包的信息表示安装成功安装现在你已经安装了所有的必要依赖接下来就可以安装了安装步骤打开命令提示符执行以下命令安装这将安装及其所有剩余的依赖项安装完成后运行以下命令确认是否成功安装如果显示的版本号表示安装成功创建项目接下来你可以开始创建一个项目演示如何使用抓取网站数据项目创建步骤在命令提示符中导航到你想要存储项目的文件夹运行以下命令创建一个新的项目这将创建一个名为的文件夹包含项目的基本结构进入项目文件夹项目结构项目的基本结构如下目录是你定义爬虫逻辑的地方用于定义抓取的数据结构用于处理和保存抓取的数据包含项目的全局设置编写第一个爬虫现在你可以创建一个简单的爬虫来抓取网页内容我们将抓取示例网站爬虫创建步骤在目录中创建一个新的文件编辑文件添加以下代码该爬虫将访问并提取网页的标题运行爬虫在项目根目录下运行以下命令这将启动爬虫并输出抓取到的标题信息输出数据到文件你还可以将抓取的数据保存到文件中运行以下命令总结与常见问题常见问题安装问题如果没有使用文件安装可能会遇到编译器缺失的问题你提供的预编译版本可以解决这个问题相关问题在上运行时是必不可少的包如果未安装此包可能会导致某些功能无法正常工作小结本文详细介绍了如何在上配置环境并通过你提供的文件辅助完成和的安装通过用户可以高效地抓取和提取网站数据适合用于数据分析监控等应用场景系统下的安装与部署教程环境准备在下安装的要求如下及以上版本支持及以上版本的包管理工具用于安装及其依赖项安装和大多数发行版预装了但你仍需要确保系统中的版本符合的要求并且安装了工具检查系统是否已安装和在终端中执行以下命令检查和的版本如果已经安装和你将会看到相应的版本号如果没有安装或版本不符合要求接着执行以下步骤进行安装安装和在或系统上可以通过来安装和对于使用以下命令安装安装完成后再次验证和是否已正确安装安装所需的依赖在上安装需要一些系统库和扩展包在大多数情况下依赖的库会自动安装但建议手动安装一些系统工具和编译库以避免潜在的问题安装必要的系统库在基于的系统上你可以使用以下命令安装所需的基础库对于或系统使用以下命令这些库会帮助你在编译和安装依赖时避免常见的编译问题安装依赖是依赖的异步网络框架在某些系统上安装需要额外的步骤对于安装一旦环境准备好了就可以使用安装这里使用来确保版本的包管理工具使用安装在终端中运行以下命令安装这会自动安装以及所有必要的依赖项包括等验证安装安装完成后运行以下命令来检查是否成功安装如果你看到的版本号说明安装成功创建项目现在已经成功安装你可以开始创建第一个项目创建新项目在终端中导航到你希望存放项目的目录例如使用以下命令创建一个新的项目这将创建一个名为的文件夹其中包含项目的基础结构项目目录结构项目结构如下是定义爬虫的地方是项目的全局配置文件编写你的第一个爬虫在项目结构中目录用来定义爬虫接下来我们将创建一个简单的爬虫抓取示例网站的标题创建爬虫在目录中创建一个名为的文件编辑文件并添加以下代码运行爬虫在项目的根目录下运行以下命令来启动爬虫这个命令将会启动爬虫并在终端中输出抓取到的网页标题保存抓取数据你可以将抓取到的数据保存为文件使用以下命令这会将抓取到的网页标题保存到文件中常见问题与解决相关问题如果在安装或时遇到编译错误可以先安装的预编译版本缺少编译工具如果在安装过程中遇到任何编译错误通常是因为缺少必要的编译工具确保你已经安装了或类似的开发工具包安装虚拟环境可选为了避免包之间的冲突建议使用虚拟环境管理项目你可以使用或来创建隔离的环境在虚拟环境中你可以按照本文的步骤安装和所有依赖项以上就是在和上安装和配置的详细教程',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2024-10-17 23:16:21',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="/img/up.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><div class="back-home-button"><i class="anzhiyufont anzhiyu-icon-grip-vertical"></i><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://tenxiaodao.github.io/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/up.jpg" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">网盘</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://pan.quark.cn/s/c98d1ceee692" title="软件/工具"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="软件/工具"/><span class="back-menu-item-text">软件/工具</span></a></div></div></div></div><a id="site-name" href="/" accesskey="h"><div class="title">首页</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a><div id="he-plugin-simple"></div><script>var WIDGET = {
+  "CONFIG": {
+    "modules": "0124",
+    "background": "2",
+    "tmpColor": "FFFFFF",
+    "tmpSize": "16",
+    "cityColor": "FFFFFF",
+    "citySize": "16",
+    "aqiColor": "E8D87B",
+    "aqiSize": "16",
+    "weatherIconSize": "24",
+    "alertIconSize": "18",
+    "padding": "10px 10px 10px 10px",
+    "shadow": "0",
+    "language": "auto",
+    "borderRadius": "20",
+    "fixed": "true",
+    "vertical": "top",
+    "horizontal": "left",
+    "left": "20",
+    "top": "7.1",
+    "key": "df245676fb434a0691ead1c63341cd94"
+  }
+}
+</script><link rel="stylesheet" href="https://widget.qweather.net/simple/static/css/he-simple.css?v=1.4.0"/><script src="https://widget.qweather.net/simple/static/js/he-simple.js?v=1.4.0"></script></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 隧道</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 友链</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><i class="anzhiyufont anzhiyu-icon-link faa-tada" style="font-size: 0.9em;"></i><span> 友人帐</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><i class="anzhiyufont anzhiyu-icon-envelope faa-tada" style="font-size: 0.9em;"></i><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/music/"><i class="anzhiyufont anzhiyu-icon-music faa-tada" style="font-size: 0.9em;"></i><span> 音乐馆</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/bangumis/"><i class="anzhiyufont anzhiyu-icon-bilibili faa-tada" style="font-size: 0.9em;"></i><span> 追番页</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于本人</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/essay/"><i class="anzhiyufont anzhiyu-icon-lightbulb faa-tada" style="font-size: 0.9em;"></i><span> 闲言碎语</span></a></li></ul></div></div></div><div id="nav-right"><div class="nav-button only-home" id="travellings_button" title="随机前往一个开往项目网站"><a class="site-page" onclick="anzhiyu.totraveling()" title="随机前往一个开往项目网站" href="javascript:void(0);" rel="external nofollow" data-pjax-state="external"><i class="anzhiyufont anzhiyu-icon-train"></i></a></div><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="/img/wx.jpg" target="_blank"><img class="post-qr-code-img" alt="微信" src="/img/wx.jpg"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" alt="支付宝" src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/01/"><span class="card-archive-list-date">一月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/10/"><span class="card-archive-list-date">十月 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/09/"><span class="card-archive-list-date">九月 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">9</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="post-meta-categories"><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/scrapy/" itemprop="url">scrapy</a></span><span class="article-meta tags"></span></div></div><h1 class="post-title" itemprop="name headline">scrapy安装与部署详细教程</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2024-09-12T11:09:53.000Z" title="发表于 2024-09-12 19:09:53">2024-09-12</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2024-10-17T15:16:21.591Z" title="更新于 2024-10-17 23:16:21">2024-10-17</time></span></div><div class="meta-secondline"><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为大同"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>大同</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src="https://bu.dusays.com/2024/07/17/6697840c2cbb5.jpg"></div></header><main id="blog-container"><div class="layout hide-aside" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="http://example.com/2024/09/12/9-12%E5%AE%89%E8%A3%85%E4%B8%8E%E9%83%A8%E7%BD%B2%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/"><header><a class="post-meta-categories" href="/categories/scrapy/" itemprop="url">scrapy</a><h1 id="CrawlerTitle" itemprop="name headline">scrapy安装与部署详细教程</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">周一鄂</span><time itemprop="dateCreated datePublished" datetime="2024-09-12T11:09:53.000Z" title="发表于 2024-09-12 19:09:53">2024-09-12</time><time itemprop="dateCreated datePublished" datetime="2024-10-17T15:16:21.591Z" title="更新于 2024-10-17 23:16:21">2024-10-17</time></header><h1 id="Windows-10-环境下-Scrapy-安装与部署详细教程"><a href="#Windows-10-环境下-Scrapy-安装与部署详细教程" class="headerlink" title="Windows 10 环境下 Scrapy 安装与部署详细教程"></a>Windows 10 环境下 Scrapy 安装与部署详细教程</h1><h2 id="1-Scrapy-简介"><a href="#1-Scrapy-简介" class="headerlink" title="1. Scrapy 简介"></a><strong>1. Scrapy 简介</strong></h2><p>Scrapy 是一个开源的、功能强大的 Python 爬虫框架。它可以帮助开发者高效地抓取网站数据，并提取其中的结构化数据。Scrapy 支持多种数据格式的输出，如 JSON、XML、CSV 等，广泛应用于数据采集、信息监控、自动化测试等领域。</p>
+<p>在 Windows 环境下安装 Scrapy 可能会涉及多个依赖的安装与配置，本文将一步步指导你如何通过 Python 和 Windows 下的依赖来安装并运行 Scrapy。</p>
+<h2 id="2-环境准备"><a href="#2-环境准备" class="headerlink" title="2. 环境准备"></a><strong>2. 环境准备</strong></h2><p>在开始安装 Scrapy 之前，确保系统满足以下基本要求：</p>
+<ul>
+<li><strong>Windows 10</strong> 操作系统</li>
+<li><strong>Python 3.6 及以上</strong>（本文针对 Python 3.6 的配置）</li>
+<li><strong>pip</strong>：Python 包管理工具</li>
+<li><strong>必要的依赖包</strong>（如 Twisted、pywin32）</li>
+</ul>
+<h3 id="2-1-安装-Python-和-pip"><a href="#2-1-安装-Python-和-pip" class="headerlink" title="2.1. 安装 Python 和 pip"></a><strong>2.1. 安装 Python 和 pip</strong></h3><ol>
+<li><p>下载并安装 <a target="_blank" rel="noopener" href="https://www.python.org/downloads/release/python-360/">Python 3.6</a> 版本。安装时，务必勾选 <strong>“Add Python to PATH”</strong> 选项，这会将 Python 添加到系统环境变量中，使你可以在命令行中直接使用 Python。</p>
+</li>
+<li><p>安装完成后，打开命令提示符 (CMD)，输入以下命令确认 Python 和 pip 是否安装成功：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python --version</span><br><span class="line">pip --version</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果你的系统中还没有 pip，使用你上传的 <code>get-pip.py</code> 文件来安装它：</p>
+<ul>
+<li>将 <code>get-pip.py</code> 放置在某个文件夹中，并在命令行中导航到该文件夹：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> C:\path\to\get-pip.py\directory</span><br></pre></td></tr></table></figure></li>
+<li>运行以下命令安装 pip：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python get-pip.py</span><br></pre></td></tr></table></figure></li>
+<li>安装成功后，可以再次输入 <code>pip --version</code> 来验证。</li>
+</ul>
+</li>
+</ol>
+<h2 id="3-安装-Scrapy-所需的依赖"><a href="#3-安装-Scrapy-所需的依赖" class="headerlink" title="3. 安装 Scrapy 所需的依赖"></a><strong>3. 安装 Scrapy 所需的依赖</strong></h2><p>Scrapy 在 Windows 上的安装通常会遇到依赖问题，特别是 <code>Twisted</code> 和 <code>pywin32</code> 包的安装。你已经提供了这些包的安装文件，下面我们将逐步讲解如何使用这些文件来完成安装。</p>
+<h3 id="3-1-安装-pywin32"><a href="#3-1-安装-pywin32" class="headerlink" title="3.1. 安装 pywin32"></a><strong>3.1. 安装 pywin32</strong></h3><p><code>pywin32</code> 是 Scrapy 在 Windows 环境下的一个重要依赖，它提供了对 Windows API 的支持，Scrapy 使用它来与操作系统进行交互。</p>
+<p>你上传了 <code>pywin32-221.win-amd64-py3.6.exe</code> 文件，这是适用于 Python 3.6 版本的 <code>pywin32</code> 安装包。</p>
+<h4 id="安装步骤："><a href="#安装步骤：" class="headerlink" title="安装步骤："></a>安装步骤：</h4><ol>
+<li>双击 <code>pywin32-221.win-amd64-py3.6.exe</code> 文件，按照安装向导提示完成安装。</li>
+<li>安装完成后，验证 pywin32 是否安装成功：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -m pip show pywin32</span><br></pre></td></tr></table></figure>
+如果能看到 pywin32 包的信息，说明安装成功。</li>
+</ol>
+<h3 id="3-2-安装-Twisted"><a href="#3-2-安装-Twisted" class="headerlink" title="3.2. 安装 Twisted"></a><strong>3.2. 安装 Twisted</strong></h3><p><code>Twisted</code> 是 Scrapy 的核心依赖，它是一个用于处理网络通信的异步框架。由于 Twisted 依赖 C++ 编译器，在 Windows 上直接安装通常会出现问题。你提供了一个 <code>.whl</code> 文件（<code>Twisted-19.7.0-cp36-cp36m-win_amd64.whl</code>），这是针对 Windows 和 Python 3.6 版本的预编译包。</p>
+<h4 id="安装步骤：-1"><a href="#安装步骤：-1" class="headerlink" title="安装步骤："></a>安装步骤：</h4><ol>
+<li>将 <code>Twisted-19.7.0-cp36-cp36m-win_amd64.whl</code> 文件放在某个文件夹中。</li>
+<li>在命令行中导航到该文件夹并运行以下命令安装 Twisted：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install Twisted-19.7.0-cp36-cp36m-win_amd64.whl</span><br></pre></td></tr></table></figure></li>
+<li>安装完成后，验证 Twisted 是否安装成功：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip show twisted</span><br></pre></td></tr></table></figure>
+如果输出 Twisted 包的信息，表示安装成功。</li>
+</ol>
+<h2 id="4-安装-Scrapy"><a href="#4-安装-Scrapy" class="headerlink" title="4. 安装 Scrapy"></a><strong>4. 安装 Scrapy</strong></h2><p>现在你已经安装了所有的必要依赖，接下来就可以安装 Scrapy 了。</p>
+<h4 id="安装步骤：-2"><a href="#安装步骤：-2" class="headerlink" title="安装步骤："></a>安装步骤：</h4><ol>
+<li><p>打开命令提示符，执行以下命令安装 Scrapy：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install scrapy</span><br></pre></td></tr></table></figure>
+<p>这将安装 Scrapy 及其所有剩余的依赖项。</p>
+</li>
+<li><p>安装完成后，运行以下命令确认 Scrapy 是否成功安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scrapy version</span><br></pre></td></tr></table></figure>
+<p>如果显示 Scrapy 的版本号，表示安装成功。</p>
+</li>
+</ol>
+<h2 id="5-创建-Scrapy-项目"><a href="#5-创建-Scrapy-项目" class="headerlink" title="5. 创建 Scrapy 项目"></a><strong>5. 创建 Scrapy 项目</strong></h2><p>接下来，你可以开始创建一个 Scrapy 项目，演示如何使用 Scrapy 抓取网站数据。</p>
+<h4 id="项目创建步骤："><a href="#项目创建步骤：" class="headerlink" title="项目创建步骤："></a>项目创建步骤：</h4><ol>
+<li><p>在命令提示符中，导航到你想要存储项目的文件夹：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> C:\path\to\your\project\directory</span><br></pre></td></tr></table></figure></li>
+<li><p>运行以下命令创建一个新的 Scrapy 项目：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scrapy startproject myproject</span><br></pre></td></tr></table></figure>
+<p>这将创建一个名为 <code>myproject</code> 的文件夹，包含 Scrapy 项目的基本结构。</p>
+</li>
+<li><p>进入项目文件夹：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> myproject</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="5-1-Scrapy-项目结构"><a href="#5-1-Scrapy-项目结构" class="headerlink" title="5.1. Scrapy 项目结构"></a><strong>5.1. Scrapy 项目结构</strong></h3><p>Scrapy 项目的基本结构如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">myproject/</span><br><span class="line">    scrapy.cfg</span><br><span class="line">    myproject/</span><br><span class="line">        __init__.py</span><br><span class="line">        items.py</span><br><span class="line">        middlewares.py</span><br><span class="line">        pipelines.py</span><br><span class="line">        settings.py</span><br><span class="line">        spiders/</span><br><span class="line">            __init__.py</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>spiders/</code> 目录是你定义爬虫逻辑的地方。</li>
+<li><code>items.py</code> 用于定义抓取的数据结构。</li>
+<li><code>pipelines.py</code> 用于处理和保存抓取的数据。</li>
+<li><code>settings.py</code> 包含项目的全局设置。</li>
+</ul>
+<h2 id="6-编写第一个爬虫"><a href="#6-编写第一个爬虫" class="headerlink" title="6. 编写第一个爬虫"></a><strong>6. 编写第一个爬虫</strong></h2><p>现在，你可以创建一个简单的爬虫来抓取网页内容。我们将抓取示例网站 <code>example.com</code>。</p>
+<h4 id="爬虫创建步骤："><a href="#爬虫创建步骤：" class="headerlink" title="爬虫创建步骤："></a>爬虫创建步骤：</h4><ol>
+<li>在 <code>spiders/</code> 目录中，创建一个新的 Python 文件 <code>example_spider.py</code>。</li>
+<li>编辑 <code>example_spider.py</code> 文件，添加以下代码：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ExampleSpider</span>(scrapy.Spider):</span><br><span class="line">    name = <span class="string">&quot;example&quot;</span></span><br><span class="line">    start_urls = [</span><br><span class="line">        <span class="string">&#x27;https://example.com&#x27;</span>,</span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">parse</span>(<span class="params">self, response</span>):</span><br><span class="line">        page_title = response.css(<span class="string">&#x27;title::text&#x27;</span>).get()</span><br><span class="line">        <span class="keyword">yield</span> &#123;<span class="string">&#x27;title&#x27;</span>: page_title&#125;</span><br></pre></td></tr></table></figure>
+该爬虫将访问 <code>example.com</code> 并提取网页的标题。</li>
+</ol>
+<h4 id="运行爬虫："><a href="#运行爬虫：" class="headerlink" title="运行爬虫："></a>运行爬虫：</h4><ol>
+<li>在项目根目录下运行以下命令：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scrapy crawl example</span><br></pre></td></tr></table></figure>
+这将启动爬虫并输出抓取到的标题信息。</li>
+</ol>
+<h4 id="输出数据到文件："><a href="#输出数据到文件：" class="headerlink" title="输出数据到文件："></a>输出数据到文件：</h4><p>你还可以将抓取的数据保存到 JSON 文件中，运行以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scrapy crawl example -o output.json</span><br></pre></td></tr></table></figure>
+
+<h2 id="7-总结与常见问题"><a href="#7-总结与常见问题" class="headerlink" title="7. 总结与常见问题"></a><strong>7. 总结与常见问题</strong></h2><h3 id="7-1-常见问题"><a href="#7-1-常见问题" class="headerlink" title="7.1. 常见问题"></a><strong>7.1. 常见问题</strong></h3><ul>
+<li><p><strong>Twisted 安装问题</strong>：如果没有使用 <code>.whl</code> 文件安装 Twisted，可能会遇到编译器缺失的问题。你提供的预编译版本可以解决这个问题。</p>
+</li>
+<li><p><strong>pywin32 相关问题</strong>：在 Windows 上运行 Scrapy 时，<code>pywin32</code> 是必不可少的包，如果未安装此包，可能会导致某些功能无法正常工作。</p>
+</li>
+</ul>
+<h3 id="7-2-小结"><a href="#7-2-小结" class="headerlink" title="7.2. 小结"></a><strong>7.2. 小结</strong></h3><ul>
+<li>本文详细介绍了如何在 Windows 10 上配置 Scrapy 环境，并通过你提供的文件辅助完成 Twisted 和 pywin32 的安装。</li>
+<li>通过 Scrapy，用户可以高效地抓取和提取网站数据，适合用于数据分析、监控等应用场景。</li>
+</ul>
+<hr>
+<h1 id="Linux-系统下的-Scrapy-安装与部署教程"><a href="#Linux-系统下的-Scrapy-安装与部署教程" class="headerlink" title="Linux 系统下的 Scrapy 安装与部署教程"></a><strong>Linux 系统下的 Scrapy 安装与部署教程</strong></h1><h2 id="1-环境准备"><a href="#1-环境准备" class="headerlink" title="1. 环境准备"></a><strong>1. 环境准备</strong></h2><p>在 Linux 下安装 Scrapy 的要求如下：</p>
+<ul>
+<li><strong>Python 3.6 及以上版本</strong>：Scrapy 支持 Python 3.6 及以上版本。</li>
+<li><strong>pip</strong>：Python 的包管理工具，用于安装 Scrapy 及其依赖项。</li>
+</ul>
+<h2 id="2-安装-Python-和-pip"><a href="#2-安装-Python-和-pip" class="headerlink" title="2. 安装 Python 和 pip"></a><strong>2. 安装 Python 和 pip</strong></h2><p>大多数 Linux 发行版预装了 Python，但你仍需要确保系统中的 Python 版本符合 Scrapy 的要求，并且安装了 <code>pip</code> 工具。</p>
+<h3 id="2-1-检查系统是否已安装-Python-和-pip"><a href="#2-1-检查系统是否已安装-Python-和-pip" class="headerlink" title="2.1. 检查系统是否已安装 Python 和 pip"></a><strong>2.1. 检查系统是否已安装 Python 和 pip</strong></h3><p>在终端中执行以下命令，检查 Python 和 pip 的版本：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python3 --version</span><br><span class="line">pip3 --version</span><br></pre></td></tr></table></figure>
+
+<p>如果已经安装 Python 3 和 pip 3，你将会看到相应的版本号。如果没有安装或版本不符合要求，接着执行以下步骤进行安装。</p>
+<h3 id="2-2-安装-Python-3-和-pip"><a href="#2-2-安装-Python-3-和-pip" class="headerlink" title="2.2. 安装 Python 3 和 pip"></a><strong>2.2. 安装 Python 3 和 pip</strong></h3><p>在 Ubuntu 或 Debian 系统上，可以通过 <code>apt</code> 来安装 Python 3 和 pip 3：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install python3 python3-pip</span><br></pre></td></tr></table></figure>
+
+<p>对于 CentOS&#x2F;RHEL，使用以下命令安装 Python 3：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> yum install python3</span><br></pre></td></tr></table></figure>
+
+<p>安装完成后，再次验证 Python 和 pip 是否已正确安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python3 --version</span><br><span class="line">pip3 --version</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-安装-Scrapy-所需的依赖-1"><a href="#3-安装-Scrapy-所需的依赖-1" class="headerlink" title="3. 安装 Scrapy 所需的依赖"></a><strong>3. 安装 Scrapy 所需的依赖</strong></h2><p>在 Linux 上安装 Scrapy 需要一些系统库和 Python 扩展包。在大多数情况下，Scrapy 依赖的库会自动安装，但建议手动安装一些系统工具和编译库以避免潜在的问题。</p>
+<h3 id="3-1-安装必要的系统库"><a href="#3-1-安装必要的系统库" class="headerlink" title="3.1. 安装必要的系统库"></a><strong>3.1. 安装必要的系统库</strong></h3><p>在基于 Debian 的系统上，你可以使用以下命令安装 Scrapy 所需的基础库：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install build-essential libssl-dev libffi-dev python3-dev</span><br></pre></td></tr></table></figure>
+
+<p>对于 CentOS 或 RHEL 系统，使用以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> yum groupinstall <span class="string">&quot;Development Tools&quot;</span></span><br><span class="line"><span class="built_in">sudo</span> yum install libffi-devel openssl-devel</span><br></pre></td></tr></table></figure>
+
+<p>这些库会帮助你在编译和安装 Scrapy 依赖时避免常见的编译问题。</p>
+<h3 id="3-2-安装-Twisted-依赖"><a href="#3-2-安装-Twisted-依赖" class="headerlink" title="3.2. 安装 Twisted 依赖"></a><strong>3.2. 安装 Twisted 依赖</strong></h3><p>Twisted 是 Scrapy 依赖的异步网络框架，在某些系统上，安装 Twisted 需要额外的步骤：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install python3-lxml</span><br></pre></td></tr></table></figure>
+
+<p>对于 CentOS：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> yum install python3-lxml</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-安装-Scrapy-1"><a href="#4-安装-Scrapy-1" class="headerlink" title="4. 安装 Scrapy"></a><strong>4. 安装 Scrapy</strong></h2><p>一旦环境准备好了，就可以使用 <code>pip3</code> 安装 Scrapy。这里使用 <code>pip3</code> 来确保 Python 3 版本的包管理工具。</p>
+<h3 id="4-1-使用-pip-安装-Scrapy"><a href="#4-1-使用-pip-安装-Scrapy" class="headerlink" title="4.1. 使用 pip 安装 Scrapy"></a><strong>4.1. 使用 pip 安装 Scrapy</strong></h3><p>在终端中运行以下命令安装 Scrapy：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install scrapy</span><br></pre></td></tr></table></figure>
+
+<p>这会自动安装 Scrapy 以及所有必要的依赖项，包括 <code>Twisted</code>、<code>lxml</code>、<code>cssselect</code> 等。</p>
+<h3 id="4-2-验证安装"><a href="#4-2-验证安装" class="headerlink" title="4.2. 验证安装"></a><strong>4.2. 验证安装</strong></h3><p>安装完成后，运行以下命令来检查 Scrapy 是否成功安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scrapy version</span><br></pre></td></tr></table></figure>
+
+<p>如果你看到 Scrapy 的版本号，说明安装成功。</p>
+<h2 id="5-创建-Scrapy-项目-1"><a href="#5-创建-Scrapy-项目-1" class="headerlink" title="5. 创建 Scrapy 项目"></a><strong>5. 创建 Scrapy 项目</strong></h2><p>现在 Scrapy 已经成功安装，你可以开始创建第一个 Scrapy 项目。</p>
+<h3 id="5-1-创建新项目"><a href="#5-1-创建新项目" class="headerlink" title="5.1. 创建新项目"></a><strong>5.1. 创建新项目</strong></h3><ol>
+<li><p>在终端中，导航到你希望存放项目的目录，例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/projects</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用以下命令创建一个新的 Scrapy 项目：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scrapy startproject myproject</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>这将创建一个名为 <code>myproject</code> 的文件夹，其中包含 Scrapy 项目的基础结构。</p>
+<h3 id="5-2-项目目录结构"><a href="#5-2-项目目录结构" class="headerlink" title="5.2. 项目目录结构"></a><strong>5.2. 项目目录结构</strong></h3><p>Scrapy 项目结构如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">myproject/</span><br><span class="line">    scrapy.cfg</span><br><span class="line">    myproject/</span><br><span class="line">        __init__.py</span><br><span class="line">        items.py</span><br><span class="line">        middlewares.py</span><br><span class="line">        pipelines.py</span><br><span class="line">        settings.py</span><br><span class="line">        spiders/</span><br><span class="line">            __init__.py</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>spiders/</code> 是定义爬虫的地方。</li>
+<li><code>settings.py</code> 是项目的全局配置文件。</li>
+</ul>
+<h2 id="6-编写你的第一个爬虫"><a href="#6-编写你的第一个爬虫" class="headerlink" title="6. 编写你的第一个爬虫"></a><strong>6. 编写你的第一个爬虫</strong></h2><p>在项目结构中，<code>spiders/</code> 目录用来定义爬虫。接下来，我们将创建一个简单的爬虫，抓取示例网站 <code>example.com</code> 的标题。</p>
+<h3 id="6-1-创建爬虫"><a href="#6-1-创建爬虫" class="headerlink" title="6.1. 创建爬虫"></a><strong>6.1. 创建爬虫</strong></h3><ol>
+<li><p>在 <code>spiders/</code> 目录中，创建一个名为 <code>example_spider.py</code> 的 Python 文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> myproject/myproject/spiders</span><br><span class="line"><span class="built_in">touch</span> example_spider.py</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编辑 <code>example_spider.py</code> 文件并添加以下代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ExampleSpider</span>(scrapy.Spider):</span><br><span class="line">    name = <span class="string">&quot;example&quot;</span></span><br><span class="line">    start_urls = [</span><br><span class="line">        <span class="string">&#x27;https://example.com&#x27;</span>,</span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">parse</span>(<span class="params">self, response</span>):</span><br><span class="line">        page_title = response.css(<span class="string">&#x27;title::text&#x27;</span>).get()</span><br><span class="line">        <span class="keyword">yield</span> &#123;<span class="string">&#x27;title&#x27;</span>: page_title&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="6-2-运行爬虫"><a href="#6-2-运行爬虫" class="headerlink" title="6.2. 运行爬虫"></a><strong>6.2. 运行爬虫</strong></h3><p>在项目的根目录下，运行以下命令来启动爬虫：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scrapy crawl example</span><br></pre></td></tr></table></figure>
+
+<p>这个命令将会启动爬虫并在终端中输出抓取到的网页标题。</p>
+<h3 id="6-3-保存抓取数据"><a href="#6-3-保存抓取数据" class="headerlink" title="6.3. 保存抓取数据"></a><strong>6.3. 保存抓取数据</strong></h3><p>你可以将抓取到的数据保存为 JSON 文件，使用以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scrapy crawl example -o output.json</span><br></pre></td></tr></table></figure>
+
+<p>这会将抓取到的网页标题保存到 <code>output.json</code> 文件中。</p>
+<h2 id="7-常见问题与解决"><a href="#7-常见问题与解决" class="headerlink" title="7. 常见问题与解决"></a><strong>7. 常见问题与解决</strong></h2><h3 id="7-1-Twisted-相关问题"><a href="#7-1-Twisted-相关问题" class="headerlink" title="7.1. Twisted 相关问题"></a><strong>7.1. Twisted 相关问题</strong></h3><p>如果在安装 Scrapy 或 Twisted 时遇到编译错误，可以先安装 Twisted 的预编译版本：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install twisted</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-2-缺少编译工具"><a href="#7-2-缺少编译工具" class="headerlink" title="7.2. 缺少编译工具"></a><strong>7.2. 缺少编译工具</strong></h3><p>如果在安装过程中遇到任何编译错误，通常是因为缺少必要的编译工具。确保你已经安装了 <code>build-essential</code> 或类似的开发工具包。</p>
+<h3 id="7-3-安装虚拟环境（可选）"><a href="#7-3-安装虚拟环境（可选）" class="headerlink" title="7.3. 安装虚拟环境（可选）"></a><strong>7.3. 安装虚拟环境（可选）</strong></h3><p>为了避免包之间的冲突，建议使用虚拟环境管理 Python 项目。你可以使用 <code>virtualenv</code> 或 <code>venv</code> 来创建隔离的 Python 环境：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install python3-venv</span><br><span class="line">python3 -m venv scrapyenv</span><br><span class="line"><span class="built_in">source</span> scrapyenv/bin/activate</span><br></pre></td></tr></table></figure>
+
+<p>在虚拟环境中，你可以按照本文的步骤安装 Scrapy 和所有依赖项。</p>
+<blockquote>
+<p>以上就是在 Windows 10 和 Linux 上安装和配置 Scrapy 的详细教程。</p>
+</blockquote>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/up.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/up.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">周一鄂</div><div class="post-copyright__author_desc">欢迎来到我的世界</div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="http://example.com/2024/09/12/9-12%E5%AE%89%E8%A3%85%E4%B8%8E%E9%83%A8%E7%BD%B2%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('http://example.com/2024/09/12/9-12%E5%AE%89%E8%A3%85%E4%B8%8E%E9%83%A8%E7%BD%B2%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/')">scrapy安装与部署详细教程</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"></div><div class="shareRight"><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">首页</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"></div></div></div><div class="post_share"><div class="social-share" data-image="https://bu.dusays.com/2024/12/29/677157f201412.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/09/11/9-11-1vm%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2024/09/27/66f6b6b0976e6.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">vm虚拟机安装</div></div></a></div><div class="next-post pull-right"><a href="/2024/10/05/10-5linux%E4%B8%8B%E5%AE%89%E8%A3%85scrapy/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2024/10/05/6700ca62e2c19.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Linux 系统下的 Scrapy 安装与部署教程</div></div></a></div></nav></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2025 By <a class="footer-bar-link" href="/" title="周一鄂" target="_blank">周一鄂</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/anzhiyu-c/hexo-theme-anzhiyu" title="主题">主题</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">6</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://tenxiaodao.github.io/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/up.jpg" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">网盘</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://pan.quark.cn/s/c98d1ceee692" title="软件/工具"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="软件/工具"/><span class="back-menu-item-text">软件/工具</span></a></div></div></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 隧道</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 友链</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><i class="anzhiyufont anzhiyu-icon-link faa-tada" style="font-size: 0.9em;"></i><span> 友人帐</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><i class="anzhiyufont anzhiyu-icon-envelope faa-tada" style="font-size: 0.9em;"></i><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/music/"><i class="anzhiyufont anzhiyu-icon-music faa-tada" style="font-size: 0.9em;"></i><span> 音乐馆</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/bangumis/"><i class="anzhiyufont anzhiyu-icon-bilibili faa-tada" style="font-size: 0.9em;"></i><span> 追番页</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于本人</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/essay/"><i class="anzhiyufont anzhiyu-icon-lightbulb faa-tada" style="font-size: 0.9em;"></i><span> 闲言碎语</span></a></li></ul></div></div><span class="sidebar-menu-item-title">标签</span></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/3251973470&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("08/31/2024 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.6.12",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 周一鄂 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="copyright"></div><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getComment = () => {
+    const runTwikoo = () => {
+      twikoo.getRecentComments({
+        envId: 'https://yuhaozhe-twikoo.hf.space',
+        region: 'ap-shanghai',
+        pageSize: 6,
+        includeReply: true
+      }).then(function (res) {
+        const twikooArray = res.map(e => {
+          return {
+            'content': changeContent(e.comment),
+            'avatar': e.avatar,
+            'nick': e.nick,
+            'url': e.url + '#' + e.id,
+            'date': new Date(e.created).toISOString()
+          }
+        })
+
+        saveToLocal.set('twikoo-newest-comments', JSON.stringify(twikooArray), 10/(60*24))
+        generateHtml(twikooArray)
+      }).catch(function (err) {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.textContent= "无法获取评论，请确认相关配置是否正确"
+      })
+    }
+
+    if (typeof twikoo === 'object') {
+      runTwikoo()
+    } else {
+      getScript('https://cdn.cbd.int/twikoo@1.6.25/dist/twikoo.all.min.js').then(runTwikoo)
+    }
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'data-lazy-src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'><div class='name'><span>${array[i].nick} </span></div></a>`
+        }
+        
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}' title='${array[i].content}'>${array[i].content}</a>
+        <time datetime="${array[i].date}">${anzhiyu.diffDate(array[i].date, true)}</time></div>
+        </div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom && ($dom.innerHTML= result)
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('twikoo-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/qrcodejs/1.0.0/qrcode.min.js"></script><script src="/js/anzhiyu/right_click_menu.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["meta[property=\"og:image\"]","meta[property=\"og:title\"]","meta[property=\"og:url\"]","meta[property=\"og:type\"]","meta[property=\"og:site_name\"]","meta[property=\"og:description\"]","head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>
