@@ -1,0 +1,852 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>OneClip 开发经验分享：从零到一的 macOS 应用开发 | 首页</title><meta name="keywords" content="macOS,SwiftUI,开发经验"><meta name="author" content="周言志"><meta name="copyright" content="周言志"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="OneClip 开发经验分享：从零到一的 macOS 应用开发"><meta name="application-name" content="OneClip 开发经验分享：从零到一的 macOS 应用开发"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="OneClip 开发经验分享：从零到一的 macOS 应用开发"><meta property="og:url" content="http://example.com/2026/02/22/26-2-22OneClip_Dev/index.html"><meta property="og:site_name" content="首页"><meta property="og:description" content="🏗️ 分享 OneClip 开发过程中的真实经验、踩坑记录、解决方案和最佳实践  📖 前言OneClip 从最初的想法到现在的功能完整的应用，经历了多个版本的迭代。本文分享开发过程中的真实经验、遇到的问题、解决方案和最佳实践，希望能为其他 macOS 开发者提供参考。  🛠 技术选型⚡ 为什"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://bu.dusays.com/2025/10/17/68f1e2b2e976f.webp"><meta property="article:author" content="周言志"><meta property="article:tag"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://bu.dusays.com/2025/10/17/68f1e2b2e976f.webp"><meta name="description" content="🏗️ 分享 OneClip 开发过程中的真实经验、踩坑记录、解决方案和最佳实践  📖 前言OneClip 从最初的想法到现在的功能完整的应用，经历了多个版本的迭代。本文分享开发过程中的真实经验、遇到的问题、解决方案和最佳实践，希望能为其他 macOS 开发者提供参考。  🛠 技术选型⚡ 为什"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="http://example.com/2026/02/22/26-2-22OneClip_Dev/"><link rel="preconnect" href="//cdn.cbd.int"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/swiper/swiper.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: undefined,
+  postHeadAiDescription: undefined,
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: {"enable":true,"default":"晚上好👋","list":[{"greeting":"晚安😴","startTime":0,"endTime":5},{"greeting":"早上好鸭👋, 祝你一天好心情！","startTime":6,"endTime":9},{"greeting":"上午好👋, 状态很好，鼓励一下～","startTime":10,"endTime":10},{"greeting":"11点多啦, 在坚持一下就吃饭啦～","startTime":11,"endTime":11},{"greeting":"午安👋, 宝贝","startTime":12,"endTime":14},{"greeting":"🌈充实的一天辛苦啦！","startTime":14,"endTime":18},{"greeting":"19点喽, 奖励一顿丰盛的大餐吧🍔。","startTime":19,"endTime":19},{"greeting":"晚上好👋, 在属于自己的时间好好放松😌~","startTime":20,"endTime":24}]},
+  twikooEnvId: 'https://yuhaozhe-twikoo.hf.space',
+  commentBarrageConfig:undefined,
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: {"skills":["🤖️ 数码科技爱好者","🔍 分享与热心帮助","🏠 智能家居小能手","🔨 设计开发一条龙","🤝 专修交互与设计","🏃 脚踏实地行动派","🧱 团队小组发动机","💢 壮汉人狠话不多"]},
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: 周言志","link":"链接: ","source":"来源: 首页","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: '首页',
+  title: 'OneClip 开发经验分享：从零到一的 macOS 应用开发',
+  postAI: '',
+  pageFillDescription: '📖 前言, 🛠 技术选型, ⚡ 为什么选择 SwiftUI？, 🚀 核心功能开发, 1️⃣ 剪贴板监控, 2️⃣ 全局快捷键实现, 3️⃣ 数据持久化, 🐛 常见问题与解决方案, ❓ 问题 1：应用启动时权限提示过多, ❓ 问题 2：大数据集下搜索变慢, ❓ 问题 3：内存泄漏, ❓ 问题 4：图片处理导致 UI 卡顿, ⚡ 性能优化实战, 📊 优化前后对比, 🧪 测试与调试, ✏️ 单元测试示例, 🔍 调试技巧, 📦 发布与更新, 🔄 使用 Sparkle 实现自动更新, 📋 最佳实践总结, 📱 开发阶段, ⚙️ 功能实现, 🚀 性能优化, 📦 发布与维护, 🎓 总结, 💎 关键收获, 🤝 分享与讨论分享开发过程中的真实经验踩坑记录解决方案和最佳实践前言从最初的想法到现在的功能完整的应用经历了多个版本的迭代本文分享开发过程中的真实经验遇到的问题解决方案和最佳实践希望能为其他开发者提供参考技术选型为什么选择初期考虑传统开发新推荐跨平台但资源占用大最终选择最终选择的原因方面学习曲线陡峭但现代平缓但过时中等性能优秀优秀一般内存占用开发效率高低中等系统集成原生原生有限未来前景光明维护模式稳定实际体验的声明式语法让开发更直观核心功能开发剪贴板监控最大挑战如何高效地监控系统剪贴板变化初期方案失败不推荐轮询间隔过短占用高处理新内容存在的问题占用率达到电池消耗快系统响应变慢改进方案成功推荐使用检测变化只在检测到变化时处理占用降低到性能对比方案占用内存响应延迟轮询改进降低降低可接受全局快捷键实现需求在任何应用中按快速呼出技术选择虽然老旧但稳定实现代码快捷键注册成功快捷键注册失败快捷键码对照表键键键键遇到的问题问题原因解决方案快捷键冲突某些应用也使用相同快捷键快捷键自定义冲突检测权限问题需要辅助功能权限首次启动时提示授权兼容性问题版本差异兼容数据持久化选择而不是使用原生而非关键优势更轻量启动更快更灵活的查询控制更容易进行数据迁移数据库封装打开数据库连接创建表结构保存项目执行加载最近项目执行查询并返回结果性能优化使用索引加速查询执行使用哈希索引快速去重时间复杂度执行查询常见问题与解决方案问题应用启动时权限提示过多现象用户首次启动应用被要求授予多个权限解决方案按优先级顺序请求权限问题大数据集下搜索变慢现象当历史记录超过条时搜索响应延迟明显解决方案搜索防抖限制结果数问题内存泄漏现象长时间运行后内存占用不断增加排查过程使用检测内存泄漏在中运行选择工具运行应用并进行操作查看泄漏的对象常见泄漏原因循环引用错误被强引用被强引用正确使用问题图片处理导致卡顿现象粘贴大图片时出现明显延迟解决方案在后台线程处理图片生成缩略图压缩图片性能优化实战优化前后对比优化前启动时间秒内存占用使用搜索延迟优化后启动时间秒内存占用使用搜索延迟性能提升显著关键优化策略延迟加载只加载可见的列表项图片压缩自动压缩大图片后台处理将耗时操作移到后台线程缓存策略缓存常用数据数据库索引为频繁查询的字段建立索引测试与调试单元测试示例模拟剪贴板变化调试技巧使用记录关键信息在控制台查看日志使用查看系统日志使用进行性能分析发布与更新使用实现自动更新最佳实践总结开发阶段使用进行开发采用架构模式及早进行性能测试编写完整的单元测试使用检测内存泄漏功能实现后台线程处理耗时操作使用避免循环引用实现完善的错误处理和日志记录提供友好的权限提示和引导性能优化监控频率动态自适应数据库查询优化和索引创建图片压缩和缓存存储内存管理和智能缓存策略发布与维护使用实现自动更新积极收集用户反馈定期发布版本更新维护详细的变更日志总结的开发过程充满了挑战和学习通过不断的优化和改进我们打造了一款高效稳定用户友好的应用关键收获收获说明技术选型选择合适的技术栈很重要性能优化性能优化需要持续关注用户体验用户体验至关重要社区反馈社区反馈推动产品进步分享与讨论如果你正在开发应用希望这些经验能对你有所帮助欢迎在以下地方分享你的经验和问题评论区留言邮件反馈标签开发经验性能优化',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-02-22 17:52:20',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="/img/up.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><div class="back-home-button"><i class="anzhiyufont anzhiyu-icon-grip-vertical"></i><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">关注我</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://github.com/tenxiaodao/tenxiaodao.github.io" title="Github"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/up.jpg" alt="Github"/><span class="back-menu-item-text">Github</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://space.bilibili.com/1803174585" title="Bilibili"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/up.jpg" alt="Bilibili"/><span class="back-menu-item-text">Bilibili</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">网盘</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://pan.quark.cn/s/c98d1ceee692" title="软件/工具"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="软件/工具"/><span class="back-menu-item-text">软件/工具</span></a></div></div></div></div><a id="site-name" href="/" accesskey="h"><div class="title">首页</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a><div id="he-plugin-simple"></div><script>var WIDGET = {
+  "CONFIG": {
+    "modules": "0124",
+    "background": "2",
+    "tmpColor": "FFFFFF",
+    "tmpSize": "16",
+    "cityColor": "FFFFFF",
+    "citySize": "16",
+    "aqiColor": "E8D87B",
+    "aqiSize": "16",
+    "weatherIconSize": "24",
+    "alertIconSize": "18",
+    "padding": "10px 10px 10px 10px",
+    "shadow": "0",
+    "language": "auto",
+    "borderRadius": "20",
+    "fixed": "true",
+    "vertical": "top",
+    "horizontal": "left",
+    "left": "20",
+    "top": "7.1",
+    "key": "df245676fb434a0691ead1c63341cd94"
+  }
+}
+</script><link rel="stylesheet" href="https://widget.qweather.net/simple/static/css/he-simple.css?v=1.4.0"/><script src="https://widget.qweather.net/simple/static/js/he-simple.js?v=1.4.0"></script></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 隧道</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags faa-tada" style="font-size: 0.9em;"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 友链</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><i class="anzhiyufont anzhiyu-icon-link faa-tada" style="font-size: 0.9em;"></i><span> 友人帐</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><i class="anzhiyufont anzhiyu-icon-envelope faa-tada" style="font-size: 0.9em;"></i><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/music/?id=13738866688&amp;server=netease"><i class="anzhiyufont anzhiyu-icon-music faa-tada" style="font-size: 0.9em;"></i><span> 音乐馆</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/bangumis/"><i class="anzhiyufont anzhiyu-icon-bilibili faa-tada" style="font-size: 0.9em;"></i><span> 追番页</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于本人</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/essay/"><i class="anzhiyufont anzhiyu-icon-lightbulb faa-tada" style="font-size: 0.9em;"></i><span> 闲言碎语</span></a></li></ul></div></div></div><div id="nav-right"><div class="nav-button only-home" id="travellings_button" title="随机前往一个开往项目网站"><a class="site-page" onclick="anzhiyu.totraveling()" title="随机前往一个开往项目网站" href="javascript:void(0);" rel="external nofollow" data-pjax-state="external"><i class="anzhiyufont anzhiyu-icon-train"></i></a></div><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="/img/wx.jpg" target="_blank"><img class="post-qr-code-img" alt="微信" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/wx.jpg"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/zfb.jpg" target="_blank"><img class="post-qr-code-img" alt="支付宝" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/zfb.jpg"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/AI/" style="font-size: 1.05rem;">AI<sup>2</sup></a><a href="/tags/ARP/" style="font-size: 1.05rem;">ARP<sup>1</sup></a><a href="/tags/CasaOS/" style="font-size: 1.05rem;">CasaOS<sup>1</sup></a><a href="/tags/ChatGPT-AI/" style="font-size: 1.05rem;">ChatGPT AI<sup>1</sup></a><a href="/tags/Docker/" style="font-size: 1.05rem;">Docker<sup>1</sup></a><a href="/tags/ESP32/" style="font-size: 1.05rem;">ESP32<sup>1</sup></a><a href="/tags/Hexo/" style="font-size: 1.05rem;">Hexo<sup>6</sup></a><a href="/tags/KVM/" style="font-size: 1.05rem;">KVM<sup>1</sup></a><a href="/tags/KouriChat/" style="font-size: 1.05rem;">KouriChat<sup>1</sup></a><a href="/tags/Linux/" style="font-size: 1.05rem;">Linux<sup>5</sup></a><a href="/tags/NAS/" style="font-size: 1.05rem;">NAS<sup>1</sup></a><a href="/tags/Python/" style="font-size: 1.05rem;">Python<sup>3</sup></a><a href="/tags/Scrapy/" style="font-size: 1.05rem;">Scrapy<sup>2</sup></a><a href="/tags/SwiftUI/" style="font-size: 1.05rem;">SwiftUI<sup>1</sup></a><a href="/tags/TCP/" style="font-size: 1.05rem;">TCP<sup>1</sup></a><a href="/tags/UDP/" style="font-size: 1.05rem;">UDP<sup>1</sup></a><a href="/tags/Ubuntu/" style="font-size: 1.05rem;">Ubuntu<sup>1</sup></a><a href="/tags/VM%E8%99%9A%E6%8B%9F%E6%9C%BA/" style="font-size: 1.05rem;">VM虚拟机<sup>1</sup></a><a href="/tags/WSL2/" style="font-size: 1.05rem;">WSL2<sup>1</sup></a><a href="/tags/macOS/" style="font-size: 1.05rem;">macOS<sup>2</sup></a><a href="/tags/office/" style="font-size: 1.05rem;">office<sup>1</sup></a><a href="/tags/openEuler/" style="font-size: 1.05rem;">openEuler<sup>1</sup></a><a href="/tags/windows%E9%95%9C%E5%83%8F/" style="font-size: 1.05rem;">windows镜像<sup>1</sup></a><a href="/tags/%E4%BA%A4%E6%8D%A2%E6%9C%BA/" style="font-size: 1.05rem;">交换机<sup>1</sup></a><a href="/tags/%E5%85%A5%E9%97%A8/" style="font-size: 1.05rem;">入门<sup>1</sup></a><a href="/tags/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD/" style="font-size: 1.05rem;">前端性能<sup>1</sup></a><a href="/tags/%E5%8D%9A%E5%AE%A2%E4%BC%98%E5%8C%96/" style="font-size: 1.05rem;">博客优化<sup>1</sup></a><a href="/tags/%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95/" style="font-size: 1.05rem;">压力测试<sup>1</sup></a><a href="/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/" style="font-size: 1.05rem;">命令行<sup>2</sup></a><a href="/tags/%E5%BE%AE%E4%BF%A1/" style="font-size: 1.05rem;">微信<sup>1</sup></a><a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 1.05rem;">爬虫<sup>2</sup></a><a href="/tags/%E7%8E%A9%E5%AE%A2%E4%BA%91/" style="font-size: 1.05rem;">玩客云<sup>1</sup></a><a href="/tags/%E7%AB%AF%E5%8F%A3%E8%81%9A%E5%90%88/" style="font-size: 1.05rem;">端口聚合<sup>1</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96/" style="font-size: 1.05rem;">网络优化<sup>1</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 1.05rem;">网络协议<sup>1</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 1.05rem;">网络安全<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/" style="font-size: 1.05rem;">网络技术<sup>1</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" style="font-size: 1.05rem;">网络配置<sup>1</sup></a><a href="/tags/%E8%AF%AD%E9%9F%B3%E5%8A%A9%E6%89%8B/" style="font-size: 1.05rem;">语音助手<sup>1</sup></a><a href="/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 1.05rem;">运维<sup>2</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="anzhiyufont anzhiyu-icon-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/02/"><span class="card-archive-list-date">二月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/11/"><span class="card-archive-list-date">十一月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/10/"><span class="card-archive-list-date">十月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">4</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/05/"><span class="card-archive-list-date">五月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/04/"><span class="card-archive-list-date">四月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">4</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/03/"><span class="card-archive-list-date">三月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/01/"><span class="card-archive-list-date">一月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/10/"><span class="card-archive-list-date">十月 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="post-meta-categories"><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/" itemprop="url">技术分享</a></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/macOS/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>macOS</span></a><a class="article-meta__tags" href="/tags/SwiftUI/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>SwiftUI</span></a><a class="article-meta__tags" href="/tags/%E5%BC%80%E5%8F%91%E7%BB%8F%E9%AA%8C/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>开发经验</span></a></span></div></div><h1 class="post-title" itemprop="name headline">OneClip 开发经验分享：从零到一的 macOS 应用开发</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2026-02-22T09:46:13.000Z" title="发表于 2026-02-22 17:46:13">2026-02-22</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2026-02-22T09:52:20.289Z" title="更新于 2026-02-22 17:52:20">2026-02-22</time></span></div><div class="meta-secondline"><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为大同"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>大同</span><span class="post-meta-separator"></span><span class="post-meta-commentcount"><i class="anzhiyufont anzhiyu-icon-comments post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2026/02/22/26-2-22OneClip_Dev/#post-comment" tabindex="-1"><span id="twikoo-count"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-spin"></i></span></a></span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src="https://bu.dusays.com/2025/10/17/68f1e2b2e976f.webp"></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="http://example.com/2026/02/22/26-2-22OneClip_Dev/"><header><a class="post-meta-categories" href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/" itemprop="url">技术分享</a><a href="/tags/macOS/" tabindex="-1" itemprop="url">macOS</a><a href="/tags/SwiftUI/" tabindex="-1" itemprop="url">SwiftUI</a><a href="/tags/%E5%BC%80%E5%8F%91%E7%BB%8F%E9%AA%8C/" tabindex="-1" itemprop="url">开发经验</a><h1 id="CrawlerTitle" itemprop="name headline">OneClip 开发经验分享：从零到一的 macOS 应用开发</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">周言志</span><time itemprop="dateCreated datePublished" datetime="2026-02-22T09:46:13.000Z" title="发表于 2026-02-22 17:46:13">2026-02-22</time><time itemprop="dateCreated datePublished" datetime="2026-02-22T09:52:20.289Z" title="更新于 2026-02-22 17:52:20">2026-02-22</time></header><blockquote>
+<p>🏗️ 分享 OneClip 开发过程中的<strong>真实经验</strong>、<strong>踩坑记录</strong>、<strong>解决方案</strong>和<strong>最佳实践</strong></p>
+</blockquote>
+<h2 id="📖-前言"><a href="#📖-前言" class="headerlink" title="📖 前言"></a>📖 前言</h2><p><a target="_blank" rel="noopener" href="https://github.com/Wcowin/OneClip">OneClip</a> 从最初的想法到现在的功能完整的应用，经历了多个版本的迭代。本文分享开发过程中的真实经验、遇到的问题、解决方案和最佳实践，希望能为其他 macOS 开发者提供参考。</p>
+<hr>
+<h2 id="🛠-技术选型"><a href="#🛠-技术选型" class="headerlink" title="🛠 技术选型"></a>🛠 技术选型</h2><h3 id="⚡-为什么选择-SwiftUI？"><a href="#⚡-为什么选择-SwiftUI？" class="headerlink" title="⚡ 为什么选择 SwiftUI？"></a>⚡ 为什么选择 SwiftUI？</h3><p><strong>初期考虑</strong>：</p>
+<ul>
+<li>📱 AppKit（传统 macOS 开发）</li>
+<li>✨ SwiftUI（Apple 新推荐）</li>
+<li>⚙️ Electron（跨平台但资源占用大）</li>
+</ul>
+<blockquote>
+<p><strong>最终选择：SwiftUI</strong> 💡</p>
+</blockquote>
+<p><strong>最终选择 SwiftUI 的原因</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>方面</th>
+<th>SwiftUI</th>
+<th>AppKit</th>
+<th>Electron</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>学习曲线</strong></td>
+<td>陡峭但现代</td>
+<td>平缓但过时</td>
+<td>中等</td>
+</tr>
+<tr>
+<td><strong>性能</strong></td>
+<td>优秀</td>
+<td>优秀</td>
+<td>一般</td>
+</tr>
+<tr>
+<td><strong>内存占用</strong></td>
+<td>~120MB</td>
+<td>~100MB</td>
+<td>&gt;300MB</td>
+</tr>
+<tr>
+<td><strong>开发效率</strong></td>
+<td>高</td>
+<td>低</td>
+<td>中等</td>
+</tr>
+<tr>
+<td><strong>系统集成</strong></td>
+<td>原生</td>
+<td>原生</td>
+<td>有限</td>
+</tr>
+<tr>
+<td><strong>未来前景</strong></td>
+<td>光明</td>
+<td>维护模式</td>
+<td>稳定</td>
+</tr>
+</tbody></table>
+<p><strong>实际体验</strong>：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// SwiftUI 的声明式语法让 UI 开发更直观</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">ClipboardItemView</span>: <span class="title class_ inherited__">View</span> &#123;</span><br><span class="line">    <span class="meta">@ObservedObject</span> <span class="keyword">var</span> viewModel: <span class="type">ClipboardViewModel</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">List</span>(viewModel.items) &#123; item <span class="keyword">in</span></span><br><span class="line">            <span class="type">HStack</span> &#123;</span><br><span class="line">                <span class="type">Image</span>(systemName: item.icon)</span><br><span class="line">                    .foregroundColor(.blue)</span><br><span class="line"></span><br><span class="line">                <span class="type">VStack</span>(alignment: .leading) &#123;</span><br><span class="line">                    <span class="type">Text</span>(item.title)</span><br><span class="line">                        .font(.headline)</span><br><span class="line">                    <span class="type">Text</span>(item.preview)</span><br><span class="line">                        .font(.caption)</span><br><span class="line">                        .lineLimit(<span class="number">1</span>)</span><br><span class="line">                        .foregroundColor(.gray)</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="type">Spacer</span>()</span><br><span class="line"></span><br><span class="line">                <span class="type">Button</span>(action: &#123; viewModel.copyItem(item) &#125;) &#123;</span><br><span class="line">                    <span class="type">Image</span>(systemName: <span class="string">&quot;doc.on.doc&quot;</span>)</span><br><span class="line">                &#125;</span><br><span class="line">                .buttonStyle(.borderless)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="🚀-核心功能开发"><a href="#🚀-核心功能开发" class="headerlink" title="🚀 核心功能开发"></a>🚀 核心功能开发</h2><h3 id="1️⃣-剪贴板监控"><a href="#1️⃣-剪贴板监控" class="headerlink" title="1️⃣ 剪贴板监控"></a>1️⃣ 剪贴板监控</h3><p><strong>🎯 最大挑战</strong>：如何高效地监控系统剪贴板变化？</p>
+<p><strong>❌ 初期方案（失败）</strong>：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ❌ 不推荐：轮询间隔过短，CPU 占用高</span></span><br><span class="line"><span class="type">Timer</span>.scheduledTimer(withTimeInterval: <span class="number">0.01</span>, repeats: <span class="literal">true</span>) &#123; <span class="keyword">_</span> <span class="keyword">in</span></span><br><span class="line">    <span class="keyword">let</span> newContent <span class="operator">=</span> <span class="type">NSPasteboard</span>.general.string(forType: .string)</span><br><span class="line">    <span class="comment">// 处理新内容</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>⚠️ 存在的问题</strong>：</p>
+<ul>
+<li>🔴 CPU 占用率达到 70-100%</li>
+<li>🔋 电池消耗快</li>
+<li>🐢 系统响应变慢</li>
+</ul>
+<p><strong>✅ 改进方案（成功）</strong>：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ✅ 推荐：使用 changeCount 检测变化</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ClipboardMonitor</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> lastChangeCount <span class="operator">=</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> monitoringTimer: <span class="type">Timer</span>?</span><br><span class="line"></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">startMonitoring</span>() &#123;</span><br><span class="line">        monitoringTimer <span class="operator">=</span> <span class="type">Timer</span>.scheduledTimer(withTimeInterval: <span class="number">0.1</span>, repeats: <span class="literal">true</span>) &#123; [<span class="keyword">weak</span> <span class="keyword">self</span>] <span class="keyword">_</span> <span class="keyword">in</span></span><br><span class="line">            <span class="keyword">let</span> currentCount <span class="operator">=</span> <span class="type">NSPasteboard</span>.general.changeCount</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> currentCount <span class="operator">!=</span> <span class="keyword">self</span><span class="operator">?</span>.lastChangeCount &#123;</span><br><span class="line">                <span class="keyword">self</span><span class="operator">?</span>.lastChangeCount <span class="operator">=</span> currentCount</span><br><span class="line">                <span class="keyword">self</span><span class="operator">?</span>.handleClipboardChange()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">func</span> <span class="title function_">handleClipboardChange</span>() &#123;</span><br><span class="line">        <span class="comment">// 只在检测到变化时处理</span></span><br><span class="line">        <span class="comment">// CPU 占用降低到 &lt; 1%</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>性能对比</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>方案</th>
+<th>CPU 占用</th>
+<th>内存</th>
+<th>响应延迟</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0.01s 轮询</td>
+<td>15-20%</td>
+<td>150MB</td>
+<td>&lt; 10ms</td>
+</tr>
+<tr>
+<td>changeCount</td>
+<td>&lt; 1%</td>
+<td>120MB</td>
+<td>100-200ms</td>
+</tr>
+<tr>
+<td><strong>改进</strong></td>
+<td><strong>降低 95%</strong></td>
+<td><strong>降低 20%</strong></td>
+<td><strong>可接受</strong></td>
+</tr>
+</tbody></table>
+<h3 id="2️⃣-全局快捷键实现"><a href="#2️⃣-全局快捷键实现" class="headerlink" title="2️⃣ 全局快捷键实现"></a>2️⃣ 全局快捷键实现</h3><p><strong>🎯 需求</strong>：在任何应用中按 <code>Cmd+Option+V</code> 快速呼出 OneClip</p>
+<p><strong>⚙️ 技术选择</strong>：Carbon Framework（虽然老旧但稳定）</p>
+<p><strong>实现代码</strong>：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Carbon</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">HotkeyManager</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> hotkeyRef: <span class="type">EventHotKeyRef</span>?</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">let</span> hotkeyID <span class="operator">=</span> <span class="type">EventHotKeyID</span>(signature: <span class="type">OSType</span>(<span class="type">UInt32</span>(<span class="number">0x4F4E4543</span>)), id: <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">registerHotkey</span>(<span class="params">keyCode</span>: <span class="type">UInt32</span>, <span class="params">modifiers</span>: <span class="type">UInt32</span>) &#123;</span><br><span class="line">        <span class="keyword">var</span> ref: <span class="type">EventHotKeyRef</span>?</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> status <span class="operator">=</span> <span class="type">RegisterEventHotKey</span>(</span><br><span class="line">            keyCode,</span><br><span class="line">            modifiers,</span><br><span class="line">            hotkeyID,</span><br><span class="line">            <span class="type">GetApplicationEventTarget</span>(),</span><br><span class="line">            <span class="number">0</span>,</span><br><span class="line">            <span class="operator">&amp;</span>ref</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> status <span class="operator">==</span> noErr &#123;</span><br><span class="line">            hotkeyRef <span class="operator">=</span> ref</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;✅ 快捷键注册成功&quot;</span>)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;❌ 快捷键注册失败: <span class="subst">\(status)</span>&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">unregisterHotkey</span>() &#123;</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">let</span> ref <span class="operator">=</span> hotkeyRef &#123;</span><br><span class="line">            <span class="type">UnregisterEventHotKey</span>(ref)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 快捷键码对照表</span></span><br><span class="line"><span class="keyword">let</span> <span class="type">HOTKEY_CODES</span> <span class="operator">=</span> [</span><br><span class="line">    <span class="string">&quot;V&quot;</span>: <span class="number">9</span>,           <span class="comment">// V 键</span></span><br><span class="line">    <span class="string">&quot;R&quot;</span>: <span class="number">15</span>,          <span class="comment">// R 键</span></span><br><span class="line">    <span class="string">&quot;C&quot;</span>: <span class="number">8</span>,           <span class="comment">// C 键</span></span><br><span class="line">    <span class="string">&quot;D&quot;</span>: <span class="number">2</span>,           <span class="comment">// D 键</span></span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="type">MODIFIER_KEYS</span> <span class="operator">=</span> [</span><br><span class="line">    <span class="string">&quot;cmd&quot;</span>: <span class="type">UInt32</span>(cmdKey),           <span class="comment">// Command</span></span><br><span class="line">    <span class="string">&quot;option&quot;</span>: <span class="type">UInt32</span>(optionKey),     <span class="comment">// Option</span></span><br><span class="line">    <span class="string">&quot;shift&quot;</span>: <span class="type">UInt32</span>(shiftKey),       <span class="comment">// Shift</span></span><br><span class="line">    <span class="string">&quot;control&quot;</span>: <span class="type">UInt32</span>(controlKey),   <span class="comment">// Control</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p><strong>⚠️ 遇到的问题</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>问题</th>
+<th>原因</th>
+<th>解决方案</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>⌨️ 快捷键冲突</td>
+<td>某些应用也使用相同快捷键</td>
+<td>快捷键自定义 + 冲突检测</td>
+</tr>
+<tr>
+<td>🔐 权限问题</td>
+<td>需要辅助功能权限</td>
+<td>首次启动时提示授权</td>
+</tr>
+<tr>
+<td>🔄 兼容性问题</td>
+<td>macOS 版本差异</td>
+<td>兼容 macOS 12+</td>
+</tr>
+</tbody></table>
+<h3 id="3️⃣-数据持久化"><a href="#3️⃣-数据持久化" class="headerlink" title="3️⃣ 数据持久化"></a>3️⃣ 数据持久化</h3><p><strong>💾 选择 SQLite 而不是 Core Data</strong>：</p>
+<blockquote>
+<p>OneClip 使用原生 SQLite 而非 Core Data</p>
+</blockquote>
+<p><strong>关键优势</strong>：</p>
+<ul>
+<li>🪶 更轻量，启动更快</li>
+<li>🎯 更灵活的查询控制</li>
+<li>📦 更容易进行数据迁移</li>
+</ul>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// SQLite 数据库封装</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ClipboardDatabase</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> db: <span class="type">OpaquePointer</span>?</span><br><span class="line"></span><br><span class="line">    <span class="keyword">init</span>(<span class="params">at</span> <span class="params">path</span>: <span class="type">String</span>) <span class="keyword">throws</span> &#123;</span><br><span class="line">        <span class="comment">// 打开数据库连接</span></span><br><span class="line">        <span class="keyword">guard</span> sqlite3_open(path, <span class="operator">&amp;</span>db) <span class="operator">==</span> <span class="type">SQLITE_OK</span> <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="type">ClipboardError</span>.databaseNotReady</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 创建表结构</span></span><br><span class="line">        <span class="keyword">try</span> createTables()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 保存项目</span></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">saveItem</span>(<span class="keyword">_</span> <span class="params">item</span>: <span class="type">ClipboardItem</span>) <span class="keyword">throws</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> sql <span class="operator">=</span> <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">            INSERT OR REPLACE INTO clipboard_items </span></span><br><span class="line"><span class="string">            (id, content, type, timestamp, source_app, is_favorite, is_pinned, content_hash)</span></span><br><span class="line"><span class="string">            VALUES (?, ?, ?, ?, ?, ?, ?, ?)</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="comment">// 执行 SQL</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 加载最近项目</span></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">loadHotData</span>(<span class="params">limit</span>: <span class="type">Int</span>) <span class="keyword">throws</span> -&gt; [<span class="type">ClipboardItem</span>] &#123;</span><br><span class="line">        <span class="keyword">let</span> sql <span class="operator">=</span> <span class="string">&quot;SELECT * FROM clipboard_items ORDER BY timestamp DESC LIMIT ?&quot;</span></span><br><span class="line">        <span class="comment">// 执行查询并返回结果</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>性能优化</strong>：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用索引加速查询</span></span><br><span class="line"><span class="keyword">func</span> <span class="title function_">createTables</span>() <span class="keyword">throws</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> sql <span class="operator">=</span> <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        CREATE TABLE IF NOT EXISTS clipboard_items (</span></span><br><span class="line"><span class="string">            id TEXT PRIMARY KEY,</span></span><br><span class="line"><span class="string">            content TEXT,</span></span><br><span class="line"><span class="string">            type TEXT NOT NULL,</span></span><br><span class="line"><span class="string">            timestamp REAL NOT NULL,</span></span><br><span class="line"><span class="string">            source_app TEXT,</span></span><br><span class="line"><span class="string">            is_favorite INTEGER DEFAULT 0,</span></span><br><span class="line"><span class="string">            is_pinned INTEGER DEFAULT 0,</span></span><br><span class="line"><span class="string">            content_hash TEXT</span></span><br><span class="line"><span class="string">        );</span></span><br><span class="line"><span class="string">        CREATE INDEX IF NOT EXISTS idx_timestamp ON clipboard_items(timestamp DESC);</span></span><br><span class="line"><span class="string">        CREATE INDEX IF NOT EXISTS idx_content_hash ON clipboard_items(content_hash);</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="comment">// 执行 SQL</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用哈希索引快速去重 - O(1) 时间复杂度</span></span><br><span class="line"><span class="keyword">func</span> <span class="title function_">findItemByHash</span>(<span class="keyword">_</span> <span class="params">hash</span>: <span class="type">String</span>) -&gt; <span class="type">UUID</span>? &#123;</span><br><span class="line">    <span class="keyword">let</span> sql <span class="operator">=</span> <span class="string">&quot;SELECT id FROM clipboard_items WHERE content_hash = ? LIMIT 1&quot;</span></span><br><span class="line">    <span class="comment">// 执行查询</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="🐛-常见问题与解决方案"><a href="#🐛-常见问题与解决方案" class="headerlink" title="🐛 常见问题与解决方案"></a>🐛 常见问题与解决方案</h2><h3 id="❓-问题-1：应用启动时权限提示过多"><a href="#❓-问题-1：应用启动时权限提示过多" class="headerlink" title="❓ 问题 1：应用启动时权限提示过多"></a>❓ 问题 1：应用启动时权限提示过多</h3><p><strong>现象</strong>：用户首次启动应用，被要求授予多个权限</p>
+<p><strong>解决方案</strong>：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">PermissionManager</span> &#123;</span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">requestPermissionsSequentially</span>() &#123;</span><br><span class="line">        <span class="comment">// 按优先级顺序请求权限</span></span><br><span class="line">        requestAccessibilityPermission &#123; [<span class="keyword">weak</span> <span class="keyword">self</span>] granted <span class="keyword">in</span></span><br><span class="line">            <span class="keyword">if</span> granted &#123;</span><br><span class="line">                <span class="keyword">self</span><span class="operator">?</span>.requestDiskAccessPermission()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">func</span> <span class="title function_">requestAccessibilityPermission</span>(<span class="params">completion</span>: <span class="keyword">@escaping</span> (<span class="type">Bool</span>) -&gt; <span class="type">Void</span>) &#123;</span><br><span class="line">        <span class="keyword">let</span> options: <span class="type">NSDictionary</span> <span class="operator">=</span> [kAXTrustedCheckOptionPrompt.takeRetainedValue() <span class="keyword">as</span> <span class="type">String</span>: <span class="literal">true</span>]</span><br><span class="line">        <span class="keyword">let</span> trusted <span class="operator">=</span> <span class="type">AXIsProcessTrustedWithOptions</span>(options)</span><br><span class="line">        completion(trusted)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="❓-问题-2：大数据集下搜索变慢"><a href="#❓-问题-2：大数据集下搜索变慢" class="headerlink" title="❓ 问题 2：大数据集下搜索变慢"></a>❓ 问题 2：大数据集下搜索变慢</h3><p><strong>现象</strong>：当历史记录超过 1000 条时，搜索响应延迟明显</p>
+<p><strong>解决方案</strong>：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">SearchOptimizer</span> &#123;</span><br><span class="line">    <span class="comment">// 搜索防抖</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> searchDebounceTimer: <span class="type">Timer</span>?</span><br><span class="line"></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">searchWithDebounce</span>(<span class="keyword">_</span> <span class="params">query</span>: <span class="type">String</span>) &#123;</span><br><span class="line">        searchDebounceTimer<span class="operator">?</span>.invalidate()</span><br><span class="line"></span><br><span class="line">        searchDebounceTimer <span class="operator">=</span> <span class="type">Timer</span>.scheduledTimer(withTimeInterval: <span class="number">0.3</span>, repeats: <span class="literal">false</span>) &#123; [<span class="keyword">weak</span> <span class="keyword">self</span>] <span class="keyword">_</span> <span class="keyword">in</span></span><br><span class="line">            <span class="keyword">self</span><span class="operator">?</span>.performSearch(query)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">func</span> <span class="title function_">performSearch</span>(<span class="keyword">_</span> <span class="params">query</span>: <span class="type">String</span>) &#123;</span><br><span class="line">        <span class="keyword">let</span> predicate <span class="operator">=</span> <span class="type">NSPredicate</span>(format: <span class="string">&quot;content CONTAINS[cd] %@&quot;</span>, query)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> request <span class="operator">=</span> <span class="type">ClipboardItemEntity</span>.fetchRequest()</span><br><span class="line">        request.predicate <span class="operator">=</span> predicate</span><br><span class="line">        request.fetchLimit <span class="operator">=</span> <span class="number">50</span>  <span class="comment">// 限制结果数</span></span><br><span class="line">        request.sortDescriptors <span class="operator">=</span> [</span><br><span class="line">            <span class="type">NSSortDescriptor</span>(keyPath: \<span class="type">ClipboardItemEntity</span>.timestamp, ascending: <span class="literal">false</span>)</span><br><span class="line">        ]</span><br><span class="line"></span><br><span class="line">        <span class="type">DispatchQueue</span>.global(qos: .userInitiated).async &#123;</span><br><span class="line">            <span class="keyword">let</span> results <span class="operator">=</span> <span class="keyword">try?</span> <span class="keyword">self</span>.container.viewContext.fetch(request)</span><br><span class="line">            <span class="type">DispatchQueue</span>.main.async &#123;</span><br><span class="line">                <span class="keyword">self</span>.updateSearchResults(results <span class="operator">??</span> [])</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="❓-问题-3：内存泄漏"><a href="#❓-问题-3：内存泄漏" class="headerlink" title="❓ 问题 3：内存泄漏"></a>❓ 问题 3：内存泄漏</h3><p><strong>现象</strong>：长时间运行后内存占用不断增加</p>
+<p><strong>排查过程</strong>：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用 Instruments 检测内存泄漏</span></span><br><span class="line"><span class="comment">// 1. 在 Xcode 中运行 Product &gt; Profile</span></span><br><span class="line"><span class="comment">// 2. 选择 Leaks 工具</span></span><br><span class="line"><span class="comment">// 3. 运行应用并进行操作</span></span><br><span class="line"><span class="comment">// 4. 查看泄漏的对象</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 常见泄漏原因：</span></span><br><span class="line"><span class="comment">// ❌ 循环引用</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ClipboardManager</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> timer: <span class="type">Timer</span>?</span><br><span class="line"></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">startMonitoring</span>() &#123;</span><br><span class="line">        <span class="comment">// ❌ 错误：self 被 timer 强引用，timer 被 self 强引用</span></span><br><span class="line">        timer <span class="operator">=</span> <span class="type">Timer</span>.scheduledTimer(withTimeInterval: <span class="number">0.1</span>, repeats: <span class="literal">true</span>) &#123; <span class="keyword">_</span> <span class="keyword">in</span></span><br><span class="line">            <span class="keyword">self</span>.checkClipboard()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ✅ 正确：使用 [weak self]</span></span><br><span class="line"><span class="keyword">func</span> <span class="title function_">startMonitoring</span>() &#123;</span><br><span class="line">    timer <span class="operator">=</span> <span class="type">Timer</span>.scheduledTimer(withTimeInterval: <span class="number">0.1</span>, repeats: <span class="literal">true</span>) &#123; [<span class="keyword">weak</span> <span class="keyword">self</span>] <span class="keyword">_</span> <span class="keyword">in</span></span><br><span class="line">        <span class="keyword">self</span><span class="operator">?</span>.checkClipboard()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="❓-问题-4：图片处理导致-UI-卡顿"><a href="#❓-问题-4：图片处理导致-UI-卡顿" class="headerlink" title="❓ 问题 4：图片处理导致 UI 卡顿"></a>❓ 问题 4：图片处理导致 UI 卡顿</h3><p><strong>现象</strong>：粘贴大图片时，UI 出现明显延迟</p>
+<p><strong>解决方案</strong>：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">ImageProcessor</span> &#123;</span><br><span class="line">    <span class="comment">// 在后台线程处理图片</span></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">processImage</span>(<span class="keyword">_</span> <span class="params">image</span>: <span class="type">NSImage</span>, <span class="params">completion</span>: <span class="keyword">@escaping</span> (<span class="type">NSImage</span>) -&gt; <span class="type">Void</span>) &#123;</span><br><span class="line">        <span class="type">DispatchQueue</span>.global(qos: .userInitiated).async &#123;</span><br><span class="line">            <span class="comment">// 生成缩略图</span></span><br><span class="line">            <span class="keyword">let</span> thumbnail <span class="operator">=</span> <span class="keyword">self</span>.generateThumbnail(image, size: <span class="type">CGSize</span>(width: <span class="number">200</span>, height: <span class="number">200</span>))</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 压缩图片</span></span><br><span class="line">            <span class="keyword">let</span> compressed <span class="operator">=</span> <span class="keyword">self</span>.compressImage(image, quality: <span class="number">0.7</span>)</span><br><span class="line"></span><br><span class="line">            <span class="type">DispatchQueue</span>.main.async &#123;</span><br><span class="line">                completion(thumbnail)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">func</span> <span class="title function_">generateThumbnail</span>(<span class="keyword">_</span> <span class="params">image</span>: <span class="type">NSImage</span>, <span class="params">size</span>: <span class="type">CGSize</span>) -&gt; <span class="type">NSImage</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> thumbnail <span class="operator">=</span> <span class="type">NSImage</span>(size: size)</span><br><span class="line">        thumbnail.lockFocus()</span><br><span class="line">        image.draw(in: <span class="type">NSRect</span>(origin: .zero, size: size))</span><br><span class="line">        thumbnail.unlockFocus()</span><br><span class="line">        <span class="keyword">return</span> thumbnail</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">func</span> <span class="title function_">compressImage</span>(<span class="keyword">_</span> <span class="params">image</span>: <span class="type">NSImage</span>, <span class="params">quality</span>: <span class="type">CGFloat</span>) -&gt; <span class="type">Data</span>? &#123;</span><br><span class="line">        <span class="keyword">guard</span> <span class="keyword">let</span> tiffData <span class="operator">=</span> image.tiffRepresentation,</span><br><span class="line">              <span class="keyword">let</span> bitmapImage <span class="operator">=</span> <span class="type">NSBitmapImageRep</span>(data: tiffData) <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> bitmapImage.representation(using: .jpeg, properties: [.compressionFactor: quality])</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="⚡-性能优化实战"><a href="#⚡-性能优化实战" class="headerlink" title="⚡ 性能优化实战"></a>⚡ 性能优化实战</h2><h3 id="📊-优化前后对比"><a href="#📊-优化前后对比" class="headerlink" title="📊 优化前后对比"></a>📊 优化前后对比</h3><p><strong>📈 优化前</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">启动时间：3.5 秒</span><br><span class="line">内存占用：250MB</span><br><span class="line">CPU 使用：8-12%</span><br><span class="line">搜索延迟：500-800ms</span><br></pre></td></tr></table></figure>
+
+<p><strong>✅ 优化后</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">启动时间：0.8 秒   ⬇️ 77%</span><br><span class="line">内存占用：120MB    ⬇️ 52%</span><br><span class="line">CPU 使用：&lt; 1%     ⬇️ 90%</span><br><span class="line">搜索延迟：100-200ms ⬇️ 75%</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>性能提升显著！</strong> 🎉</p>
+</blockquote>
+<p><strong>🔧 关键优化策略</strong>：</p>
+<ol>
+<li>⏱️ <strong>延迟加载</strong>：只加载可见的列表项</li>
+<li>🖼️ <strong>图片压缩</strong>：自动压缩大图片</li>
+<li>🔄 <strong>后台处理</strong>：将耗时操作移到后台线程</li>
+<li>💾 <strong>缓存策略</strong>：缓存常用数据</li>
+<li>📋 <strong>数据库索引</strong>：为频繁查询的字段建立索引</li>
+</ol>
+<hr>
+<h2 id="🧪-测试与调试"><a href="#🧪-测试与调试" class="headerlink" title="🧪 测试与调试"></a>🧪 测试与调试</h2><h3 id="✏️-单元测试示例"><a href="#✏️-单元测试示例" class="headerlink" title="✏️ 单元测试示例"></a>✏️ 单元测试示例</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> XCTest</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ClipboardManagerTests</span>: <span class="title class_ inherited__">XCTestCase</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> manager: <span class="type">ClipboardManager</span>!</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">func</span> <span class="title function_">setUp</span>() &#123;</span><br><span class="line">        <span class="keyword">super</span>.setUp()</span><br><span class="line">        manager <span class="operator">=</span> <span class="type">ClipboardManager</span>()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">testClipboardMonitoring</span>() &#123;</span><br><span class="line">        <span class="keyword">let</span> expectation <span class="operator">=</span> <span class="type">XCTestExpectation</span>(description: <span class="string">&quot;Clipboard change detected&quot;</span>)</span><br><span class="line"></span><br><span class="line">        manager.onClipboardChange <span class="operator">=</span> &#123;</span><br><span class="line">            expectation.fulfill()</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        manager.startMonitoring()</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 模拟剪贴板变化</span></span><br><span class="line">        <span class="type">NSPasteboard</span>.general.clearContents()</span><br><span class="line">        <span class="type">NSPasteboard</span>.general.setString(<span class="string">&quot;Test content&quot;</span>, forType: .string)</span><br><span class="line"></span><br><span class="line">        wait(for: [expectation], timeout: <span class="number">1.0</span>)</span><br><span class="line"></span><br><span class="line">        manager.stopMonitoring()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">testContentProcessing</span>() &#123;</span><br><span class="line">        <span class="keyword">let</span> content <span class="operator">=</span> <span class="string">&quot;# Test<span class="subst">\n</span><span class="subst">\n</span>Some content&quot;</span></span><br><span class="line">        <span class="keyword">let</span> processed <span class="operator">=</span> manager.processContent(content)</span><br><span class="line"></span><br><span class="line">        <span class="type">XCTAssertEqual</span>(processed.type, .text)</span><br><span class="line">        <span class="type">XCTAssertTrue</span>(processed.content.contains(<span class="string">&quot;Test&quot;</span>))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="🔍-调试技巧"><a href="#🔍-调试技巧" class="headerlink" title="🔍 调试技巧"></a>🔍 调试技巧</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 使用 os_log 记录关键信息</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> logger <span class="operator">=</span> <span class="type">Logger</span>(subsystem: <span class="string">&quot;com.oneclip.app&quot;</span>, category: <span class="string">&quot;clipboard&quot;</span>)</span><br><span class="line"></span><br><span class="line">logger.info(<span class="string">&quot;Clipboard content changed: <span class="subst">\(content)</span>&quot;</span>)</span><br><span class="line">logger.error(<span class="string">&quot;Failed to save item: <span class="subst">\(error.localizedDescription)</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 在 Xcode 控制台查看日志</span></span><br><span class="line"><span class="comment">// 3. 使用 Console.app 查看系统日志</span></span><br><span class="line"><span class="comment">// 4. 使用 Instruments 进行性能分析</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="📦-发布与更新"><a href="#📦-发布与更新" class="headerlink" title="📦 发布与更新"></a>📦 发布与更新</h2><h3 id="🔄-使用-Sparkle-实现自动更新"><a href="#🔄-使用-Sparkle-实现自动更新" class="headerlink" title="🔄 使用 Sparkle 实现自动更新"></a>🔄 使用 Sparkle 实现自动更新</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">UpdateManager</span>: <span class="title class_ inherited__">NSObject</span>, <span class="title class_ inherited__">SPUUpdaterDelegate</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> updater: <span class="type">SPUUpdater</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">init</span>() &#123;</span><br><span class="line">        <span class="keyword">let</span> hostBundle <span class="operator">=</span> <span class="type">Bundle</span>.main</span><br><span class="line">        <span class="keyword">let</span> updateDriver <span class="operator">=</span> <span class="type">SPUStandardUpdaterController</span>(</span><br><span class="line">            hostBundle: hostBundle,</span><br><span class="line">            applicationBundle: hostBundle,</span><br><span class="line">            userDriver: <span class="type">SPUStandardUserDriver</span>(hostBundle: hostBundle),</span><br><span class="line">            delegate: <span class="literal">nil</span></span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.updater <span class="operator">=</span> updateDriver.updater</span><br><span class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>()</span><br><span class="line"></span><br><span class="line">        updater.delegate <span class="operator">=</span> <span class="keyword">self</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">startUpdater</span>() &#123;</span><br><span class="line">        updater.startUpdater()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="📋-最佳实践总结"><a href="#📋-最佳实践总结" class="headerlink" title="📋 最佳实践总结"></a>📋 最佳实践总结</h2><h3 id="📱-开发阶段"><a href="#📱-开发阶段" class="headerlink" title="📱 开发阶段"></a>📱 开发阶段</h3><ul>
+<li>✅ 使用 SwiftUI 进行 UI 开发</li>
+<li>✅ 采用 MVVM 架构模式</li>
+<li>✅ 及早进行性能测试</li>
+<li>✅ 编写完整的单元测试</li>
+<li>✅ 使用 Instruments 检测内存泄漏</li>
+</ul>
+<h3 id="⚙️-功能实现"><a href="#⚙️-功能实现" class="headerlink" title="⚙️ 功能实现"></a>⚙️ 功能实现</h3><ul>
+<li>✅ 后台线程处理耗时操作</li>
+<li>✅ 使用 <code>[weak self]</code> 避免循环引用</li>
+<li>✅ 实现完善的错误处理和日志记录</li>
+<li>✅ 提供友好的权限提示和引导</li>
+</ul>
+<h3 id="🚀-性能优化"><a href="#🚀-性能优化" class="headerlink" title="🚀 性能优化"></a>🚀 性能优化</h3><ul>
+<li>✅ 监控频率动态自适应</li>
+<li>✅ 数据库查询优化和索引创建</li>
+<li>✅ 图片压缩和缓存存储</li>
+<li>✅ 内存管理和智能缓存策略</li>
+</ul>
+<h3 id="📦-发布与维护"><a href="#📦-发布与维护" class="headerlink" title="📦 发布与维护"></a>📦 发布与维护</h3><ul>
+<li>✅ 使用 Sparkle 实现自动更新</li>
+<li>✅ 积极收集用户反馈</li>
+<li>✅ 定期发布版本更新</li>
+<li>✅ 维护详细的变更日志</li>
+</ul>
+<hr>
+<h2 id="🎓-总结"><a href="#🎓-总结" class="headerlink" title="🎓 总结"></a>🎓 总结</h2><p>OneClip 的开发过程充满了<strong>挑战和学习</strong>。通过不断的优化和改进，我们打造了一款<strong>高效、稳定、用户友好</strong>的 macOS 应用。</p>
+<h3 id="💎-关键收获"><a href="#💎-关键收获" class="headerlink" title="💎 关键收获"></a>💎 关键收获</h3><table>
+<thead>
+<tr>
+<th>收获</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>🏗️ 技术选型</td>
+<td>选择合适的技术栈很重要</td>
+</tr>
+<tr>
+<td>⚡ 性能优化</td>
+<td>性能优化需要持续关注</td>
+</tr>
+<tr>
+<td>👥 用户体验</td>
+<td>用户体验至关重要</td>
+</tr>
+<tr>
+<td>💬 社区反馈</td>
+<td>社区反馈推动产品进步</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="🤝-分享与讨论"><a href="#🤝-分享与讨论" class="headerlink" title="🤝 分享与讨论"></a>🤝 分享与讨论</h3><p>如果你正在开发 macOS 应用，希望这些经验能对你有所帮助！</p>
+<p>欢迎在以下地方分享你的经验和问题：</p>
+<ul>
+<li>🔗 <a target="_blank" rel="noopener" href="https://github.com/Wcowin/OneClip/discussions">GitHub Discussions</a></li>
+<li>💬 评论区留言</li>
+<li>📧 邮件反馈</li>
+</ul>
+<hr>
+<p><strong>标签</strong>: #macOS #SwiftUI #开发经验 #性能优化</p>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/up.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/up.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">周言志</div><div class="post-copyright__author_desc">欢迎来到我的世界</div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="http://example.com/2026/02/22/26-2-22OneClip_Dev/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('http://example.com/2026/02/22/26-2-22OneClip_Dev/')">OneClip 开发经验分享：从零到一的 macOS 应用开发</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"></div><div class="shareRight"><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">首页</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/macOS/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>macOS<span class="tagsPageCount">2</span></a><a class="post-meta__box__tags" href="/tags/SwiftUI/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>SwiftUI<span class="tagsPageCount">1</span></a><a class="post-meta__box__tags" href="/tags/%E5%BC%80%E5%8F%91%E7%BB%8F%E9%AA%8C/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>开发经验<span class="tagsPageCount">1</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="https://bu.dusays.com/2025/10/17/68f1e2b2e976f.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/2026/02/07/26-2-7%2025%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2026/01/18/696bc5efbb84d.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">如何注册ChatGPT</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="anzhiyufont anzhiyu-icon-thumbs-up fa-fw" style="font-size: 1.5rem; margin-right: 4px"></i><span>喜欢这篇文章的人也看了</span></div><div class="relatedPosts-list"><div><a href="/2024/10/05/10-5%E5%9C%A8windows11%E4%B8%8B%E7%94%A8wsl2%E5%AE%89%E8%A3%85Ubuntu%E5%AD%90%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85kvm%E8%BF%90%E8%A1%8Cmacos/" title="在windows11下用wsl2安装Ubuntu子系统安装kvm运行macos"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2025/10/18/68f395aef2c48.webp" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2024-10-05</div><div class="title">在windows11下用wsl2安装Ubuntu子系统安装kvm运行macos</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="anzhiyufont anzhiyu-icon-comments"></i><span> 评论</span></div><div class="comment-randomInfo"><a onclick="anzhiyu.addRandomCommentInfo()" href="javascript:void(0)">匿名评论</a><a href="/privacy" style="margin-left: 4px">隐私政策</a></div><div class="comment-switch"><span class="first-comment">Twikoo</span><span id="switch-btn"></span><span class="second-comment">Waline</span></div><div class="comment-tips" id="comment-tips"><span>✅ 你无需删除空行，直接评论以获取最佳展示效果</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div><div><div id="waline-wrap"></div></div></div></div><div class="comment-barrage"></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info__sayhi" id="author-info__sayhi" onclick="anzhiyu.changeSayHelloText()"></div><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/up.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-status"><img class="g-status" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/08/24/64e6ce9c507bb.png" alt="status"/></div></div><div class="author-info__description"><div style="line-height:1.38;margin:0.6rem 0;text-align:justify;color:rgba(255, 255, 255, 0.8);">这有关于<b style="color:#fff">产品、设计、开发</b>相关的问题和看法，还有<b style="color:#fff">文章翻译</b>和<b style="color:#fff">分享</b>。</div><div style="line-height:1.38;margin:0.6rem 0;text-align:justify;color:rgba(255, 255, 255, 0.8);">相信你可以在这里找到对你有用的<b style="color:#fff">知识</b>和<b style="color:#fff">教程</b>。</div></div><div class="author-info__bottom-group"><a class="author-info__bottom-group-left" href="/"><h1 class="author-info__name">周言志</h1><div class="author-info__desc">欢迎来到我的世界</div></a><div class="card-info-social-icons is-center"><a class="social-icon faa-parent animated-hover" href="https://github.com/anzhiyu-c" target="_blank" title="Github"><i class="anzhiyufont anzhiyu-icon-github"></i></a><a class="social-icon faa-parent animated-hover" href="https://space.bilibili.com/1803174585" target="_blank" title="BiliBili"><i class="anzhiyufont anzhiyu-icon-bilibili"></i></a></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%96-%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">📖 前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9B%A0-%E6%8A%80%E6%9C%AF%E9%80%89%E5%9E%8B"><span class="toc-number">2.</span> <span class="toc-text">🛠 技术选型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9A%A1-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%80%89%E6%8B%A9-SwiftUI%EF%BC%9F"><span class="toc-number">2.1.</span> <span class="toc-text">⚡ 为什么选择 SwiftUI？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9A%80-%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD%E5%BC%80%E5%8F%91"><span class="toc-number">3.</span> <span class="toc-text">🚀 核心功能开发</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%EF%B8%8F%E2%83%A3-%E5%89%AA%E8%B4%B4%E6%9D%BF%E7%9B%91%E6%8E%A7"><span class="toc-number">3.1.</span> <span class="toc-text">1️⃣ 剪贴板监控</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%EF%B8%8F%E2%83%A3-%E5%85%A8%E5%B1%80%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.2.</span> <span class="toc-text">2️⃣ 全局快捷键实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%EF%B8%8F%E2%83%A3-%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96"><span class="toc-number">3.3.</span> <span class="toc-text">3️⃣ 数据持久化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%90%9B-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E4%B8%8E%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-number">4.</span> <span class="toc-text">🐛 常见问题与解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9D%93-%E9%97%AE%E9%A2%98-1%EF%BC%9A%E5%BA%94%E7%94%A8%E5%90%AF%E5%8A%A8%E6%97%B6%E6%9D%83%E9%99%90%E6%8F%90%E7%A4%BA%E8%BF%87%E5%A4%9A"><span class="toc-number">4.1.</span> <span class="toc-text">❓ 问题 1：应用启动时权限提示过多</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9D%93-%E9%97%AE%E9%A2%98-2%EF%BC%9A%E5%A4%A7%E6%95%B0%E6%8D%AE%E9%9B%86%E4%B8%8B%E6%90%9C%E7%B4%A2%E5%8F%98%E6%85%A2"><span class="toc-number">4.2.</span> <span class="toc-text">❓ 问题 2：大数据集下搜索变慢</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9D%93-%E9%97%AE%E9%A2%98-3%EF%BC%9A%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F"><span class="toc-number">4.3.</span> <span class="toc-text">❓ 问题 3：内存泄漏</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9D%93-%E9%97%AE%E9%A2%98-4%EF%BC%9A%E5%9B%BE%E7%89%87%E5%A4%84%E7%90%86%E5%AF%BC%E8%87%B4-UI-%E5%8D%A1%E9%A1%BF"><span class="toc-number">4.4.</span> <span class="toc-text">❓ 问题 4：图片处理导致 UI 卡顿</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9A%A1-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E5%AE%9E%E6%88%98"><span class="toc-number">5.</span> <span class="toc-text">⚡ 性能优化实战</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%93%8A-%E4%BC%98%E5%8C%96%E5%89%8D%E5%90%8E%E5%AF%B9%E6%AF%94"><span class="toc-number">5.1.</span> <span class="toc-text">📊 优化前后对比</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%A7%AA-%E6%B5%8B%E8%AF%95%E4%B8%8E%E8%B0%83%E8%AF%95"><span class="toc-number">6.</span> <span class="toc-text">🧪 测试与调试</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9C%8F%EF%B8%8F-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E7%A4%BA%E4%BE%8B"><span class="toc-number">6.1.</span> <span class="toc-text">✏️ 单元测试示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%8D-%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7"><span class="toc-number">6.2.</span> <span class="toc-text">🔍 调试技巧</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%A6-%E5%8F%91%E5%B8%83%E4%B8%8E%E6%9B%B4%E6%96%B0"><span class="toc-number">7.</span> <span class="toc-text">📦 发布与更新</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%84-%E4%BD%BF%E7%94%A8-Sparkle-%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0"><span class="toc-number">7.1.</span> <span class="toc-text">🔄 使用 Sparkle 实现自动更新</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%8B-%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E6%80%BB%E7%BB%93"><span class="toc-number">8.</span> <span class="toc-text">📋 最佳实践总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%93%B1-%E5%BC%80%E5%8F%91%E9%98%B6%E6%AE%B5"><span class="toc-number">8.1.</span> <span class="toc-text">📱 开发阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9A%99%EF%B8%8F-%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0"><span class="toc-number">8.2.</span> <span class="toc-text">⚙️ 功能实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%9A%80-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="toc-number">8.3.</span> <span class="toc-text">🚀 性能优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%93%A6-%E5%8F%91%E5%B8%83%E4%B8%8E%E7%BB%B4%E6%8A%A4"><span class="toc-number">8.4.</span> <span class="toc-text">📦 发布与维护</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%93-%E6%80%BB%E7%BB%93"><span class="toc-number">9.</span> <span class="toc-text">🎓 总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%92%8E-%E5%85%B3%E9%94%AE%E6%94%B6%E8%8E%B7"><span class="toc-number">9.1.</span> <span class="toc-text">💎 关键收获</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%A4%9D-%E5%88%86%E4%BA%AB%E4%B8%8E%E8%AE%A8%E8%AE%BA"><span class="toc-number">9.2.</span> <span class="toc-text">🤝 分享与讨论</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/02/22/26-2-22OneClip_Dev/" title="OneClip 开发经验分享：从零到一的 macOS 应用开发"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2025/10/17/68f1e2b2e976f.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OneClip 开发经验分享：从零到一的 macOS 应用开发"/></a><div class="content"><a class="title" href="/2026/02/22/26-2-22OneClip_Dev/" title="OneClip 开发经验分享：从零到一的 macOS 应用开发">OneClip 开发经验分享：从零到一的 macOS 应用开发</a><time datetime="2026-02-22T09:46:13.000Z" title="发表于 2026-02-22 17:46:13">2026-02-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/02/07/26-2-7%2025%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/" title="如何注册ChatGPT"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2026/01/18/696bc5efbb84d.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="如何注册ChatGPT"/></a><div class="content"><a class="title" href="/2026/02/07/26-2-7%2025%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/" title="如何注册ChatGPT">如何注册ChatGPT</a><time datetime="2026-02-07T15:09:31.000Z" title="发表于 2026-02-07 23:09:31">2026-02-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/17/25-11-17%E5%A6%82%E4%BD%95%E5%9C%A8%E5%BE%AE%E4%BF%A1%E9%87%8C%E9%83%A8%E7%BD%B2Ai%E5%A5%B3%E5%8F%8B%EF%BC%88%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B)/" title="如何在微信里部署 AI 女友（KouriChat 教程）"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2025/10/24/68fb3170471bc.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="如何在微信里部署 AI 女友（KouriChat 教程）"/></a><div class="content"><a class="title" href="/2025/11/17/25-11-17%E5%A6%82%E4%BD%95%E5%9C%A8%E5%BE%AE%E4%BF%A1%E9%87%8C%E9%83%A8%E7%BD%B2Ai%E5%A5%B3%E5%8F%8B%EF%BC%88%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B)/" title="如何在微信里部署 AI 女友（KouriChat 教程）">如何在微信里部署 AI 女友（KouriChat 教程）</a><time datetime="2025-11-17T14:46:18.000Z" title="发表于 2025-11-17 22:46:18">2025-11-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/03/25-11-3openeuler%E5%AE%89%E8%A3%85/" title="Openeuler的安装教程"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2025/10/22/68f8a07193d51.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Openeuler的安装教程"/></a><div class="content"><a class="title" href="/2025/11/03/25-11-3openeuler%E5%AE%89%E8%A3%85/" title="Openeuler的安装教程">Openeuler的安装教程</a><time datetime="2025-11-03T10:55:23.000Z" title="发表于 2025-11-03 18:55:23">2025-11-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/%E6%9C%89%E6%97%B6%E5%80%99%E7%88%B1%E4%B8%8A%E4%B8%80%E5%BA%A7%E5%9F%8E%E5%B8%82%EF%BC%8C/%E4%BB%85%E4%BB%85%E6%98%AF%E5%9B%A0%E4%B8%BA%E7%88%B1%E4%B8%8A%E8%BF%99%E5%BA%A7%E5%9F%8E%E5%B8%82%E9%87%8C%E7%9A%84%E6%9F%90%E4%B8%AA%E4%BA%BA%E3%80%82/" title="有时候爱上一座城市，仅仅是因为爱上这座城市里的某个人"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2025/10/24/68fb3179c986a.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="有时候爱上一座城市，仅仅是因为爱上这座城市里的某个人"/></a><div class="content"><a class="title" href="/%E6%9C%89%E6%97%B6%E5%80%99%E7%88%B1%E4%B8%8A%E4%B8%80%E5%BA%A7%E5%9F%8E%E5%B8%82%EF%BC%8C/%E4%BB%85%E4%BB%85%E6%98%AF%E5%9B%A0%E4%B8%BA%E7%88%B1%E4%B8%8A%E8%BF%99%E5%BA%A7%E5%9F%8E%E5%B8%82%E9%87%8C%E7%9A%84%E6%9F%90%E4%B8%AA%E4%BA%BA%E3%80%82/" title="有时候爱上一座城市，仅仅是因为爱上这座城市里的某个人">有时候爱上一座城市，仅仅是因为爱上这座城市里的某个人</a><time datetime="2025-10-23T16:00:00.000Z" title="发表于 2025-10-24 00:00:00">2025-10-24</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div id="footer_deal"><a class="deal_link" href="/zhoyie666@gmail.com" title="email"><i class="anzhiyufont anzhiyu-icon-envelope"></i></a><a class="deal_link" target="_blank" rel="noopener" href="https://weibo.com/u/6378063631" title="微博"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a><img class="footer_mini_logo" title="返回顶部" alt="返回顶部" onclick="anzhiyu.scrollToDest(0, 500)" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/up.jpg" size="50px"/><a class="deal_link" target="_blank" rel="noopener" href="https://github.com/tenxiaodao/tenxiaodao.github.io" title="Github"><i class="anzhiyufont anzhiyu-icon-github"></i></a><a class="deal_link" target="_blank" rel="noopener" href="https://space.bilibili.com/1803174585?spm_id_from=333.1387.0.0" title="Bilibili"><i class="anzhiyufont anzhiyu-icon-bilibili"></i></a></div><div id="workboard"><div id="runtimeTextTip"></div></div><p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v5.4.0" title="博客框架为Hexo_v5.4.0"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@2.1.5/img/badge/Frame-Hexo.svg" alt="博客框架为Hexo_v5.4.0"/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站项目由Github托管" title="本站项目由Github托管"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@2.1.5/img/badge/Source-Github.svg" alt="本站项目由Github托管"/></a><a class="github-badge" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" style="margin-inline:5px" data-title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可" title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@2.2.0/img/badge/Copyright-BY-NC-SA.svg" alt="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可"/></a></p></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2024 - 2026 By <a class="footer-bar-link" href="/" title="周言志" target="_blank">周言志</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/anzhiyu-c/hexo-theme-anzhiyu" title="主题">主题</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">28</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">55</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">12</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">关注我</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://github.com/tenxiaodao/tenxiaodao.github.io" title="Github"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/up.jpg" alt="Github"/><span class="back-menu-item-text">Github</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://space.bilibili.com/1803174585" title="Bilibili"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/up.jpg" alt="Bilibili"/><span class="back-menu-item-text">Bilibili</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">网盘</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://pan.quark.cn/s/c98d1ceee692" title="软件/工具"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="软件/工具"/><span class="back-menu-item-text">软件/工具</span></a></div></div></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 隧道</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags faa-tada" style="font-size: 0.9em;"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 友链</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><i class="anzhiyufont anzhiyu-icon-link faa-tada" style="font-size: 0.9em;"></i><span> 友人帐</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><i class="anzhiyufont anzhiyu-icon-envelope faa-tada" style="font-size: 0.9em;"></i><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/music/?id=13738866688&amp;server=netease"><i class="anzhiyufont anzhiyu-icon-music faa-tada" style="font-size: 0.9em;"></i><span> 音乐馆</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/bangumis/"><i class="anzhiyufont anzhiyu-icon-bilibili faa-tada" style="font-size: 0.9em;"></i><span> 追番页</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于本人</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/essay/"><i class="anzhiyufont anzhiyu-icon-lightbulb faa-tada" style="font-size: 0.9em;"></i><span> 闲言碎语</span></a></li></ul></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/AI/" style="font-size: 0.88rem;">AI<sup>2</sup></a><a href="/tags/ARP/" style="font-size: 0.88rem;">ARP<sup>1</sup></a><a href="/tags/CasaOS/" style="font-size: 0.88rem;">CasaOS<sup>1</sup></a><a href="/tags/ChatGPT-AI/" style="font-size: 0.88rem;">ChatGPT AI<sup>1</sup></a><a href="/tags/Docker/" style="font-size: 0.88rem;">Docker<sup>1</sup></a><a href="/tags/ESP32/" style="font-size: 0.88rem;">ESP32<sup>1</sup></a><a href="/tags/Hexo/" style="font-size: 0.88rem;">Hexo<sup>6</sup></a><a href="/tags/KVM/" style="font-size: 0.88rem;">KVM<sup>1</sup></a><a href="/tags/KouriChat/" style="font-size: 0.88rem;">KouriChat<sup>1</sup></a><a href="/tags/Linux/" style="font-size: 0.88rem;">Linux<sup>5</sup></a><a href="/tags/NAS/" style="font-size: 0.88rem;">NAS<sup>1</sup></a><a href="/tags/Python/" style="font-size: 0.88rem;">Python<sup>3</sup></a><a href="/tags/Scrapy/" style="font-size: 0.88rem;">Scrapy<sup>2</sup></a><a href="/tags/SwiftUI/" style="font-size: 0.88rem;">SwiftUI<sup>1</sup></a><a href="/tags/TCP/" style="font-size: 0.88rem;">TCP<sup>1</sup></a><a href="/tags/UDP/" style="font-size: 0.88rem;">UDP<sup>1</sup></a><a href="/tags/Ubuntu/" style="font-size: 0.88rem;">Ubuntu<sup>1</sup></a><a href="/tags/VM%E8%99%9A%E6%8B%9F%E6%9C%BA/" style="font-size: 0.88rem;">VM虚拟机<sup>1</sup></a><a href="/tags/WSL2/" style="font-size: 0.88rem;">WSL2<sup>1</sup></a><a href="/tags/macOS/" style="font-size: 0.88rem;">macOS<sup>2</sup></a><a href="/tags/office/" style="font-size: 0.88rem;">office<sup>1</sup></a><a href="/tags/openEuler/" style="font-size: 0.88rem;">openEuler<sup>1</sup></a><a href="/tags/windows%E9%95%9C%E5%83%8F/" style="font-size: 0.88rem;">windows镜像<sup>1</sup></a><a href="/tags/%E4%BA%A4%E6%8D%A2%E6%9C%BA/" style="font-size: 0.88rem;">交换机<sup>1</sup></a><a href="/tags/%E5%85%A5%E9%97%A8/" style="font-size: 0.88rem;">入门<sup>1</sup></a><a href="/tags/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD/" style="font-size: 0.88rem;">前端性能<sup>1</sup></a><a href="/tags/%E5%8D%9A%E5%AE%A2%E4%BC%98%E5%8C%96/" style="font-size: 0.88rem;">博客优化<sup>1</sup></a><a href="/tags/%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95/" style="font-size: 0.88rem;">压力测试<sup>1</sup></a><a href="/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/" style="font-size: 0.88rem;">命令行<sup>2</sup></a><a href="/tags/%E5%BE%AE%E4%BF%A1/" style="font-size: 0.88rem;">微信<sup>1</sup></a><a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 0.88rem;">爬虫<sup>2</sup></a><a href="/tags/%E7%8E%A9%E5%AE%A2%E4%BA%91/" style="font-size: 0.88rem;">玩客云<sup>1</sup></a><a href="/tags/%E7%AB%AF%E5%8F%A3%E8%81%9A%E5%90%88/" style="font-size: 0.88rem;">端口聚合<sup>1</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96/" style="font-size: 0.88rem;">网络优化<sup>1</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 0.88rem;">网络协议<sup>1</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 0.88rem;">网络安全<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/" style="font-size: 0.88rem;">网络技术<sup>1</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" style="font-size: 0.88rem;">网络配置<sup>1</sup></a><a href="/tags/%E8%AF%AD%E9%9F%B3%E5%8A%A9%E6%89%8B/" style="font-size: 0.88rem;">语音助手<sup>1</sup></a><a href="/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 0.88rem;">运维<sup>2</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="anzhiyufont anzhiyu-icon-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/3251973470&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("08/31/2024 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2024 By 安知鱼 V1.6.12",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 周言志 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><script async="async">(function () {
+  var grt = new Date("08/31/2024 00:00:00"); //设置网站上线时间
+  var now = new Date();
+  var dnum;
+  var hnum;
+  var mnum;
+  var snum;
+  var nowHour;
+
+  // 计算并更新天数、小时数、分钟数和秒数
+  function updateTime() {
+    now = new Date(); // 更新 now 的值
+    nowHour = now.getHours(); // 更新 nowHour 的值
+    var days = (now - grt) / 1000 / 60 / 60 / 24;
+    dnum = Math.floor(days);
+    var hours = (now - grt) / 1000 / 60 / 60 - 24 * dnum;
+    hnum = Math.floor(hours);
+    if (String(hnum).length == 1) {
+      hnum = "0" + hnum;
+    }
+    var minutes = (now - grt) / 1000 / 60 - 24 * 60 * dnum - 60 * hnum;
+    mnum = Math.floor(minutes);
+    if (String(mnum).length == 1) {
+      mnum = "0" + mnum;
+    }
+    var seconds = (now - grt) / 1000 - 24 * 60 * 60 * dnum - 60 * 60 * hnum - 60 * mnum;
+    snum = Math.round(seconds);
+    if (String(snum).length == 1) {
+      snum = "0" + snum;
+    }
+  }
+
+  // 更新网页中显示的网站运行时间
+  function updateHtml() {
+    const footer = document.getElementById("footer");
+    if (!footer) return
+    let currentTimeHtml = "";
+    if (nowHour < 18 && nowHour >= 9) {
+      // 如果是上班时间，默认就是"安知鱼-上班摸鱼中.svg"图片，不需要更改
+      currentTimeHtml = `本站居然运行了 ${dnum} 天<span id='runtime'> ${hnum} 小时 ${mnum} 分 ${snum} 秒 </span><i class='anzhiyufont anzhiyu-icon-heartbeat' style='color:red'></i>`;
+    } else {
+      // 如果是下班时间，插入"安知鱼-下班啦.svg"图片
+      let img = document.querySelector("#workboard .workSituationImg");
+      if (img != null) {
+        img.src = "";
+        img.title = "下班了就该开开心心的玩耍，嘿嘿~";
+        img.alt = "下班了就该开开心心的玩耍，嘿嘿~";
+      }
+
+      currentTimeHtml = `本站居然运行了 ${dnum} 天<span id='runtime'> ${hnum} 小时 ${mnum} 分 ${snum} 秒 </span><i class='anzhiyufont anzhiyu-icon-heartbeat' style='color:red'></i>`;
+    }
+
+    if (document.getElementById("runtimeTextTip")) {
+      document.getElementById("runtimeTextTip").innerHTML = currentTimeHtml;
+    }
+  }
+
+  setInterval(() => {
+    updateTime();
+    updateHtml();
+  }, 1000);
+})();</script><div class="js-pjax"><script>(() => {
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://yuhaozhe-twikoo.hf.space',
+      region: 'ap-shanghai',
+      onCommentLoaded: () => {
+        anzhiyu.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') setTimeout(runFn,0)
+    else getScript('https://cdn.cbd.int/twikoo@1.6.25/dist/twikoo.all.min.js').then(runFn)
+  }
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://yuhaozhe-twikoo.hf.space',
+      region: 'ap-shanghai',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const runFn = () => {
+    init();
+    GLOBAL_CONFIG_SITE.isPost && getCount()
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) anzhiyu.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else {
+      loadTwikoo()
+    }
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script><script>(() => {
+  const initWaline = () => {
+    const waline = Waline.init(Object.assign({
+      el: '#waline-wrap',
+      serverURL: 'https://waline-test-54hthgju8-yuhaozhes-projects.vercel.app/',
+      pageview: false,
+      dark: 'html[data-theme="dark"]',
+      path: window.location.pathname,
+      comment: true,
+    }, null))
+  }
+
+  const loadWaline = async () => {
+    if (typeof Waline === 'object') initWaline()
+    else {
+      await getCSS('https://cdn.cbd.int/@waline/client@2.15.5/dist/waline.css')
+      await getScript('https://cdn.cbd.int/@waline/client@2.15.5/dist/waline.js')
+      initWaline()
+    }
+  }
+
+  if ('Twikoo' === 'Waline' || !false) {
+    if (false) anzhiyu.loadComment(document.getElementById('waline-wrap'),loadWaline)
+    else setTimeout(loadWaline, 0)
+  } else {
+    window.loadOtherComment = loadWaline
+  }
+})()</script><input type="hidden" name="page-type" id="page-type" value="post"></div><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getComment = () => {
+    const runTwikoo = () => {
+      twikoo.getRecentComments({
+        envId: 'https://yuhaozhe-twikoo.hf.space',
+        region: 'ap-shanghai',
+        pageSize: 6,
+        includeReply: true
+      }).then(function (res) {
+        const twikooArray = res.map(e => {
+          return {
+            'content': changeContent(e.comment),
+            'avatar': e.avatar,
+            'nick': e.nick,
+            'url': e.url + '#' + e.id,
+            'date': new Date(e.created).toISOString()
+          }
+        })
+
+        saveToLocal.set('twikoo-newest-comments', JSON.stringify(twikooArray), 10/(60*24))
+        generateHtml(twikooArray)
+      }).catch(function (err) {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.textContent= "无法获取评论，请确认相关配置是否正确"
+      })
+    }
+
+    if (typeof twikoo === 'object') {
+      runTwikoo()
+    } else {
+      getScript('https://cdn.cbd.int/twikoo@1.6.25/dist/twikoo.all.min.js').then(runTwikoo)
+    }
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'data-lazy-src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'><div class='name'><span>${array[i].nick} </span></div></a>`
+        }
+        
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}' title='${array[i].content}'>${array[i].content}</a>
+        <time datetime="${array[i].date}">${anzhiyu.diffDate(array[i].date, true)}</time></div>
+        </div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom && ($dom.innerHTML= result)
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('twikoo-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/qrcodejs/1.0.0/qrcode.min.js"></script><script src="/js/anzhiyu/right_click_menu.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["meta[property=\"og:image\"]","meta[property=\"og:title\"]","meta[property=\"og:url\"]","meta[property=\"og:type\"]","meta[property=\"og:site_name\"]","meta[property=\"og:description\"]","head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>
