@@ -1,0 +1,8 @@
+node_modules
+
+# Build artifacts
+db.json
+public/
+.deploy_git/
+npminstall-debug.log
+package-lock.json

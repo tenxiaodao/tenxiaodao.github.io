@@ -1,0 +1,102 @@
+- title: 即刻短文
+  subTitle: 咸鱼的日常生活。
+  tips: 随时随地，分享生活
+  buttonText: 关于我
+  buttonLink: /about/
+  limit: 30
+  home_essay: true
+  top_background: https://bu.dusays.com/2025/11/20/691eea1b5ed45.webp
+  essay_list:
+    - content: 其实我也不想过得这么咸鱼的，但我也不知道该怎么改变了。
+      date: 2026/4/3
+    - content: 其实根本没有什么白月光，那只是你在情窍初开时见到过的上限而已，正如朱元璋后来怎么也不信那碗珍珠翡翠白玉汤只是碗烂白菜汤。
+      date: 2026/3/30
+    - content: 人生如棋，落子无悔；人生百年，蜉蝣一日，长生于我何有哉；不若二三好友，弈棋饮酒；良缘佳侣，人间携手。
+      date: 2026/2/22
+    - content: “没有本应该，现在这个结果，他就是你应该发生的结果。”
+      date: 2026/2/07
+    - content: 清醒是痛苦的，没人喜欢。
+      date: 2025/12/19
+    - content: 今天入职培训结束了，被分到1号楼了从未有过的经历。
+      date: 2025/12/17
+    - content: 今天拿到中联数据集团的实习offer了,加油吧！！！
+      date: 2025/12/7
+    - content: 弗罗斯特曾经说过：“一位母亲用20年的世界让儿子长大成人，而另一个女人只用了20分钟就让他变回了傻瓜。”
+      date: 2025/11/24
+    - content: 白鸥问我泊孤舟，是身留，是心留？心若留时，何事锁眉头？风拍小帘灯晕舞，对闲影，冷清清，忆旧游。
+              旧游旧游今在否？花外楼，柳下舟。梦也梦也，梦不到，寒水空流。漠漠黄云，湿透木棉裘。都道无人愁似我，今夜雪，有梅花，似我愁。
+                                                                                                                        ----  梅花引·荆溪阻雪
+      date: 2025/11/20
+    - content: 当下的所有问题都是上一个问题的答案，但当下的答案又会成为下一个问题。
+      date: 2025/11/18
+    - content: 也许我和ta最好的结局，是我们从来没有相遇过。ta的来是我的错误，ta的离去也是为我的错误买单。那我在做什么呢？那些决心，那些内心的纠结，那些痛苦就什么都不是吗？什么的没变，世界怎么这么残酷。原来有点事情真的只要开始了就不会再有一个对的答案。怎么会这样,曾经一起做的梦成了噩梦，这种痛苦很难形容。
+      date: 2025/11/16
+    - content: "早上的花我晚上才拾到，我在花最美的时候没有体会到她的美，等到花凋落了才后知后觉她的美，人生何尝不是这样，终是失去了才懂得珍惜当你回头望的时候，已经走过了很长一段路，在想找回当时的感觉，却已发现为时已晚。" 
+      date: 2025/11/22
+    - content: “我是不是就这样参加高考，上一所不好不坏的大学，我也找不到我喜欢的女孩。我将来会找一份我不太喜欢的工作，找一个房子，然后就跟一个可能愿意和我结婚的女人过一辈子。”
+                                                                                                                                                              ----《龙族》
+      date: 2025/11/2
+    - content: 人生若只如初见，何事秋风悲画扇。
+      date: 2025/10/17
+    - content: 最后一站，青岛
+      date: 2025/9/15
+      image:
+        - https://bu.dusays.com/2025/09/30/68dbda63be1a0.jpg
+        - https://bu.dusays.com/2025/09/30/68dbda657e76e.jpg
+        - https://bu.dusays.com/2025/09/30/68dbda6515912.jpg
+
+    - content: 威海的海鲜真好吃😋海挺蓝。
+      date: 2025/9/14
+      image:
+        - https://bu.dusays.com/2025/09/30/68dbda63bbd09.jpg
+        - https://bu.dusays.com/2025/09/30/68dbda63d82b7.jpg
+        - https://bu.dusays.com/2025/09/30/68dbda63b2d55.jpg
+        - https://bu.dusays.com/2025/09/30/68dbda63cf3f2.jpg
+    - content: 淄博烧烤太好吃了🥰🥰🥰
+      date: 2025/9/13
+
+    - content: 到济南了一会还要赶火车去淄博累啊😫
+      date: 2025/9/12
+      image:
+        - https://bu.dusays.com/2025/09/30/68dbda66d194d.jpg
+        - https://bu.dusays.com/2025/09/30/68dbda63bbe62.jpg
+        - https://bu.dusays.com/2025/09/30/68dbda63c061f.jpg
+    - content: 山东之旅开始！！！第一站泰山！！！
+      date: 2025/9/11 10:00
+      image:
+        - https://bu.dusays.com/2025/09/30/68dbda64e4ccb.jpg
+        - https://bu.dusays.com/2025/09/30/68dbda63d54dd.jpg
+
+    - content: 宿舍大合照
+      date: 2025/3/26
+      image:
+        - https://bu.dusays.com/2025/04/03/67ee36086c995.jpg
+
+    - content: 抛弃幻想，准备斗争
+      date: 2025/4/3
+
+    - content: C语言太难了😭😭😭
+      date: 2025/4/10
+
+    - content: 君看今日树头花，不是去年枝上朵。
+      date: 2025/4/26
+
+    - content: 菡萏香销翠叶残，西风愁起绿波间。还与韶光共憔悴，不堪看。细雨梦回鸡塞远，小楼吹彻玉笙寒。多少泪珠何限恨，倚阑干。思悠悠。
+      date: 2025/5/2
+    - content: 我有一首诗,从未对人念,今天忽闻你念出,和我心中诗一样,唱罢你一笑，我泪已盈眶。
+      date: 2025/5/2
+    - content: 落花有意随流水，流水无心恋落花。流水落花春去也，天上人间。
+      date: 2025/5/2
+    - content: 直升机和飞机确实不一样，感觉坐直升机更刺激一些，飞机就比较平稳了。
+      date: 2025/1/20
+      image:
+        - https://bu.dusays.com/2026/04/03/69cf4a8096e67.webp
+        - https://bu.dusays.com/2026/04/03/69cf487c00994.webp
+    - content: 今年在海南过年了，感觉还不错，虽然有点热。
+      date: 2025/1/18
+      image:
+        - https://bu.dusays.com/2026/04/03/69cf487f522c4.webp
+        - https://bu.dusays.com/2026/04/03/69cf487df1b33.webp
+        - https://bu.dusays.com/2026/04/03/69cf487e2530f.webp
+        - https://bu.dusays.com/2026/04/03/69cf487e55084.webp
+

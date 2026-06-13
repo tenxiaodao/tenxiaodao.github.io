@@ -1,0 +1,124 @@
+- class_name: 关于页
+  subtitle: 成功只不过是隔着失败再试一次✨
+  avatarImg: /img/up.jpg
+  avatarSkills:
+    left:
+      - 🤖️ 数码科技爱好者
+      - 🔍 分享与热心帮助
+      - 🏠 智能家居小能手
+      - 🔨 设计开发一条龙
+    right:
+      - 专修交互与设计 🤝
+      - 脚踏实地行动派 🏃
+      - 团队小组发动机 🧱
+      - 壮汉人狠话不多 💢
+  name: 于浩喆 👨‍💻
+  description: 🅳️ 不务正业 | 生涯，爱好&学习/尝试&总结🅳️
+
+  aboutsiteTips:
+    tips: 追求
+    title1: 源于
+    title2: 热爱而去 感受
+    word:
+      - 学习
+      - 生活
+      - 程序
+      - 体验
+
+  helloAbout: 無限進步！
+
+  skillsTips:
+    tips: 技能
+    title: 开启创造力 🤓
+
+  careers:
+    tips: 生涯
+    title: 不断学习
+    list:
+      - desc: EDU, 计算机应用与技术
+        color: "#357ef5"
+      - desc: EDU, Linux开发
+        color: "#357ef5"
+      - desc: EDU, 网页开发
+        color: "#357ef5"
+      - desc: EDU, 人工智能
+        color: "#357ef5"
+      - desc: EDU, 数据库技术
+        color: "#357ef5"
+      - desc: EDU, Web前端开发
+        color: "#357ef5"
+
+  statistic:
+    link: /archives
+    text: 文章隧道
+    cover: https://bu.dusays.com/2023/05/01/644f4b037b930.jpg
+
+  map:
+    title: 我现在住在
+    StrengthenTitle: 中国
+    background: https://bu.dusays.com/2025/04/01/67ebd1673e7e5.jpg
+    backgroundDark: https://bu.dusays.com/2025/04/01/67ebd1673e7e5.jpg
+
+  selfInfo:
+    selfInfoTips1: 生于
+    selfInfoContentYear: 2005
+    selfInfoTips2: 坐标
+    selfInfoContentCountry: 中国
+    selfInfoContent2: 山西省大同市
+    selfInfoTips3: 在数据中心工作
+    selfInfoContent3: 还在实习 👨‍🎓
+
+  personalities:
+    author_name: ENFP-T
+    personality_type: 活动家
+    photo_url: https://bu.dusays.com/2024/11/15/67370d8560923.jpg
+    personality_img: https://npm.elemecdn.com/anzhiyu-blog@2.0.8/img/svg/ESFJ-A.svg
+    name_url: https://www.16personalities.com/ch/esfj-%E4%BA%BA%E6%A0%BC
+
+  maxim:
+    maxim_tips: 座右铭
+    maxim_top: 成功，
+    maxim_bottom: 只不过是隔着失败再试一次。
+
+  buff:
+    buff_tips: 特长
+    buff_top: 脑回路新奇
+    buff_bottom: 二次元指数 MAX
+
+  game:
+    game_tips: 彩虹六号
+    game_title: 围攻
+    game_uid: "UID: snowball"
+    game_bg: https://bu.dusays.com/2025/03/31/67ea89f621567.png
+
+  comic:
+    comic_tips: 二次元偏好
+    comic_title: 
+    comic_list:
+      - name: 国家队
+        href: https://www.bilibili.com/
+        cover: https://bu.dusays.com/2025/03/31/67ea813f7af67.jpg
+      - name: EVA
+        href: https://www.bilibili.com/
+        cover: https://bu.dusays.com/2025/04/11/67f91d8c030c7.png
+      - name: 初音未来
+        href: https://www.bilibili.com/
+        cover: https://bu.dusays.com/2025/04/11/67f91eac5acf3.jpg
+      - name: 紫罗兰永恒花园
+        href: https://www.bilibili.com/
+        cover: https://bu.dusays.com/2025/04/11/67f9200d5a850.jpg
+      - name: 五等分の花嫁
+        href: https://www.bilibili.com/
+        cover: https://bu.dusays.com/2025/04/11/67f9219fc900c.jpg
+
+  like:
+    like_tips: 关注偏好
+    like_title: 数码科技
+    like_bg: https://bu.dusays.com/2022/12/06/638f5f05ce1f7.jpg
+    like_bottom: 科技发烧友
+
+  music:
+    music_tips: 音乐偏好
+    music_title: 古风、民谣、华语流行
+    music_bg: https://p2.music.126.net/Mrg1i7DwcwjWBvQPIMt_Mg==/79164837213438.jpg
+    music_link: /music

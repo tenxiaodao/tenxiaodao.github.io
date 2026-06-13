@@ -1,0 +1,142 @@
+- class_name: 世界各地夕阳与风景
+  path_name: /wordScenery
+  type: 2
+  description: 记录世界各地的夕阳与风景🌇。
+  cover: https://bu.dusays.com/2025/10/01/68dc10f620299.jpg
+  top_background: https://bu.dusays.com/2025/04/01/67ebd1673e7e5.jpg
+  rowHeight: 220
+  limit: 10
+  lazyload: true
+  btnLazyload: false
+  url: false
+  top_link: /album
+  top_btn_text: 返回
+  album_list:
+    # - date: 2025-10-26 01:00:00
+    #   content: 湘潭的一角。
+    #   address: 湖南湘潭
+    #   from: 再吃一口就减肥
+    #   image:
+    #     - https://bu.dusays.com/2023/04/09/64329399db122.webp
+    # - date: 2025-10-25
+    #   content: 洛阳暴雨后的天空。
+    #   address: 河南洛阳
+    #   from: 紫菜卷
+    #   image:
+    #     - https://bu.dusays.com/2023/04/09/64329399db122.webp
+    #     - https://bu.dusays.com/2023/04/09/64329399db2e1.webp
+    - date: 2025-10-24
+      content: 橘子洲头
+      address: 湖北长沙
+      from: 自己
+      image:
+        - https://bu.dusays.com/2025/10/01/68dc0ce594f9b.webp
+    - date: 2025-10-24
+      content: 白沙沙滩
+      address: 海南三亚
+      from: 自己
+      image:
+        - https://bu.dusays.com/2026/04/03/69cf487e2530f.webp
+
+- class_name: 我的日常
+  path_name: /dailyPhoto
+  type: 1
+  description: 这里有关我自己的一些沙雕生活与有趣的事情。
+  top_link: /album
+  top_btn_text: 返回
+  top_background: https://bu.dusays.com/2025/05/02/6814e31b43ca0.png
+  cover: https://bu.dusays.com/2025/09/30/68dbf8647aed3.jpg 
+  album_list:
+    - date: 2025-10-24
+      content: 我和我的沙雕舍友
+      image:
+        - https://bu.dusays.com/2025/04/03/67ee36086c995.jpg
+
+- class_name: 照片合集
+  path_name: /Pictures
+  type: 2
+  description: 我和伙伴们的照片合集
+  cover: https://bu.dusays.com/2025/09/30/68dbda63b2d55.jpg
+  top_background: https://bu.dusays.com/2025/09/30/68dbda63b2d55.jpg
+  rowHeight: 220
+  limit: 10
+  lazyload: false
+  btnLazyload: false
+  url: false
+  top_link: /album
+  top_btn_text: 返回
+  album_list:
+    # - date: 2022/10/26 01:00:00
+    #   content: 湘潭的一角。
+    #   address: 湖南湘潭
+    #   from: 再吃一口就减肥
+    #   image:
+    #     - https://bu.dusays.com/2023/04/09/64329399db122.webp
+    # - date: 2025-10-25
+    #   content: 洛阳暴雨后的天空。
+    #   address: 河南洛阳
+    #   from: 紫菜卷
+    #   image:
+    #     - https://bu.dusays.com/2023/04/09/64329399db122.webp
+    #     - https://bu.dusays.com/2023/04/09/64329399db2e1.webp
+    - date: 2025-11-15
+      content: 丑照
+      address: 大同
+      from: 宿舍
+      image:
+        - https://bu.dusays.com/2025/04/03/67ee36665f747.jpg
+        - https://bu.dusays.com/2025/04/03/67ee372a1cc25.jpg
+        - https://bu.dusays.com/2025/09/30/68dbf08156535.jpg
+    # - date: 2025-10-24
+    #   content: 写真
+    #   address: 北京
+    #   from: 朱娜娜写真
+    #   image:
+    #     - https://bu.dusays.com/2025/09/30/68dbfa64132a2.jpg
+    #     - https://bu.dusays.com/2025/09/30/68dbfa604b449.jpg
+    #     - https://bu.dusays.com/2025/09/30/68dbfa601442c.jpg
+    #     - https://bu.dusays.com/2025/09/30/68dbfa5fcedaa.jpg
+    #     - https://bu.dusays.com/2025/09/30/68dbfa5facc9d.jpg
+    #     - https://bu.dusays.com/2025/09/30/68dbfa5f87b1a.jpg
+    #     - https://bu.dusays.com/2025/09/30/68dbfa5f6d259.jpg
+    #     - https://bu.dusays.com/2025/09/30/68dbfa5f56402.jpg
+    #     - https://bu.dusays.com/2025/09/30/68dbfa5f1ab84.jpg
+    #     - https://bu.dusays.com/2025/09/30/68dbfa5f0c96b.jpg
+    # - date: 2025-10-24
+    #   content: 人像
+    #   address: 山东
+    #   from: 人像
+    #   image:
+    #     - https://bu.dusays.com/2025/09/30/68dbfa5ed4842.jpg
+    #     - https://bu.dusays.com/2025/09/30/68dbfa5e76a53.jpg
+    #     - https://bu.dusays.com/2025/09/30/68dbfa5e60017.jpg
+    #     - https://bu.dusays.com/2025/09/30/68dbfa5e6026d.jpg
+    #     - https://bu.dusays.com/2025/09/30/68dbfa5e5fa5f.jpg
+    #     - https://bu.dusays.com/2025/09/30/68dbfa5e475fe.jpg
+    #     - https://bu.dusays.com/2025/09/30/68dbfa5e195de.jpg
+    #     - https://bu.dusays.com/2025/09/30/68dbfa5e0bda8.jpg
+    #     - https://bu.dusays.com/2025/09/30/68dbfa5e0ecca.jpg
+    #     - https://bu.dusays.com/2025/09/30/68dbfa5e0b92d.jpg
+    - date: 2025-10-24
+      content: 风景
+      address: 山东
+      from: 随拍
+      image:
+      - https://bu.dusays.com/2025/09/30/68dbda66d194d.jpg
+      - https://bu.dusays.com/2025/09/30/68dbda659317a.jpg
+      - https://bu.dusays.com/2025/09/30/68dbda657e76e.jpg
+      - https://bu.dusays.com/2025/09/30/68dbda63be1a0.jpg
+      - https://bu.dusays.com/2025/09/30/68dbda63d54dd.jpg
+      - https://bu.dusays.com/2025/09/30/68dbda63d82b7.jpg
+      - https://bu.dusays.com/2025/09/30/68dbda63bbd09.jpg
+      - https://bu.dusays.com/2025/09/30/68dbda63cf3f2.jpg
+      - https://bu.dusays.com/2025/09/30/68dbda63c061f.jpg
+      - https://bu.dusays.com/2025/09/30/68dbda63bbe62.jpg
+      - https://bu.dusays.com/2025/09/30/68dbda63b2d55.jpg
+    - date: 2025-10-24
+      content: 合影
+      address: 山东
+      from: 合影
+      image:
+      - https://bu.dusays.com/2025/09/30/68dbda63ba8ac.jpg
+      - https://bu.dusays.com/2025/09/30/68dbda64e4ccb.jpg
