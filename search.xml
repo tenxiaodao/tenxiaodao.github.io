@@ -1,0 +1,885 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>GitHub Actions 使用指南：从入门到实战</title>
+      <link href="/github-actions-guide/"/>
+      <url>/github-actions-guide/</url>
+      
+      
+      <categories>
+          
+          <category> 技术分享 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> CI/CD </tag>
+            
+            <tag> GitHub Actions </tag>
+            
+            <tag> Hexo </tag>
+            
+            <tag> 自动化部署 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>CI/CD 配置指南：让你的 Hexo 博客自动部署</title>
+      <link href="/ci-cd-auto-deploy-guide/"/>
+      <url>/ci-cd-auto-deploy-guide/</url>
+      
+      
+      <categories>
+          
+          <category> 技术分享 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> CI/CD </tag>
+            
+            <tag> GitHub Actions </tag>
+            
+            <tag> Hexo </tag>
+            
+            <tag> 自动化部署 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Codex 使用指南</title>
+      <link href="/codex-shiyong-zhinan/"/>
+      <url>/codex-shiyong-zhinan/</url>
+      
+      
+      <categories>
+          
+          <category> 技术分享 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> AI </tag>
+            
+            <tag> Codex </tag>
+            
+            <tag> OpenAI </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>黑苹果基础</title>
+      <link href="/hei-ping-guo-ji-chu/"/>
+      <url>/hei-ping-guo-ji-chu/</url>
+      
+      
+      <categories>
+          
+          <category> 黑苹果 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>在surfacepro4里安装macOS</title>
+      <link href="/surfacepro4/"/>
+      <url>/surfacepro4/</url>
+      
+      
+      <categories>
+          
+          <category> 黑苹果 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>opcloud的使用</title>
+      <link href="/opcloud-usage/"/>
+      <url>/opcloud-usage/</url>
+      
+      
+      <categories>
+          
+          <category> 开发 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>OneClip 开发经验分享：从零到一的 macOS 应用开发</title>
+      <link href="/oneclip-kai-fa-jing-yan-fen-xiang-cong-ling-dao-yi-de-macos-ying-yong-kai-fa/"/>
+      <url>/oneclip-kai-fa-jing-yan-fen-xiang-cong-ling-dao-yi-de-macos-ying-yong-kai-fa/</url>
+      
+      
+      <categories>
+          
+          <category> 技术分享 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> macOS </tag>
+            
+            <tag> SwiftUI </tag>
+            
+            <tag> 开发经验 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>如何注册ChatGPT</title>
+      <link href="/ru-he-zhu-ce-chatgpt/"/>
+      <url>/ru-he-zhu-ce-chatgpt/</url>
+      
+      
+      <categories>
+          
+          <category> 知识分享 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> ChatGPT AI </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>如何在微信里部署 AI 女友（KouriChat 教程）</title>
+      <link href="/ru-he-zai-wei-xin-li-bu-shu-ai-nv-you-kourichat-jiao-cheng/"/>
+      <url>/ru-he-zai-wei-xin-li-bu-shu-ai-nv-you-kourichat-jiao-cheng/</url>
+      
+      
+      <categories>
+          
+          <category> Linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> AI </tag>
+            
+            <tag> KouriChat </tag>
+            
+            <tag> 微信 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Openeuler的安装教程</title>
+      <link href="/openeuler-de-an-zhuang-jiao-cheng/"/>
+      <url>/openeuler-de-an-zhuang-jiao-cheng/</url>
+      
+      
+      <categories>
+          
+          <category> Linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> VM虚拟机 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>有时候爱上一座城市，仅仅是因为爱上这座城市里的某个人</title>
+      <link href="/sometimes-love-a-city-because-of-someone/"/>
+      <url>/sometimes-love-a-city-because-of-someone/</url>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>openEuler 常用命令与管理指南</title>
+      <link href="/openeuler-chang-yong-ming-ling-yu-guan-li-zhi-nan/"/>
+      <url>/openeuler-chang-yong-ming-ling-yu-guan-li-zhi-nan/</url>
+      
+      
+      <categories>
+          
+          <category> Linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> openEuler </tag>
+            
+            <tag> 运维 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Linux 基础命令速查（入门）</title>
+      <link href="/linux-ji-chu-ming-ling-su-cha-ru-men/"/>
+      <url>/linux-ji-chu-ming-ling-su-cha-ru-men/</url>
+      
+      
+      <categories>
+          
+          <category> Linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> 命令行 </tag>
+            
+            <tag> 入门 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Linux 命令大全</title>
+      <link href="/linux-ming-ling-da-quan/"/>
+      <url>/linux-ming-ling-da-quan/</url>
+      
+      
+      <categories>
+          
+          <category> Linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> 运维 </tag>
+            
+            <tag> 命令行 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hexo 博客性能优化指南</title>
+      <link href="/hexo-bo-ke-xing-neng-you-hua-zhi-nan/"/>
+      <url>/hexo-bo-ke-xing-neng-you-hua-zhi-nan/</url>
+      
+      
+      <categories>
+          
+          <category> 前端开发 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Hexo </tag>
+            
+            <tag> 博客优化 </tag>
+            
+            <tag> 前端性能 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>DIY电子女友小智</title>
+      <link href="/diy-dian-zi-nv-you-xiao-zhi/"/>
+      <url>/diy-dian-zi-nv-you-xiao-zhi/</url>
+      
+      
+      <categories>
+          
+          <category> 生活日常 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> AI </tag>
+            
+            <tag> ESP32 </tag>
+            
+            <tag> 语音助手 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Office/WPS下载</title>
+      <link href="/office-wps-xia-zai/"/>
+      <url>/office-wps-xia-zai/</url>
+      
+      
+      <categories>
+          
+          <category> 办公软件 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> office </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Windows系统下载仓储站</title>
+      <link href="/windows-xi-tong-xia-zai-cang-chu-zhan/"/>
+      <url>/windows-xi-tong-xia-zai-cang-chu-zhan/</url>
+      
+      
+      <categories>
+          
+          <category> 系统镜像 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> windows镜像 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>如何配置端口聚合</title>
+      <link href="/ru-he-pei-zhi-duan-kou-ju-he/"/>
+      <url>/ru-he-pei-zhi-duan-kou-ju-he/</url>
+      
+      
+      <categories>
+          
+          <category> 网络基础 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 网络配置 </tag>
+            
+            <tag> 端口聚合 </tag>
+            
+            <tag> 网络优化 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>TCP 与 UDP 的区别</title>
+      <link href="/tcp-yu-udp-de-qu-bie/"/>
+      <url>/tcp-yu-udp-de-qu-bie/</url>
+      
+      
+      <categories>
+          
+          <category> 网络基础 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 网络协议 </tag>
+            
+            <tag> TCP </tag>
+            
+            <tag> UDP </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>玩客云做轻NAS低成本看番</title>
+      <link href="/wan-ke-yun-zuo-qing-nas-di-cheng-ben-kan-fan/"/>
+      <url>/wan-ke-yun-zuo-qing-nas-di-cheng-ben-kan-fan/</url>
+      
+      
+      <categories>
+          
+          <category> 知识分享 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 玩客云 </tag>
+            
+            <tag> NAS </tag>
+            
+            <tag> Docker </tag>
+            
+            <tag> CasaOS </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>交换机的工作原理</title>
+      <link href="/jiao-huan-ji-de-gong-zuo-yuan-li/"/>
+      <url>/jiao-huan-ji-de-gong-zuo-yuan-li/</url>
+      
+      
+      <categories>
+          
+          <category> 网络基础 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 网络安全 </tag>
+            
+            <tag> 网络技术 </tag>
+            
+            <tag> 交换机 </tag>
+            
+            <tag> ARP </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>在windows11下用wsl2安装Ubuntu子系统安装kvm运行macos</title>
+      <link href="/zai-windows11-xia-yong-wsl2-an-zhuang-ubuntu-zi-xi-tong-an-zhuang-kvm-yun-xing-macos/"/>
+      <url>/zai-windows11-xia-yong-wsl2-an-zhuang-ubuntu-zi-xi-tong-an-zhuang-kvm-yun-xing-macos/</url>
+      
+      
+      <categories>
+          
+          <category> 虚拟机 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> WSL2 </tag>
+            
+            <tag> KVM </tag>
+            
+            <tag> macOS </tag>
+            
+            <tag> Ubuntu </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>LOIC工具的介绍与使用</title>
+      <link href="/loic-gong-ju-de-jie-shao-yu-shi-yong/"/>
+      <url>/loic-gong-ju-de-jie-shao-yu-shi-yong/</url>
+      
+      
+      <categories>
+          
+          <category> 网络基础 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 网络安全 </tag>
+            
+            <tag> 压力测试 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Scrapy 安装与部署详细教程</title>
+      <link href="/scrapy-an-zhuang-yu-bu-shu-xiang-xi-jiao-cheng/"/>
+      <url>/scrapy-an-zhuang-yu-bu-shu-xiang-xi-jiao-cheng/</url>
+      
+      
+      <categories>
+          
+          <category> Python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Scrapy </tag>
+            
+            <tag> 爬虫 </tag>
+            
+            <tag> Python </tag>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Scrapy 安装与部署详细教程</title>
+      <link href="/scrapy-an-zhuang-yu-bu-shu-xiang-xi-jiao-cheng/"/>
+      <url>/scrapy-an-zhuang-yu-bu-shu-xiang-xi-jiao-cheng/</url>
+      
+      
+      <categories>
+          
+          <category> Python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Scrapy </tag>
+            
+            <tag> 爬虫 </tag>
+            
+            <tag> Python </tag>
+            
+            <tag> Linux </tag>
+            
+            <tag> Windows </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>vm虚拟机安装教程</title>
+      <link href="/vm-xu-ni-ji-an-zhuang-jiao-cheng/"/>
+      <url>/vm-xu-ni-ji-an-zhuang-jiao-cheng/</url>
+      
+      
+      <categories>
+          
+          <category> 虚拟机 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 虚拟机 </tag>
+            
+            <tag> VMware </tag>
+            
+            <tag> Windows </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>走进 Markdown 的世界</title>
+      <link href="/zou-jin-markdown-de-shi-jie/"/>
+      <url>/zou-jin-markdown-de-shi-jie/</url>
+      
+      
+      <categories>
+          
+          <category> 前端开发 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 博客搭建 </tag>
+            
+            <tag> Markdown </tag>
+            
+            <tag> 前端开发 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>全国数学建模大赛E题专科组解题思路（附代码）</title>
+      <link href="/quan-guo-shu-xue-jian-mo-da-sai-e-ti-zhuan-ke-zu-jie-ti-si-lu-fu-dai-ma/"/>
+      <url>/quan-guo-shu-xue-jian-mo-da-sai-e-ti-zhuan-ke-zu-jie-ti-si-lu-fu-dai-ma/</url>
+      
+      
+      <categories>
+          
+          <category> 大学生涯 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+            <tag> 数学建模 </tag>
+            
+            <tag> 全国数学建模大赛 </tag>
+            
+            <tag> 数据分析 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hexo如何写文章</title>
+      <link href="/hexo-ru-he-xie-wen-zhang/"/>
+      <url>/hexo-ru-he-xie-wen-zhang/</url>
+      
+      
+      <categories>
+          
+          <category> 前端开发 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Hexo </tag>
+            
+            <tag> 博客搭建 </tag>
+            
+            <tag> Markdown </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hexo疑难解答</title>
+      <link href="/hexo-yi-nan-jie-da/"/>
+      <url>/hexo-yi-nan-jie-da/</url>
+      
+      
+      <categories>
+          
+          <category> 前端开发 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Hexo </tag>
+            
+            <tag> 博客搭建 </tag>
+            
+            <tag> 前端开发 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hexo主题配置教程</title>
+      <link href="/hexo-zhu-ti-pei-zhi-jiao-cheng/"/>
+      <url>/hexo-zhu-ti-pei-zhi-jiao-cheng/</url>
+      
+      
+      <categories>
+          
+          <category> 前端开发 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Hexo </tag>
+            
+            <tag> 博客搭建 </tag>
+            
+            <tag> 主题配置 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>使用 Hexo + GitHub Pages 搭建个人网站</title>
+      <link href="/shi-yong-hexo-github-pages-da-jian-ge-ren-wang-zhan/"/>
+      <url>/shi-yong-hexo-github-pages-da-jian-ge-ren-wang-zhan/</url>
+      
+      
+      <categories>
+          
+          <category> 前端开发 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Hexo </tag>
+            
+            <tag> GitHub Pages </tag>
+            
+            <tag> 个人博客 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>关于网站</title>
+      <link href="/guan-yu-wang-zhan/"/>
+      <url>/guan-yu-wang-zhan/</url>
+      
+      
+      <categories>
+          
+          <category> 生活日常 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Hexo </tag>
+            
+            <tag> 网站搭建 </tag>
+            
+            <tag> Node.js </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+</search>
