@@ -21,7 +21,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
 
       - name: Install dependencies
         run: npm install
@@ -31,10 +30,12 @@ jobs:
 
       - name: Deploy to GitHub Pages
         run: |
-          cd ./public
-          git init
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git clone --depth 1 --branch main https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/tenxiaodao/tenxiaodao.github.io.git deploy
+          rm -rf deploy/*
+          cp -r public/* deploy/
+          cd deploy
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
           git add -A
-          git commit -m "deploy: ${{ github.sha }}"
-          git push --force https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/tenxiaodao/tenxiaodao.github.io.git HEAD:main
+          git commit -m "deploy: ${{ github.sha }}" || exit 0
+          git push

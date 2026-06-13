@@ -101,7 +101,7 @@ theme: anzhiyu
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
-  repo: https://github.com/tenxiaodao/tenxiaodao.github.io.git
+  repo: git@github.com:tenxiaodao/tenxiaodao.github.io.git
   branch: main
 #单个文件夹下的全部文件,把文件放到HTML文件夹下不会被Hexo处理
 skip_render:
