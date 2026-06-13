@@ -1,8 +1,7 @@
-node_modules
-
-# Build artifacts
-db.json
+node_modules/
 public/
 .deploy_git/
-npminstall-debug.log
-package-lock.json
+db.json
+*.log
+.DS_Store
+.github/
