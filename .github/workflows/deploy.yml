@@ -30,10 +30,11 @@ jobs:
         run: npx hexo generate
 
       - name: Deploy to GitHub Pages
-        env:
-          GIT_USER: github-actions[bot]
-          GIT_PASS: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          cd ./public
+          git init
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          npx hexo deploy
+          git add -A
+          git commit -m "deploy: ${{ github.sha }}"
+          git push --force https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/tenxiaodao/tenxiaodao.github.io.git HEAD:main
