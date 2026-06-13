@@ -188,30 +188,16 @@ window.addEventListener("load", () => {
                 dataTitle = dataTitle.replace(regS, '<span class="search-keyword">' + keyword + "</span>");
               });
 
-              str += '<div class="local-search__hit-item">';
-              if (oneImage) {
-                str += `<div class="search-left"><img src=${oneImage} alt=${dataTitle} data-fancybox='gallery'>`;
-              } else {
-                str += '<div class="search-left" style="width:0">';
-              }
+             str += '<div class="local-search__hit-item">';
+             str += '<div class="search-left" style="width:0">';
 
-              str += "</div>";
+             str += "</div>";
 
-             if (oneImage) {
-               str +=
-                 '<div class="search-right"><span class="search-result-title" style="cursor:pointer;color:var(--search-result-color, var(--anzhiyu-main))" data-url="' +
-                 dataUrl +
-                 '">' +
-                 dataTitle +
-                 "</span>";
-             } else {
-               str +=
-                  '<div class="search-right" style="width: 100%"><span class="search-result-title" style="cursor:pointer;color:var(--search-result-color, var(--anzhiyu-main))" data-url="' +
-                 dataUrl +
-                  '">' +
-                 dataTitle +
-                  "</span>";
-              }
+                '<div class="search-right" style="width: 100%"><span class="search-result-title" style="cursor:pointer;color:var(--search-result-color, var(--anzhiyu-main))" data-url="' +
+                dataUrl +
+                '">' +
+                dataTitle +
+                "</span>";
 
               count += 1;
 
