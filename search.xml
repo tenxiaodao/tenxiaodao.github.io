@@ -13,7 +13,7 @@
       
       <categories>
           
-          <category> 技术分享 </category>
+          <category> DevOps </category>
           
       </categories>
       
@@ -44,7 +44,7 @@
       
       <categories>
           
-          <category> 技术分享 </category>
+          <category> DevOps </category>
           
       </categories>
       
@@ -75,7 +75,7 @@
       
       <categories>
           
-          <category> 技术分享 </category>
+          <category> DevOps </category>
           
       </categories>
       
@@ -104,7 +104,7 @@
       
       <categories>
           
-          <category> 黑苹果 </category>
+          <category> 苹果生态 </category>
           
       </categories>
       
@@ -123,7 +123,7 @@
       
       <categories>
           
-          <category> 黑苹果 </category>
+          <category> 苹果生态 </category>
           
       </categories>
       
@@ -142,7 +142,7 @@
       
       <categories>
           
-          <category> 开发 </category>
+          <category> 开发实战 </category>
           
       </categories>
       
@@ -161,7 +161,7 @@
       
       <categories>
           
-          <category> 技术分享 </category>
+          <category> 苹果生态 </category>
           
       </categories>
       
@@ -190,7 +190,7 @@
       
       <categories>
           
-          <category> 知识分享 </category>
+          <category> 工具资源 </category>
           
       </categories>
       
@@ -210,12 +210,12 @@
       <link href="/ru-he-zai-wei-xin-li-bu-shu-ai-nv-you-kourichat-jiao-cheng/"/>
       <url>/ru-he-zai-wei-xin-li-bu-shu-ai-nv-you-kourichat-jiao-cheng/</url>
       
-        <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>简要记录一次在 Windows（VMware 虚拟机）上部署 KouriChat 并接入微信的实践过程，侧重环境准备、安装启动、API 配置与注意事项。本文仅供学习与研究，请务必在可控的小号&#x2F;测试环境中操作。</p><hr><h2 id="项目简介：KouriChat（概述）"><a href="#项目简介：KouriChat（概述）" class="headerlink" title="项目简介：KouriChat（概述）"></a>项目简介：KouriChat（概述）</h2><p>KouriChat 是一款支持本地部署的 AI 聊天助手框架，特点：</p><ul><li>支持多模型与本地运行，隐私友好；  </li><li>支持角色设定、多轮记忆与定制化回复；  </li><li>提供微信接入接口，可把助手绑定到微信对话（需谨慎使用）。</li></ul><hr><h2 id="环境准备（最小要求）"><a href="#环境准备（最小要求）" class="headerlink" title="环境准备（最小要求）"></a>环境准备（最小要求）</h2><ul><li>操作系统：Windows 10（示例环境：VMware 中的 Win10 22H2）  </li><li>Python：3.11.x（64-bit）已安装并加入 PATH  </li><li>网络：稳定的互联网连接（用于 pip 安装依赖与模型 API 调用）  </li><li>硬件：4GB 内存可运行基础部署（仅做测试）</li></ul><p>常用检查：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python --version</span><br><span class="line"><span class="comment"># 应输出 Python 3.11.x</span></span><br></pre></td></tr></table></figure><hr><h2 id="安装与启动（快速步骤）"><a href="#安装与启动（快速步骤）" class="headerlink" title="安装与启动（快速步骤）"></a>安装与启动（快速步骤）</h2><ol><li>解压项目：<ul><li>将 KouriChat-1.4.3.2.zip 解压到目标目录。</li></ul></li><li>进入目录并运行：<ul><li>双击 <code>run.bat</code>（或在 PowerShell&#x2F;CMD 里执行）。  </li><li>脚本会创建虚拟环境并安装依赖（使用国内镜像会更快）。</li></ul></li><li>启动完成后访问：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:8502</span><br></pre></td></tr></table></figure>若浏览器未自动打开，可手动访问上述地址；出现页面即表示服务已启动。</li></ol><hr><h2 id="核心配置（Admin-页面）"><a href="#核心配置（Admin-页面）" class="headerlink" title="核心配置（Admin 页面）"></a>核心配置（Admin 页面）</h2><ol><li>首次访问，按页面提示设置管理员密码。  </li><li>进入「配置中心」→ 基础配置：添加要监听的用户（填写“昵称”，不是备注或微信号）。  </li><li>在 AI 接入处选择 API 提供方（以 DeepSeek 为例），填写 API 地址与密钥（下一节详述）。  </li><li>保存并生效，回到主界面执行“微信掉线重连”与“启动”操作。</li></ol><hr><h2 id="获取-DeepSeek-API-Key（示例）"><a href="#获取-DeepSeek-API-Key（示例）" class="headerlink" title="获取 DeepSeek API Key（示例）"></a>获取 DeepSeek API Key（示例）</h2><ol><li>访问： <a href="https://platform.deepseek.com/">https://platform.deepseek.com</a>  </li><li>登录后进入 <code>API keys</code> → 创建新 key → 复制保存（仅显示一次）  </li><li>在 KouriChat 的配置页面填入 API 地址与密钥：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">API 地址: https://api.deepseek.com/v1</span><br><span class="line">模型: deepseek-chat</span><br></pre></td></tr></table></figure></li></ol><hr><h2 id="微信接入与重要风险提示"><a href="#微信接入与重要风险提示" class="headerlink" title="微信接入与重要风险提示"></a>微信接入与重要风险提示</h2><ul><li>目前微信客户端与平台会不断升级与风控，某些接入方式可能随版本不可用或存在账号风险。  </li><li>强烈建议仅使用小号&#x2F;测试号进行试验，切勿在主账号上测试。  </li><li>本文不提供规避官方风控的方法；任何导致账号异常的后果由使用者自行承担。</li></ul><p>推荐操作流程：</p><ol><li>使用小号登录并确认能正常收发消息。  </li><li>在 KouriChat 中配置监听昵称并启动机器人。  </li><li>观察控制台日志与模型调用返回，确认消息转发与回复流程正常。</li></ol><hr><h2 id="常见问题与排查要点"><a href="#常见问题与排查要点" class="headerlink" title="常见问题与排查要点"></a>常见问题与排查要点</h2><ul><li>启动失败：检查 Python 版本、虚拟环境创建日志与 pip 依赖安装错误。  </li><li>无法访问 localhost:8502：确认防火墙规则、服务是否已启动。  </li><li>微信无法正常接入：检查微信客户端版本与 KouriChat 支持的接入方式，尝试使用提供的兼容资源或官方文档建议的办法。  </li><li>模型调用失败：核对 API key、API 地址与配额&#x2F;余额情况。</li></ul><p>常用排查命令（Windows PowerShell）：</p><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看 8502 端口是否被监听</span></span><br><span class="line">netstat <span class="literal">-ano</span> | findstr <span class="number">8502</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看 Python 进程与虚拟环境日志（按项目实际路径）</span></span><br><span class="line"><span class="built_in">type</span> .\logs\kourichat.log</span><br></pre></td></tr></table></figure><hr><h2 id="安全与合规建议（必读）"><a href="#安全与合规建议（必读）" class="headerlink" title="安全与合规建议（必读）"></a>安全与合规建议（必读）</h2><ul><li>请仅用于学习、研究或获得授权的场景；避免在未经允许的环境中抓取或保存他人隐私数据。  </li><li>不要尝试绕过服务提供方或平台的安全机制。  </li><li>对可能触发风控的自动化行为保持谨慎（频率、内容等）。</li></ul><hr><h2 id="后续扩展（可选方向）"><a href="#后续扩展（可选方向）" class="headerlink" title="后续扩展（可选方向）"></a>后续扩展（可选方向）</h2><ul><li>将 KouriChat 暴露到公网（通过反向代理 &#x2F; 隧道服务），注意认证与 HTTPS。  </li><li>用更强的本地模型替代云 API（如果硬件与许可允许）。  </li><li>集成消息队列以提高并发与稳定性。</li></ul><hr><h2 id="参考与资源"><a href="#参考与资源" class="headerlink" title="参考与资源"></a>参考与资源</h2><ul><li>KouriChat 官方 &#x2F; 仓库（请以项目主页为准）  </li><li>DeepSeek 平台： <a href="https://platform.deepseek.com/">https://platform.deepseek.com</a></li></ul><hr><h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>本文整理了在 VM&#x2F;Windows 环境下把 KouriChat 启动并接入微信的基础流程与要点。再次提醒：请在受控的测试环境和小号中进行尝试，注意账号与数据安全。如需我把“公网穿透配置”或“VirtualBox&#x2F;VMware 下的详细环境配置”单独展开，回复说明即可。</p>]]></content>
+        <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>简要记录一次在 Windows（VMware 虚拟机）上部署 KouriChat 并接入微信的实践过程，侧重环境准备、安装启动、API 配置与注意事项。本文仅供学习与研究，请务必在可控的小号&#x2F;测试环境中操作。</p><hr><h2 id="项目简介：KouriChat（概述）"><a href="#项目简介：KouriChat（概述）" class="headerlink" title="项目简介：KouriChat（概述）"></a>项目简介：KouriChat（概述）</h2><p>KouriChat 是一款支持本地部署的 AI 聊天助手框架，特点：</p><ul><li>支持多模型与本地运行，隐私友好；  </li><li>支持角色设定、多轮记忆与定制化回复；  </li><li>提供微信接入接口，可把助手绑定到微信对话（需谨慎使用）。</li></ul><hr><h2 id="环境准备（最小要求）"><a href="#环境准备（最小要求）" class="headerlink" title="环境准备（最小要求）"></a>环境准备（最小要求）</h2><ul><li>操作系统：Windows 10（示例环境：VMware 中的 Win10 22H2）  </li><li>Python：3.11.x（64-bit）已安装并加入 PATH  </li><li>网络：稳定的互联网连接（用于 pip 安装依赖与模型 API 调用）  </li><li>硬件：4GB 内存可运行基础部署（仅做测试）</li></ul><p>常用检查：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python --version</span><br><span class="line"><span class="comment"># 应输出 Python 3.11.x</span></span><br></pre></td></tr></table></figure><hr><h2 id="安装与启动（快速步骤）"><a href="#安装与启动（快速步骤）" class="headerlink" title="安装与启动（快速步骤）"></a>安装与启动（快速步骤）</h2><ol><li>解压项目：<ul><li>将 KouriChat-1.4.3.2.zip 解压到目标目录（项目从 GitHub Release 页面下载：<a href="https://github.com/KouriChat/KouriChat/releases%EF%BC%89%E3%80%82">https://github.com/KouriChat/KouriChat/releases）。</a></li></ul></li><li>进入目录并运行：<ul><li>双击 <code>run.bat</code>（或在 PowerShell&#x2F;CMD 里执行）。  </li><li>脚本会创建虚拟环境并安装依赖（使用国内镜像会更快）。</li></ul></li><li>启动完成后访问：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:8502</span><br></pre></td></tr></table></figure>若浏览器未自动打开，可手动访问上述地址；出现页面即表示服务已启动。</li></ol><hr><h2 id="核心配置（Admin-页面）"><a href="#核心配置（Admin-页面）" class="headerlink" title="核心配置（Admin 页面）"></a>核心配置（Admin 页面）</h2><ol><li>首次访问，按页面提示设置管理员密码。  </li><li>进入「配置中心」→ 基础配置：添加要监听的用户（填写“昵称”，不是备注或微信号）。  </li><li>在 AI 接入处选择 API 提供方（以 DeepSeek 为例），填写 API 地址与密钥（下一节详述）。  </li><li>保存并生效，回到主界面执行“微信掉线重连”与“启动”操作。</li></ol><hr><h2 id="获取-DeepSeek-API-Key（示例）"><a href="#获取-DeepSeek-API-Key（示例）" class="headerlink" title="获取 DeepSeek API Key（示例）"></a>获取 DeepSeek API Key（示例）</h2><ol><li>访问： <a href="https://platform.deepseek.com/">https://platform.deepseek.com</a>  </li><li>登录后进入 <code>API keys</code> → 创建新 key → 复制保存（仅显示一次）  </li><li>在 KouriChat 的配置页面填入 API 地址与密钥：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">API 地址: https://api.deepseek.com/v1</span><br><span class="line">模型: deepseek-chat</span><br></pre></td></tr></table></figure></li></ol><hr><h2 id="微信接入与重要风险提示"><a href="#微信接入与重要风险提示" class="headerlink" title="微信接入与重要风险提示"></a>微信接入与重要风险提示</h2><ul><li>目前微信客户端与平台会不断升级与风控，某些接入方式可能随版本不可用或存在账号风险。  </li><li>强烈建议仅使用小号&#x2F;测试号进行试验，切勿在主账号上测试。  </li><li>本文不提供规避官方风控的方法；任何导致账号异常的后果由使用者自行承担。</li></ul><p>推荐操作流程：</p><ol><li>使用小号登录并确认能正常收发消息。  </li><li>在 KouriChat 中配置监听昵称并启动机器人。  </li><li>观察控制台日志与模型调用返回，确认消息转发与回复流程正常。</li></ol><hr><h2 id="常见问题与排查要点"><a href="#常见问题与排查要点" class="headerlink" title="常见问题与排查要点"></a>常见问题与排查要点</h2><ul><li>启动失败：检查 Python 版本、虚拟环境创建日志与 pip 依赖安装错误。  </li><li>无法访问 localhost:8502：确认防火墙规则、服务是否已启动。  </li><li>微信无法正常接入：检查微信客户端版本是否在 KouriChat 支持的范围内。KouriChat 通过自动化接口与微信桌面客户端通信，首次连接时需扫码登录。遇到连接失败，可尝试以下步骤：<ul><li>确保微信桌面客户端已登录且保持在前台运行</li><li>在 KouriChat 后台执行 “微信掉线重连” 操作</li><li>如仍不成功，查看控制台日志定位具体错误信息</li></ul></li><li>模型调用失败：核对 API key、API 地址与配额&#x2F;余额情况。</li></ul><p>常用排查命令（Windows PowerShell）：</p><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看 8502 端口是否被监听</span></span><br><span class="line">netstat <span class="literal">-ano</span> | findstr <span class="number">8502</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看 Python 进程与虚拟环境日志（按项目实际路径）</span></span><br><span class="line"><span class="built_in">type</span> .\logs\kourichat.log</span><br></pre></td></tr></table></figure><hr><h2 id="安全与合规建议（必读）"><a href="#安全与合规建议（必读）" class="headerlink" title="安全与合规建议（必读）"></a>安全与合规建议（必读）</h2><ul><li>请仅用于学习、研究或获得授权的场景；避免在未经允许的环境中抓取或保存他人隐私数据。  </li><li>不要尝试绕过服务提供方或平台的安全机制。  </li><li>对可能触发风控的自动化行为保持谨慎（频率、内容等）。</li></ul><hr><h2 id="后续扩展（可选方向）"><a href="#后续扩展（可选方向）" class="headerlink" title="后续扩展（可选方向）"></a>后续扩展（可选方向）</h2><ul><li>将 KouriChat 暴露到公网（通过反向代理 &#x2F; 隧道服务），注意认证与 HTTPS。  </li><li>用更强的本地模型替代云 API（如果硬件与许可允许）。  </li><li>集成消息队列以提高并发与稳定性。</li></ul><hr><h2 id="参考与资源"><a href="#参考与资源" class="headerlink" title="参考与资源"></a>参考与资源</h2><ul><li>KouriChat 官方仓库：<a href="https://github.com/KouriChat/KouriChat">https://github.com/KouriChat/KouriChat</a></li><li>KouriChat Release 下载：<a href="https://github.com/KouriChat/KouriChat/releases">https://github.com/KouriChat/KouriChat/releases</a>  </li><li>DeepSeek 平台： <a href="https://platform.deepseek.com/">https://platform.deepseek.com</a></li></ul><hr><h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>本文整理了在 VM&#x2F;Windows 环境下把 KouriChat 启动并接入微信的基础流程与要点。再次提醒：请在受控的测试环境和小号中进行尝试，注意账号与数据安全。如需我把“公网穿透配置”或“VirtualBox&#x2F;VMware 下的详细环境配置”单独展开，回复说明即可。</p>]]></content>
       
       
       <categories>
           
-          <category> Linux </category>
+          <category> AI 探索 </category>
           
       </categories>
       
@@ -260,19 +260,31 @@
     
     
     <entry>
-      <title>有时候爱上一座城市，仅仅是因为爱上这座城市里的某个人</title>
-      <link href="/sometimes-love-a-city-because-of-someone/"/>
-      <url>/sometimes-love-a-city-because-of-someone/</url>
+      <title>如何制作便签墙网站（附完整代码）</title>
+      <link href="/sticky-note-wall/"/>
+      <url>/sticky-note-wall/</url>
       
-        <content type="html"><![CDATA[<blockquote><p>“也许真的会有那么一天，我会为自己今天的选择而后悔。”（第93章）<br>“有时候真想，吹一阵风，打个盹就把一辈子给过完。”（第68章）<br><a href="http://tenxiaodao.top/HTML/BQQ.html">照顾好自己</a></p></blockquote>]]></content>
+        <content type="html"><![CDATA[<blockquote><p>一个支持拖拽、变色、自动保存的便签墙小工具，纯前端实现，无需后端。</p></blockquote><p>前段时间用纯 HTML + CSS + JavaScript 做了一个便签墙页面，可以在上面随意添加、拖拽、编辑彩色便签，所有数据保存在浏览器本地。这篇文章记录一下实现思路和核心代码。</p><p>在线体验：<a href="/HTML/BQQ.html">便签墙 Demo</a></p><hr><h2 id="功能一览"><a href="#功能一览" class="headerlink" title="功能一览"></a>功能一览</h2><ul><li><strong>添加便签</strong> — 点击加号按钮创建新便签</li><li><strong>拖拽移动</strong> — 随意拖拽便签到任意位置</li><li><strong>颜色切换</strong> — 每个便签可选不同颜色</li><li><strong>内容编辑</strong> — 点击便签内容区域即可编辑文字</li><li><strong>自动保存</strong> — 所有便签数据自动存入 localStorage，刷新不丢失</li><li><strong>响应式</strong> — 手机端适配，平板和桌面使用体验不同</li></ul><hr><h2 id="技术栈"><a href="#技术栈" class="headerlink" title="技术栈"></a>技术栈</h2><p>纯前端三件套，没有任何依赖：</p><ul><li>HTML5</li><li>CSS3（Flexbox、Grid、渐变、动画）</li><li>Vanilla JavaScript（ES6+）</li></ul><hr><h2 id="核心实现"><a href="#核心实现" class="headerlink" title="核心实现"></a>核心实现</h2><h3 id="HTML-结构"><a href="#HTML-结构" class="headerlink" title="HTML 结构"></a>HTML 结构</h3><p>一个画板容器 <code>#board</code>，所有便签卡片动态渲染。添加按钮用固定定位悬浮在右下角。</p><h3 id="CSS-重点"><a href="#CSS-重点" class="headerlink" title="CSS 重点"></a>CSS 重点</h3><p><strong>网格背景</strong> 用 CSS 渐变实现，不需要额外图片：</p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">background-image</span>: <span class="built_in">linear-gradient</span>(<span class="number">0deg</span>, <span class="number">#eee</span> <span class="number">1px</span>, transparent <span class="number">0</span>),</span><br><span class="line">    <span class="built_in">linear-gradient</span>(<span class="number">90deg</span>, <span class="number">#eee</span> <span class="number">1px</span>, transparent <span class="number">0</span>);</span><br><span class="line">  <span class="attribute">background-size</span>: <span class="number">30px</span> <span class="number">30px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><strong>便签卡片</strong> 用绝对定位，阴影和圆角营造质感：</p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.card</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">220px</span>;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">12px</span>;</span><br><span class="line">  <span class="attribute">box-shadow</span>: <span class="number">0</span> <span class="number">16px</span> <span class="number">35px</span> <span class="built_in">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0.2</span>);</span><br><span class="line">  <span class="attribute">overflow</span>: hidden;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="JavaScript-核心逻辑"><a href="#JavaScript-核心逻辑" class="headerlink" title="JavaScript 核心逻辑"></a>JavaScript 核心逻辑</h3><p><strong>添加便签</strong> 创建一个新的卡片元素，随机分配颜色，插入到画板中：</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">addNote</span>(<span class="params">text = <span class="string">&#x27;新便签&#x27;</span>, color = getRandomColor()</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> card = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;div&#x27;</span>);</span><br><span class="line">  card.<span class="property">className</span> = <span class="string">&#x27;card&#x27;</span>;</span><br><span class="line">  card.<span class="property">style</span>.<span class="property">background</span> = color;</span><br><span class="line">  <span class="comment">// ... 设置位置、内容、绑定拖拽事件</span></span><br><span class="line">  board.<span class="title function_">appendChild</span>(card);</span><br><span class="line">  <span class="title function_">saveNotes</span>(); <span class="comment">// 自动保存</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><strong>拖拽功能</strong> 监听 mousedown &#x2F; mousemove &#x2F; mouseup，更新卡片的 left &#x2F; top 值：</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">card.<span class="title function_">addEventListener</span>(<span class="string">&#x27;mousedown&#x27;</span>, <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">  isDragging = <span class="literal">true</span>;</span><br><span class="line">  <span class="comment">// 记录鼠标偏移量</span></span><br><span class="line">  offsetX = e.<span class="property">clientX</span> - card.<span class="property">offsetLeft</span>;</span><br><span class="line">  offsetY = e.<span class="property">clientY</span> - card.<span class="property">offsetTop</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">document</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;mousemove&#x27;</span>, <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (!isDragging) <span class="keyword">return</span>;</span><br><span class="line">  card.<span class="property">style</span>.<span class="property">left</span> = (e.<span class="property">clientX</span> - offsetX) + <span class="string">&#x27;px&#x27;</span>;</span><br><span class="line">  card.<span class="property">style</span>.<span class="property">top</span> = (e.<span class="property">clientY</span> - offsetY) + <span class="string">&#x27;px&#x27;</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure><p><strong>数据持久化</strong> 用 JSON 序列化所有便签的位置、内容、颜色，存入 localStorage：</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">saveNotes</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> notes = [];</span><br><span class="line">  <span class="variable language_">document</span>.<span class="title function_">querySelectorAll</span>(<span class="string">&#x27;.card&#x27;</span>).<span class="title function_">forEach</span>(<span class="function"><span class="params">el</span> =&gt;</span> &#123;</span><br><span class="line">    notes.<span class="title function_">push</span>(&#123;</span><br><span class="line">      <span class="attr">content</span>: el.<span class="title function_">querySelector</span>(<span class="string">&#x27;.content&#x27;</span>).<span class="property">innerText</span>,</span><br><span class="line">      <span class="attr">color</span>: el.<span class="property">style</span>.<span class="property">background</span>,</span><br><span class="line">      <span class="attr">x</span>: el.<span class="property">offsetLeft</span>,</span><br><span class="line">      <span class="attr">y</span>: el.<span class="property">offsetTop</span>,</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="variable language_">localStorage</span>.<span class="title function_">setItem</span>(<span class="string">&#x27;notes&#x27;</span>, <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(notes));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><hr><h2 id="如何自己搭建"><a href="#如何自己搭建" class="headerlink" title="如何自己搭建"></a>如何自己搭建</h2><ol><li>创建一个 <code>.html</code> 文件</li><li>复制完整代码（见页面源码）粘贴进去</li><li>用浏览器打开即可使用</li></ol><p>你也可以访问在线版本直接体验：<a href="/HTML/BQQ.html">便签墙 Demo</a></p><hr><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这个便签墙项目的全部代码不到 300 行，很适合前端初学者练手。核心知识覆盖了 DOM 操作、事件监听、拖拽逻辑、localStorage 读写——全是日常开发最常用的技能。</p><p>如果你想在此基础上扩展，可以考虑加：</p><ul><li>便签缩放&#x2F;旋转</li><li>多画板支持</li><li>导出为图片</li><li>协同编辑（WebSocket）</li></ul>]]></content>
       
       
       <categories>
           
-          <category> 随笔 </category>
+          <category> 开发实战 </category>
           
       </categories>
       
+      
+        <tags>
+            
+            <tag> HTML </tag>
+            
+            <tag> CSS </tag>
+            
+            <tag> JavaScript </tag>
+            
+            <tag> 前端 </tag>
+            
+        </tags>
       
     </entry>
     
@@ -375,7 +387,7 @@
       
       <categories>
           
-          <category> 前端开发 </category>
+          <category> Hexo </category>
           
       </categories>
       
@@ -404,7 +416,7 @@
       
       <categories>
           
-          <category> 生活日常 </category>
+          <category> 开发实战 </category>
           
       </categories>
       
@@ -433,7 +445,7 @@
       
       <categories>
           
-          <category> 办公软件 </category>
+          <category> 工具资源 </category>
           
       </categories>
       
@@ -458,7 +470,7 @@
       
       <categories>
           
-          <category> 系统镜像 </category>
+          <category> 工具资源 </category>
           
       </categories>
       
@@ -483,7 +495,7 @@
       
       <categories>
           
-          <category> 网络基础 </category>
+          <category> 网络运维 </category>
           
       </categories>
       
@@ -512,7 +524,7 @@
       
       <categories>
           
-          <category> 网络基础 </category>
+          <category> 网络运维 </category>
           
       </categories>
       
@@ -541,7 +553,7 @@
       
       <categories>
           
-          <category> 知识分享 </category>
+          <category> 网络运维 </category>
           
       </categories>
       
@@ -572,7 +584,7 @@
       
       <categories>
           
-          <category> 网络基础 </category>
+          <category> 网络运维 </category>
           
       </categories>
       
@@ -603,7 +615,7 @@
       
       <categories>
           
-          <category> 虚拟机 </category>
+          <category> 苹果生态 </category>
           
       </categories>
       
@@ -634,7 +646,7 @@
       
       <categories>
           
-          <category> 网络基础 </category>
+          <category> 网络运维 </category>
           
       </categories>
       
@@ -661,7 +673,7 @@
       
       <categories>
           
-          <category> Python </category>
+          <category> 开发实战 </category>
           
       </categories>
       
@@ -692,7 +704,7 @@
       
       <categories>
           
-          <category> Python </category>
+          <category> 开发实战 </category>
           
       </categories>
       
@@ -725,7 +737,7 @@
       
       <categories>
           
-          <category> 虚拟机 </category>
+          <category> 工具资源 </category>
           
       </categories>
       
@@ -754,7 +766,7 @@
       
       <categories>
           
-          <category> 前端开发 </category>
+          <category> Hexo </category>
           
       </categories>
       
@@ -783,7 +795,7 @@
       
       <categories>
           
-          <category> 大学生涯 </category>
+          <category> 开发实战 </category>
           
       </categories>
       
@@ -814,7 +826,7 @@
       
       <categories>
           
-          <category> 前端开发 </category>
+          <category> Hexo </category>
           
       </categories>
       
@@ -843,7 +855,7 @@
       
       <categories>
           
-          <category> 前端开发 </category>
+          <category> Hexo </category>
           
       </categories>
       
@@ -872,7 +884,7 @@
       
       <categories>
           
-          <category> 前端开发 </category>
+          <category> Hexo </category>
           
       </categories>
       
@@ -901,7 +913,7 @@
       
       <categories>
           
-          <category> 前端开发 </category>
+          <category> Hexo </category>
           
       </categories>
       
@@ -930,7 +942,7 @@
       
       <categories>
           
-          <category> 生活日常 </category>
+          <category> Hexo </category>
           
       </categories>
       
