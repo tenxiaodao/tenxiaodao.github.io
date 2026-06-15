@@ -7,6 +7,7 @@ tags:
   - 运维
 cover: https://bu.dusays.com/2025/10/22/68f8a07a013b1.webp
 categories: Linux
+series: Linux 入门系列
 permalink: /openeuler-chang-yong-ming-ling-yu-guan-li-zhi-nan/
 slug: openeuler-chang-yong-ming-ling-yu-guan-li-zhi-nan
 ---

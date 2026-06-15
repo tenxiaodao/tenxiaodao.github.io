@@ -4,7 +4,7 @@ date: 2025-04-07 20:14:58
 tags:
     - office
 
-categories: 办公软件
+categories: 工具资源
 permalink: /office-wps-xia-zai/
 slug: office-wps-xia-zai
 

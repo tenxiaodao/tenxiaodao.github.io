@@ -7,7 +7,8 @@ tags:
   - CI/CD
   - 自动化部署
   - Hexo
-categories: 技术分享
+categories: DevOps
+series: CI/CD 系列
 cover: https://bu.dusays.com/2025/10/22/68f8a07866ac7.webp
 aside: false
 sticky: false

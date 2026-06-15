@@ -7,7 +7,8 @@ tags:
   - TCP
   - UDP
 cover: https://bu.dusays.com/2025/10/18/68f395ae9d968.webp
-categories: 网络基础
+categories: 网络运维
+series: 网络基础系列
 permalink: /tcp-yu-udp-de-qu-bie/
 slug: tcp-yu-udp-de-qu-bie
 sticky:

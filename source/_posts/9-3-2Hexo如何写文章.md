@@ -2,7 +2,8 @@
 title: Hexo如何写文章
 date: 2024-09-04 09:53:21
 cover: https://bu.dusays.com/2025/10/18/68f395b055ed7.webp
-categories: 前端开发
+categories: Hexo
+series: Hexo 系列
 permalink: /hexo-ru-he-xie-wen-zhang/
 slug: hexo-ru-he-xie-wen-zhang
 tags:

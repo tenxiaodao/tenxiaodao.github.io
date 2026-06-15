@@ -3,7 +3,7 @@ title: "opcloud的使用"
 date: 2026-03-16
 updated: 2026-03-16 12:00:00
 tags: 
-categories: 开发
+categories: 开发实战
 cover: https://bu.dusays.com/2026/03/30/69c9f53ac2bd7.webp
 aside: false
 sticky: 

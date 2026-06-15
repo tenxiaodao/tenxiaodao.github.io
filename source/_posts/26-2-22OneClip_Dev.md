@@ -2,7 +2,7 @@
 title: OneClip 开发经验分享：从零到一的 macOS 应用开发
 date: 2026-02-22 17:46:13
 tags: [macOS, SwiftUI, 开发经验]
-categories: 技术分享
+categories: 苹果生态
 permalink: /oneclip-kai-fa-jing-yan-fen-xiang-cong-ling-dao-yi-de-macos-ying-yong-kai-fa/
 slug: oneclip-kai-fa-jing-yan-fen-xiang-cong-ling-dao-yi-de-macos-ying-yong-kai-fa
 cover: https://bu.dusays.com/2025/10/17/68f1e2b2e976f.webp

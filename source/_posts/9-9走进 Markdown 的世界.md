@@ -6,7 +6,8 @@ tags:
   - 博客搭建
   - 前端开发
 cover: https://bu.dusays.com/2025/10/18/68f395b0a136b.webp
-categories: 前端开发
+categories: Hexo
+series: Hexo 系列
 permalink: /zou-jin-markdown-de-shi-jie/
 slug: zou-jin-markdown-de-shi-jie
 # comments: true

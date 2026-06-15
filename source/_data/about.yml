@@ -1,19 +1,19 @@
 - class_name: 关于页
-  subtitle: 成功只不过是隔着失败再试一次✨
+  subtitle: 只不过隔着失败再来一次✨
   avatarImg: /img/up.jpg
   avatarSkills:
     left:
       - 🤖️ 数码科技爱好者
       - 🔍 分享与热心帮助
       - 🏠 智能家居小能手
-      - 🔨 设计开发一条龙
+      - 🛠️ 数据中心搬砖人
     right:
-      - 专修交互与设计 🤝
-      - 脚踏实地行动派 🏃
-      - 团队小组发动机 🧱
-      - 壮汉人狠话不多 💢
-  name: 于浩喆 👨‍💻
-  description: 🅳️ 不务正业 | 生涯，爱好&学习/尝试&总结🅳️
+      - 运维网络两手抓 🏗️
+      - 家庭实验室折腾家 🏠
+      - 踩坑记录爱好者 ✍️
+      - 二次元指数 MAX 🌸
+  name: 于浩喆
+  description: 🅳️ 数据中心实习生 | macOS开发/网络运维/二次元 🅳️
 
   aboutsiteTips:
     tips: 追求
@@ -35,17 +35,17 @@
     tips: 生涯
     title: 不断学习
     list:
-      - desc: EDU, 计算机应用与技术
+      - desc: 中联数据集团 · 数据中心实习
         color: "#357ef5"
-      - desc: EDU, Linux开发
+      - desc: macOS 应用开发 · OneClip
         color: "#357ef5"
-      - desc: EDU, 网页开发
+      - desc: 个人博客运维 · Hexo + GitHub Pages
         color: "#357ef5"
-      - desc: EDU, 人工智能
+      - desc: Homelab 折腾 · NAS / 黑苹果 / 虚拟化
         color: "#357ef5"
-      - desc: EDU, 数据库技术
+      - desc: DevOps · CI/CD / GitHub Actions
         color: "#357ef5"
-      - desc: EDU, Web前端开发
+      - desc: 网络工程 · 交换机 / 端口聚合 / TCP/IP
         color: "#357ef5"
 
   statistic:
@@ -64,13 +64,13 @@
     selfInfoContentYear: 2005
     selfInfoTips2: 坐标
     selfInfoContentCountry: 中国
-    selfInfoContent2: 山西省大同市
+    selfInfoContent2: 山西大同
     selfInfoTips3: 在数据中心工作
-    selfInfoContent3: 还在实习 👨‍🎓
+    selfInfoContent3: 实习中 👨‍💻
 
   personalities:
-    author_name: ENFP-T
-    personality_type: 活动家
+    author_name: ESFJ-A
+    personality_type: 执政官
     photo_url: https://bu.dusays.com/2024/11/15/67370d8560923.jpg
     personality_img: https://npm.elemecdn.com/anzhiyu-blog@2.0.8/img/svg/ESFJ-A.svg
     name_url: https://www.16personalities.com/ch/esfj-%E4%BA%BA%E6%A0%BC

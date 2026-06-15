@@ -6,7 +6,8 @@ tags:
   - 博客搭建
   - 主题配置
 cover: https://bu.dusays.com/2025/10/18/68f395aa53d17.webp
-categories: 前端开发
+categories: Hexo
+series: Hexo 系列
 permalink: /hexo-zhu-ti-pei-zhi-jiao-cheng/
 slug: hexo-zhu-ti-pei-zhi-jiao-cheng
 

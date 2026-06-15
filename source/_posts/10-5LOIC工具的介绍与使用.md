@@ -4,7 +4,7 @@ date: 2024-10-05 13:13:34
 tags:
   - 网络安全
   - 压力测试
-categories: 网络基础
+categories: 网络运维
 permalink: /loic-gong-ju-de-jie-shao-yu-shi-yong/
 slug: loic-gong-ju-de-jie-shao-yu-shi-yong
 cover: https://bu.dusays.com/2025/10/18/68f395aeaf8ff.webp

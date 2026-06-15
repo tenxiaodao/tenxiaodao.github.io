@@ -6,6 +6,7 @@ tags:
     - 
 cover: https://bu.dusays.com/2025/10/22/68f8a07193d51.webp
 categories: Linux
+series: Linux 入门系列
 permalink: /openeuler-de-an-zhuang-jiao-cheng/
 slug: openeuler-de-an-zhuang-jiao-cheng
 ---

@@ -3,7 +3,7 @@ title: 如何注册ChatGPT
 date: 2026-02-07 23:09:31
 tags: ChatGPT AI
 cover: https://bu.dusays.com/2026/01/18/696bc5efbb84d.webp
-categories: 知识分享
+categories: 工具资源
 permalink: /ru-he-zhu-ce-chatgpt/
 slug: ru-he-zhu-ce-chatgpt
 ---

@@ -3,7 +3,8 @@ layout: hexo
 title: 使用 Hexo + GitHub Pages 搭建个人网站
 date: 2024-09-03 05:22:18
 cover: https://bu.dusays.com/2025/10/18/68f395b02b646.webp
-categories: 前端开发
+categories: Hexo
+series: Hexo 系列
 permalink: /shi-yong-hexo-github-pages-da-jian-ge-ren-wang-zhan/
 slug: shi-yong-hexo-github-pages-da-jian-ge-ren-wang-zhan
 tags:

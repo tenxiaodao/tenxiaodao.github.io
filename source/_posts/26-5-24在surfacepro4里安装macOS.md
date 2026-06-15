@@ -3,7 +3,8 @@ title: 在surfacepro4里安装macOS
 date: 2026-05-24
 updated: 2026-05-24 12:00:00
 tags: 
-categories: 黑苹果
+categories: 苹果生态
+series: 黑苹果系列
 cover: https://bu.dusays.com/2026/03/30/69ca04388de10.webp
 aside: false
 sticky: 

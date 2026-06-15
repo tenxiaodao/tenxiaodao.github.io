@@ -8,7 +8,7 @@ tags:
   - Python
   - Windows
   - Linux
-categories: Python
+categories: 开发实战
 permalink: /scrapy-an-zhuang-yu-bu-shu-xiang-xi-jiao-cheng/
 slug: scrapy-an-zhuang-yu-bu-shu-xiang-xi-jiao-cheng
 cover: https://bu.dusays.com/2025/10/18/68f395ae4b74c.webp

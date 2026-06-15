@@ -4,7 +4,7 @@ date: 2025-04-07 19:37:30
 tags:
   - windows镜像
 cover: https://bu.dusays.com/2025/10/18/68f395b40583f.webp
-categories: 系统镜像
+categories: 工具资源
 permalink: /windows-xi-tong-xia-zai-cang-chu-zhan/
 slug: windows-xi-tong-xia-zai-cang-chu-zhan
 sticky:

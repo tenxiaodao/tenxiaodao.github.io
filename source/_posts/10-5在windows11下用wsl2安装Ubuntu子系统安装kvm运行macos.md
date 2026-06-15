@@ -10,7 +10,7 @@ cover: https://bu.dusays.com/2025/10/18/68f395aef2c48.webp
 # comments: false
 # aside: false
 
-categories: 虚拟机
+categories: 苹果生态
 permalink: /zai-windows11-xia-yong-wsl2-an-zhuang-ubuntu-zi-xi-tong-an-zhuang-kvm-yun-xing-macos/
 slug: zai-windows11-xia-yong-wsl2-an-zhuang-ubuntu-zi-xi-tong-an-zhuang-kvm-yun-xing-macos
 ---

@@ -6,7 +6,8 @@ tags:
   - 博客搭建
   - 前端开发
 cover: https://bu.dusays.com/2025/10/18/68f395aedb1e5.webp
-categories: 前端开发
+categories: Hexo
+series: Hexo 系列
 permalink: /hexo-yi-nan-jie-da/
 slug: hexo-yi-nan-jie-da
 sticky:
