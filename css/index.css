@@ -20292,58 +20292,6 @@ html.hide-aside .layout > div:first-child {
     opacity: 1;
   }
 }
-/* === Minimal aesthetic enhancements === */
-/* Better base typography and spacing */
-:root{ --custom-sans: "Inter", "Noto Sans", -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
-body, #article-container { font-family: var(--custom-sans); font-size:16px; line-height:1.75; color:var(--anzhiyu-fontcolor); }
-#article-container h1,#article-container h2,#article-container h3{ letter-spacing:-0.02em; margin-top:1.25em; margin-bottom:0.6em; }
-
-/* Responsive images with subtle radius */
-#article-container img{ max-width:100%; height:auto; border-radius:8px; display:block; margin:0.8em 0; }
-
-/* Softer link hover and remove heavy underline */
-#article-container a{ text-decoration:none; border-bottom:2px solid transparent; transition:all .18s ease; }
-#article-container a:hover{ color:var(--anzhiyu-main); background:rgba(0,0,0,0.04); border-radius:0.25em; box-shadow:none; }
-
-/* Improve code blocks readability */
-pre, code{ font-family: "Fira Code", "SFMono-Regular", Menlo, monospace; font-size:0.95em; }
-pre{ border-radius:8px; overflow:auto; }
-
-/* Slightly increased card radius and gentler shadows */
-.recent-post-item, .card-widget, .post .layout > div{ border-radius:12px; }
-
-/* Mobile: reduce large paddings for compact reading */
-@media screen and (max-width:768px){ #body-wrap .layout #page{ padding:16px 12px !important; } }
-
-/* End enhancements */
-/* === Further optimizations === */
-:root{ --max-content-width:880px; --muted:#6b7280; }
-/* Constrain content for comfortable reading */
-#body-wrap .layout > div:first-child, .post .layout > div { max-width: var(--max-content-width); margin: 0 auto; }
-/* Smoother rendering and color transitions */
-body { -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; transition: background .18s ease, color .18s ease; }
-/* Headings sizing and anchors */
-#article-container h1{ font-size:2.2em; }
-#article-container h2{ font-size:1.6em; }
-#article-container h3{ font-size:1.25em; }
-#article-container h1,h2,h3,h4{ scroll-margin-top:90px; }
-/* Blockquotes */
-blockquote{ border-left:4px solid rgba(0,0,0,0.06); padding:0.6em 1em; background:rgba(0,0,0,0.02); border-radius:8px; color:var(--muted); }
-[data-theme="dark"] blockquote{ background:rgba(255,255,255,0.03); border-left-color:rgba(255,255,255,0.08); color:#cbd5e1; }
-/* Tables */
-table{ width:100%; border-collapse:collapse; }
-table th, table td{ padding:0.6em 0.8em; border-bottom:1px solid rgba(0,0,0,0.06); }
-[data-theme="dark"] table th, [data-theme="dark"] table td{ border-bottom-color: rgba(255,255,255,0.04); }
-/* Inline code */
-code, .inline-code{ background: rgba(27,31,35,0.05); padding:0.12em 0.36em; border-radius:6px; font-size:0.95em; }
-/* Code block shadow */
-pre[class*="language-"]{ box-shadow: 0 6px 18px rgba(17,24,39,0.06); }
-/* Header anchor visibility */
-a.headerlink{ opacity:0; transition:opacity .15s ease; }
-#article-container h1:hover a.headerlink, #article-container h2:hover a.headerlink{ opacity:1; }
-/* Respect reduced motion preference */
-@media (prefers-reduced-motion: reduce){ *{ animation-duration:0.001ms !important; transition-duration:0.001ms !important; } }
-/* End further optimizations */
 
 #aside-content .card-widget#card-wechat {
   background: #57bd6a;

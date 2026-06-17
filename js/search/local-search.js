@@ -38,13 +38,13 @@ window.addEventListener("load", () => {
     document.querySelector("#menu-search").addEventListener("click", openSearch);
   };
 
- const searchClickFnOnce = () => {
-   document.querySelector("#local-search .search-close-button").addEventListener("click", closeSearch);
-   $searchMask.addEventListener("click", closeSearch);
-   if (GLOBAL_CONFIG.localSearch.preload) dataObj = fetchData(GLOBAL_CONFIG.localSearch.path);
- };
+  const searchClickFnOnce = () => {
+    document.querySelector("#local-search .search-close-button").addEventListener("click", closeSearch);
+    $searchMask.addEventListener("click", closeSearch);
+    if (GLOBAL_CONFIG.localSearch.preload) dataObj = fetchData(GLOBAL_CONFIG.localSearch.path);
+  };
 
- // check url is json or not
+  // check url is json or not
   const isJson = url => {
     const reg = /\.json$/;
     return reg.test(url);
@@ -70,7 +70,7 @@ window.addEventListener("load", () => {
         let content = item.querySelector("content") && item.querySelector("content").textContent;
         let imgReg = /<img.*?(?:>|\/>)/gi; //匹配图片中的img标签
         let srcReg = /src=[\'\"]?([^\'\"]*)[\'\"]?/i; // 匹配图片中的src
-        let arr = content ? content.match(imgReg) : []; //筛选出所有的img
+        let arr = content.match(imgReg); //筛选出所有的img
 
         let srcArr = [];
         if (arr) {
@@ -128,7 +128,7 @@ window.addEventListener("load", () => {
                 .replace(/<[^>]+>/g, "")
                 .toLowerCase()
             : "";
-          const dataUrl = new URL(data.url, window.location.origin).href;
+          const dataUrl = data.url.startsWith("/") ? data.url : GLOBAL_CONFIG.root + data.url;
           let indexTitle = -1;
           let indexContent = -1;
           let firstOccur = -1;
@@ -188,27 +188,41 @@ window.addEventListener("load", () => {
                 dataTitle = dataTitle.replace(regS, '<span class="search-keyword">' + keyword + "</span>");
               });
 
-             str += '<div class="local-search__hit-item">';
-             str += '<div class="search-left" style="width:0">';
+              str += '<div class="local-search__hit-item">';
+              if (oneImage) {
+                str += `<div class="search-left"><img src=${oneImage} alt=${dataTitle} data-fancybox='gallery'>`;
+              } else {
+                str += '<div class="search-left" style="width:0">';
+              }
 
-             str += "</div>";
+              str += "</div>";
 
-                '<div class="search-right" style="width: 100%"><span class="search-result-title" style="cursor:pointer;color:var(--search-result-color, var(--anzhiyu-main))" data-url="' +
-                dataUrl +
-                '">' +
-                dataTitle +
-                "</span>";
+              if (oneImage) {
+                str +=
+                  '<div class="search-right"><a href="' +
+                  dataUrl +
+                  '" class="search-result-title">' +
+                  dataTitle +
+                  "</a>";
+              } else {
+                str +=
+                  '<div class="search-right" style="width: 100%"><a href="' +
+                  dataUrl +
+                  '" class="search-result-title">' +
+                  dataTitle +
+                  "</a>";
+              }
 
               count += 1;
 
-             if (dataContent !== "") {
-               str +=
-                  '<p class="search-result" data-url="' +
+              if (dataContent !== "") {
+                str +=
+                  '<p class="search-result" onclick="pjax.loadUrl(`' +
                   dataUrl +
-                  '">' +
-                 pre +
-                 matchContent +
-                 post +
+                  '`)">' +
+                  pre +
+                  matchContent +
+                  post +
                   "</p>";
               }
               if (dataTags.length) {
@@ -238,30 +252,17 @@ window.addEventListener("load", () => {
             "</div>";
         }
         str += "</div>";
-       $resultContent.innerHTML = str;
-       // Navigate directly without pjax (capture phase to prevent pjax intercept)
-       if ($resultClickHandler) $resultContent.removeEventListener('click', $resultClickHandler, true);
-       $resultClickHandler = function(e) {
-         const item = e.target.closest('[data-url]');
-         if (item) {
-           e.preventDefault();
-           e.stopPropagation();
-           closeSearch();
-           const url = item.getAttribute('data-url');
-           if (url) window.location.href = url;
-         }
-       };
-       $resultContent.addEventListener('click', $resultClickHandler, true);
-       if (keywords[0] !== "") $loadingStatus.innerHTML = "";
-     });
-   });
- };
+        $resultContent.innerHTML = str;
+        if (keywords[0] !== "") $loadingStatus.innerHTML = "";
+        window.pjax && window.pjax.refresh($resultContent);
+      });
+    });
+  };
 
- searchClickFn();
- searchClickFnOnce();
-  let $resultClickHandler = null;
+  searchClickFn();
+  searchClickFnOnce();
 
- // pjax
+  // pjax
   window.addEventListener("pjax:complete", () => {
     !anzhiyu.isHidden($searchMask) && closeSearch();
     searchClickFn();
