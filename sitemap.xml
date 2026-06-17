@@ -2,6 +2,42 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.tenxiaodao.top/living-in-datong/</loc>
+    
+    <lastmod>2026-06-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.tenxiaodao.top/my-homelab-setup/</loc>
+    
+    <lastmod>2026-06-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.tenxiaodao.top/my-2025-review/</loc>
+    
+    <lastmod>2026-06-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.tenxiaodao.top/data-center-internship/</loc>
+    
+    <lastmod>2026-06-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.tenxiaodao.top/zou-jin-markdown-de-shi-jie/</loc>
     
     <lastmod>2026-06-15</lastmod>
@@ -20,6 +56,15 @@
   </url>
   
   <url>
+    <loc>https://www.tenxiaodao.top/hexo-ru-he-xie-wen-zhang/</loc>
+    
+    <lastmod>2026-06-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.tenxiaodao.top/hexo-zhu-ti-pei-zhi-jiao-cheng/</loc>
     
     <lastmod>2026-06-15</lastmod>
@@ -30,15 +75,6 @@
   
   <url>
     <loc>https://www.tenxiaodao.top/hexo-yi-nan-jie-da/</loc>
-    
-    <lastmod>2026-06-15</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.tenxiaodao.top/hexo-ru-he-xie-wen-zhang/</loc>
     
     <lastmod>2026-06-15</lastmod>
     
@@ -479,6 +515,20 @@
 
   
   <url>
+    <loc>https://www.tenxiaodao.top/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/</loc>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.tenxiaodao.top/tags/%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95/</loc>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://www.tenxiaodao.top/tags/WSL2/</loc>
     <lastmod>2026-06-17</lastmod>
     <changefreq>weekly</changefreq>
@@ -501,20 +551,6 @@
   
   <url>
     <loc>https://www.tenxiaodao.top/tags/Ubuntu/</loc>
-    <lastmod>2026-06-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.tenxiaodao.top/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/</loc>
-    <lastmod>2026-06-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.tenxiaodao.top/tags/%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95/</loc>
     <lastmod>2026-06-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -563,20 +599,6 @@
   </url>
   
   <url>
-    <loc>https://www.tenxiaodao.top/tags/openEuler/</loc>
-    <lastmod>2026-06-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.tenxiaodao.top/tags/%E8%BF%90%E7%BB%B4/</loc>
-    <lastmod>2026-06-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.tenxiaodao.top/tags/HTML/</loc>
     <lastmod>2026-06-17</lastmod>
     <changefreq>weekly</changefreq>
@@ -605,6 +627,20 @@
   </url>
   
   <url>
+    <loc>https://www.tenxiaodao.top/tags/%E8%BF%90%E7%BB%B4/</loc>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.tenxiaodao.top/tags/openEuler/</loc>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://www.tenxiaodao.top/tags/AI/</loc>
     <lastmod>2026-06-17</lastmod>
     <changefreq>weekly</changefreq>
@@ -620,13 +656,6 @@
   
   <url>
     <loc>https://www.tenxiaodao.top/tags/%E5%BE%AE%E4%BF%A1/</loc>
-    <lastmod>2026-06-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.tenxiaodao.top/tags/VM%E8%99%9A%E6%8B%9F%E6%9C%BA/</loc>
     <lastmod>2026-06-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -682,6 +711,13 @@
   </url>
   
   <url>
+    <loc>https://www.tenxiaodao.top/tags/VM%E8%99%9A%E6%8B%9F%E6%9C%BA/</loc>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://www.tenxiaodao.top/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/</loc>
     <lastmod>2026-06-17</lastmod>
     <changefreq>weekly</changefreq>
@@ -697,6 +733,13 @@
   
   <url>
     <loc>https://www.tenxiaodao.top/tags/UDP/</loc>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.tenxiaodao.top/tags/office/</loc>
     <lastmod>2026-06-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -724,14 +767,56 @@
   </url>
   
   <url>
-    <loc>https://www.tenxiaodao.top/tags/office/</loc>
+    <loc>https://www.tenxiaodao.top/tags/%E5%B9%B4%E5%BA%A6%E5%9B%9E%E9%A1%BE/</loc>
     <lastmod>2026-06-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.tenxiaodao.top/tags/windows%E9%95%9C%E5%83%8F/</loc>
+    <loc>https://www.tenxiaodao.top/tags/%E6%97%85%E8%A1%8C/</loc>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.tenxiaodao.top/tags/%E6%88%90%E9%95%BF/</loc>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.tenxiaodao.top/tags/%E6%95%B0%E6%8D%AE%E4%B8%AD%E5%BF%83/</loc>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.tenxiaodao.top/tags/%E5%AE%9E%E4%B9%A0/</loc>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.tenxiaodao.top/tags/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E8%BF%90%E7%BB%B4/</loc>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.tenxiaodao.top/tags/ESP32/</loc>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.tenxiaodao.top/tags/%E8%AF%AD%E9%9F%B3%E5%8A%A9%E6%89%8B/</loc>
     <lastmod>2026-06-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -759,14 +844,28 @@
   </url>
   
   <url>
-    <loc>https://www.tenxiaodao.top/tags/ESP32/</loc>
+    <loc>https://www.tenxiaodao.top/tags/windows%E9%95%9C%E5%83%8F/</loc>
     <lastmod>2026-06-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.tenxiaodao.top/tags/%E8%AF%AD%E9%9F%B3%E5%8A%A9%E6%89%8B/</loc>
+    <loc>https://www.tenxiaodao.top/tags/%E5%A4%A7%E5%90%8C/</loc>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.tenxiaodao.top/tags/%E5%B7%A5%E4%BD%9C/</loc>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.tenxiaodao.top/tags/%E6%BC%82%E6%B3%8A/</loc>
     <lastmod>2026-06-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -829,6 +928,27 @@
   </url>
   
   <url>
+    <loc>https://www.tenxiaodao.top/tags/Homelab/</loc>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.tenxiaodao.top/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/</loc>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.tenxiaodao.top/tags/%E8%AE%BE%E5%A4%87/</loc>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://www.tenxiaodao.top/tags/%E4%BA%8C%E6%AC%A1%E5%85%83/</loc>
     <lastmod>2026-06-17</lastmod>
     <changefreq>weekly</changefreq>
@@ -885,20 +1005,6 @@
   </url>
   
   <url>
-    <loc>https://www.tenxiaodao.top/tags/%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA/</loc>
-    <lastmod>2026-06-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.tenxiaodao.top/tags/Node-js/</loc>
-    <lastmod>2026-06-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.tenxiaodao.top/tags/GitHub-Pages/</loc>
     <lastmod>2026-06-17</lastmod>
     <changefreq>weekly</changefreq>
@@ -920,6 +1026,27 @@
   </url>
   
   <url>
+    <loc>https://www.tenxiaodao.top/tags/Markdown/</loc>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.tenxiaodao.top/tags/%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA/</loc>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.tenxiaodao.top/tags/Node-js/</loc>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://www.tenxiaodao.top/tags/%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE/</loc>
     <lastmod>2026-06-17</lastmod>
     <changefreq>weekly</changefreq>
@@ -928,13 +1055,6 @@
   
   <url>
     <loc>https://www.tenxiaodao.top/tags/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/</loc>
-    <lastmod>2026-06-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.tenxiaodao.top/tags/Markdown/</loc>
     <lastmod>2026-06-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -964,13 +1084,6 @@
 
   
   <url>
-    <loc>https://www.tenxiaodao.top/categories/%E8%8B%B9%E6%9E%9C%E7%94%9F%E6%80%81/</loc>
-    <lastmod>2026-06-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.tenxiaodao.top/categories/%E7%BD%91%E7%BB%9C%E8%BF%90%E7%BB%B4/</loc>
     <lastmod>2026-06-17</lastmod>
     <changefreq>weekly</changefreq>
@@ -979,6 +1092,13 @@
   
   <url>
     <loc>https://www.tenxiaodao.top/categories/%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98/</loc>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.tenxiaodao.top/categories/%E8%8B%B9%E6%9E%9C%E7%94%9F%E6%80%81/</loc>
     <lastmod>2026-06-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1013,14 +1133,14 @@
   </url>
   
   <url>
-    <loc>https://www.tenxiaodao.top/categories/DevOps/</loc>
+    <loc>https://www.tenxiaodao.top/categories/%E7%94%9F%E6%B4%BB%E9%9A%8F%E7%AC%94/</loc>
     <lastmod>2026-06-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.tenxiaodao.top/categories/%E7%94%9F%E6%B4%BB%E9%9A%8F%E7%AC%94/</loc>
+    <loc>https://www.tenxiaodao.top/categories/DevOps/</loc>
     <lastmod>2026-06-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
