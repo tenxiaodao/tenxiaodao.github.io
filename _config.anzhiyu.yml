@@ -1229,6 +1229,9 @@ dynamicEffect:
 # 插入代码到头部 </head> 之前 和 底部 </body> 之前
 inject:
   head:
+    - <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+    - <meta http-equiv="Pragma" content="no-cache">
+    - <meta http-equiv="Expires" content="0">
     # 自定义css
     # - <link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'">
 
