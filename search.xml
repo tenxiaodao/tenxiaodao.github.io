@@ -4,6 +4,37 @@
   
     
     <entry>
+      <title>MacBook Air M4（10+10 核）开箱与初体验</title>
+      <link href="/macbook-air-m4-unboxing/"/>
+      <url>/macbook-air-m4-unboxing/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>本文于 2026 年 6 月 18 日持续更新中。</p></blockquote><hr><h2 id="为什么换这台机器"><a href="#为什么换这台机器" class="headerlink" title="为什么换这台机器"></a>为什么换这台机器</h2><p>之前的机器已经不太够用了——编译慢、电池崩、风扇起飞是常态。正好 M4 Air 发布之后口碑一直不错，忍了一段时间终于下单了。</p><p>选的是 10 核 CPU + 10 核 GPU 的满血版，16G 内存配 512GB 存储。对我目前的开发和工作场景来说，这个配置应该够用很久了。</p><p>下单之后那几天，物流信息一天刷八遍。</p><hr><h2 id="开箱"><a href="#开箱" class="headerlink" title="开箱"></a>开箱</h2><blockquote><p>这部分等机器到了补照片和细节。</p></blockquote><p>包裹到的第一时间拆箱。MacBook Air 的包装还是一贯的简洁风格——白色盒子，正面就是机器的俯视图。</p><p>打开之后机器本体在最上面，下面是电源线和充电头。这次 M4 Air 的颜色选项里新增了——等到了写上。</p><hr><h2 id="外观与手感"><a href="#外观与手感" class="headerlink" title="外观与手感"></a>外观与手感</h2><p>先说重量。Air 系列一直以轻薄著称，这台也不例外。从盒子里拿出来第一感觉就是轻——比想象中还轻，单手拿着完全没有负担。</p><p>机身很薄，最薄的地方大概跟 USB-C 接口差不多厚。天晚上放进包里，第二天背去上班基本感觉不到多了什么东西。</p><p>做工方面 Apple 一直在线，机身一体成型，手感温润，没什么好挑剔的。</p><hr><h2 id="屏幕"><a href="#屏幕" class="headerlink" title="屏幕"></a>屏幕</h2><p>Liquid Retina 显示屏，13.6 英寸，亮度够高，色彩表现好。日常写代码、看文档、看视频都完全够用。</p><p>刘海屏确实存在，但用起来很快就忽略了——至少对我而言，它没有影响任何实际使用。</p><hr><h2 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h2><h3 id="编译体验"><a href="#编译体验" class="headerlink" title="编译体验"></a>编译体验</h3><p>第一次跑项目的编译时感受最明显，比我旧机器快了一大截。</p><p><em>具体的编译数据等跑几个项目之后补充</em></p><h3 id="日常使用"><a href="#日常使用" class="headerlink" title="日常使用"></a>日常使用</h3><p>开了几十个 Chrome 标签页 + VS Code + 几个终端窗口 + 微信 + 邮件，完全没有卡顿。16G 内存对于我目前的开发场景来说绰绰有余，完全没有感受到内存压力。</p><h3 id="风扇噪音"><a href="#风扇噪音" class="headerlink" title="风扇噪音"></a>风扇噪音</h3><p>零。这台机器没有风扇。</p><p>这是我最满意的地方之一。之前的机器编译时风扇声音大得离谱，开会的时候很尴尬。M4 Air 无论怎么跑都是安静的。满载时机身会热，但没有风扇声。</p><hr><h2 id="续航"><a href="#续航" class="headerlink" title="续航"></a>续航</h2><p>满电状态下：</p><ul><li>日常开发（VS Code + 浏览器 + 终端）：大概能撑 <strong>x 小时</strong></li><li>视频播放：<strong>x 小时</strong></li><li>轻度使用（写文档 + 网页浏览）：<strong>x 小时</strong></li></ul><blockquote><p>具体续航数据使用一周后补充。</p></blockquote><p>充电用的是 MagSafe，很喜欢这个设计——有人绊到线的时候会安全脱落，不会把电脑带下去。</p><hr><h2 id="键盘与触控板"><a href="#键盘与触控板" class="headerlink" title="键盘与触控板"></a>键盘与触控板</h2><p>键盘是妙控键盘，键程比旧款 MacBook 好一些，打字手感扎实。触控板还是那么大，手势操作一如既往地好用。</p><p>Touch ID 很方便，解锁和支付按一下就行，省了输密码。</p><hr><h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><p>两个雷雳 4（USB-C）接口 + 一个 MagSafe 充电口 + 一个 3.5mm 耳机孔。</p><p>接口不算多，但对我够了。外接显示器和扩展坞的时候走一个 USB-C 就行。MagSafe 充电时两个 USB-C 都能空出来用。</p><hr><h2 id="适合谁"><a href="#适合谁" class="headerlink" title="适合谁"></a>适合谁</h2><p><strong>适合：</strong></p><ul><li>日常开发、写代码、写文档为主的人</li><li>需要一台轻薄、安静、续航好的笔记本</li><li>对学生和刚工作的开发者很友好</li></ul><p><strong>不太适合：</strong></p><ul><li>需要长时间跑 GPU 渲染、大规模机器学习的</li><li>需要外接多个高分辨率显示器的</li><li>手头有大量 x86 专用软件还没适配 ARM 的</li></ul><hr><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>MacBook Air M4 是一台目标明确的产品——它不要做性能猛兽，而是做一台你愿意每天都带出门的电脑。</p><p>对我而言，它做到了。轻、安静、续航好、性能够用。这就够了。</p><p><em>等用一段时间之后再回来更新长期使用感受。</em></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 苹果生态 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> MacBook Air </tag>
+            
+            <tag> M4 </tag>
+            
+            <tag> Apple </tag>
+            
+            <tag> 开箱 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>我的 Homelab 全家桶</title>
       <link href="/my-homelab-setup/"/>
       <url>/my-homelab-setup/</url>
@@ -491,9 +522,9 @@
             
             <tag> Linux </tag>
             
-            <tag> 运维 </tag>
-            
             <tag> openEuler </tag>
+            
+            <tag> 运维 </tag>
             
         </tags>
       
