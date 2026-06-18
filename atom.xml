@@ -10,7 +10,7 @@
   <rights>All rights reserved 2026, 周言志</rights>
   <subtitle>欢迎来到我的世界</subtitle>
   <title>言志</title>
-  <updated>2026-06-17T06:42:47.841Z</updated>
+  <updated>2026-06-18T05:00:22.888Z</updated>
   <entry>
     <author>
       <name>周言志</name>
@@ -21,11 +21,11 @@
     <category term="Apple" scheme="https://www.tenxiaodao.top/tags/Apple/"/>
     <category term="开箱" scheme="https://www.tenxiaodao.top/tags/%E5%BC%80%E7%AE%B1/"/>
     <content>
-      <![CDATA[<blockquote><p>本文于 2026 年 6 月 18 日持续更新中。</p></blockquote><hr><h2 id="为什么换这台机器"><a href="#为什么换这台机器" class="headerlink" title="为什么换这台机器"></a>为什么换这台机器</h2><p>之前的机器已经不太够用了——编译慢、电池崩、风扇起飞是常态。正好 M4 Air 发布之后口碑一直不错，忍了一段时间终于下单了。</p><p>选的是 10 核 CPU + 10 核 GPU 的满血版，16G 内存配 512GB 存储。对我目前的开发和工作场景来说，这个配置应该够用很久了。</p><p>下单之后那几天，物流信息一天刷八遍。</p><hr><h2 id="开箱"><a href="#开箱" class="headerlink" title="开箱"></a>开箱</h2><blockquote><p>这部分等机器到了补照片和细节。</p></blockquote><p>包裹到的第一时间拆箱。MacBook Air 的包装还是一贯的简洁风格——白色盒子，正面就是机器的俯视图。</p><p>打开之后机器本体在最上面，下面是电源线和充电头。这次 M4 Air 的颜色选项里新增了——等到了写上。</p><hr><h2 id="外观与手感"><a href="#外观与手感" class="headerlink" title="外观与手感"></a>外观与手感</h2><p>先说重量。Air 系列一直以轻薄著称，这台也不例外。从盒子里拿出来第一感觉就是轻——比想象中还轻，单手拿着完全没有负担。</p><p>机身很薄，最薄的地方大概跟 USB-C 接口差不多厚。天晚上放进包里，第二天背去上班基本感觉不到多了什么东西。</p><p>做工方面 Apple 一直在线，机身一体成型，手感温润，没什么好挑剔的。</p><hr><h2 id="屏幕"><a href="#屏幕" class="headerlink" title="屏幕"></a>屏幕</h2><p>Liquid Retina 显示屏，13.6 英寸，亮度够高，色彩表现好。日常写代码、看文档、看视频都完全够用。</p><p>刘海屏确实存在，但用起来很快就忽略了——至少对我而言，它没有影响任何实际使用。</p><hr><h2 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h2><h3 id="编译体验"><a href="#编译体验" class="headerlink" title="编译体验"></a>编译体验</h3><p>第一次跑项目的编译时感受最明显，比我旧机器快了一大截。</p><p><em>具体的编译数据等跑几个项目之后补充</em></p><h3 id="日常使用"><a href="#日常使用" class="headerlink" title="日常使用"></a>日常使用</h3><p>开了几十个 Chrome 标签页 + VS Code + 几个终端窗口 + 微信 + 邮件，完全没有卡顿。16G 内存对于我目前的开发场景来说绰绰有余，完全没有感受到内存压力。</p><h3 id="风扇噪音"><a href="#风扇噪音" class="headerlink" title="风扇噪音"></a>风扇噪音</h3><p>零。这台机器没有风扇。</p><p>这是我最满意的地方之一。之前的机器编译时风扇声音大得离谱，开会的时候很尴尬。M4 Air 无论怎么跑都是安静的。满载时机身会热，但没有风扇声。</p><hr><h2 id="续航"><a href="#续航" class="headerlink" title="续航"></a>续航</h2><p>满电状态下：</p><ul><li>日常开发（VS Code + 浏览器 + 终端）：大概能撑 <strong>x 小时</strong></li><li>视频播放：<strong>x 小时</strong></li><li>轻度使用（写文档 + 网页浏览）：<strong>x 小时</strong></li></ul><blockquote><p>具体续航数据使用一周后补充。</p></blockquote><p>充电用的是 MagSafe，很喜欢这个设计——有人绊到线的时候会安全脱落，不会把电脑带下去。</p><hr><h2 id="键盘与触控板"><a href="#键盘与触控板" class="headerlink" title="键盘与触控板"></a>键盘与触控板</h2><p>键盘是妙控键盘，键程比旧款 MacBook 好一些，打字手感扎实。触控板还是那么大，手势操作一如既往地好用。</p><p>Touch ID 很方便，解锁和支付按一下就行，省了输密码。</p><hr><h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><p>两个雷雳 4（USB-C）接口 + 一个 MagSafe 充电口 + 一个 3.5mm 耳机孔。</p><p>接口不算多，但对我够了。外接显示器和扩展坞的时候走一个 USB-C 就行。MagSafe 充电时两个 USB-C 都能空出来用。</p><hr><h2 id="适合谁"><a href="#适合谁" class="headerlink" title="适合谁"></a>适合谁</h2><p><strong>适合：</strong></p><ul><li>日常开发、写代码、写文档为主的人</li><li>需要一台轻薄、安静、续航好的笔记本</li><li>对学生和刚工作的开发者很友好</li></ul><p><strong>不太适合：</strong></p><ul><li>需要长时间跑 GPU 渲染、大规模机器学习的</li><li>需要外接多个高分辨率显示器的</li><li>手头有大量 x86 专用软件还没适配 ARM 的</li></ul><hr><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>MacBook Air M4 是一台目标明确的产品——它不要做性能猛兽，而是做一台你愿意每天都带出门的电脑。</p><p>对我而言，它做到了。轻、安静、续航好、性能够用。这就够了。</p><p><em>等用一段时间之后再回来更新长期使用感受。</em></p>]]>
+      <![CDATA[<blockquote><p>本文于 2026 年 6 月 18 日持续更新中。</p></blockquote><hr><h2 id="为什么换这台机器"><a href="#为什么换这台机器" class="headerlink" title="为什么换这台机器"></a>为什么换这台机器</h2><p>之前的机器已经不太够用了——编译慢、电池崩、风扇起飞是常态。正好 M4 Air 发布之后口碑一直不错，忍了一段时间终于下单了。</p><p>选的是 10 核 CPU + 10 核 GPU 的满血版，16G 内存配 512GB 存储。对我目前的开发和工作场景来说，这个配置应该够用很久了。</p><p>下单之后那几天，物流信息一天刷八遍。</p><hr><h2 id="开箱"><a href="#开箱" class="headerlink" title="开箱"></a>开箱</h2><p>包裹到的第一时间拆箱。MacBook Air 的包装还是一贯的简洁风格——白色盒子，正面就是机器的俯视图。</p><p>打开之后机器本体在最上面，下面是电源线和充电头。这次选了 <strong>天蓝色</strong> 的新配色。拿到手第一感觉比官网渲染图更耐看——光线好的时候偏淡蓝，暗处接近银灰，很低调又有点不一样。</p><hr><h2 id="外观与手感"><a href="#外观与手感" class="headerlink" title="外观与手感"></a>外观与手感</h2><p>先说重量。Air 系列一直以轻薄著称，这台也不例外。从盒子里拿出来第一感觉就是轻——比想象中还轻，单手拿着完全没有负担。</p><p>机身很薄，最薄的地方大概跟 USB-C 接口差不多厚。天晚上放进包里，第二天背去上班基本感觉不到多了什么东西。</p><p>做工方面 Apple 一直在线，机身一体成型，手感温润，没什么好挑剔的。</p><hr><h2 id="屏幕"><a href="#屏幕" class="headerlink" title="屏幕"></a>屏幕</h2><p>Liquid Retina 显示屏，13.6 英寸，亮度够高，色彩表现好。日常写代码、看文档、看视频都完全够用。</p><p>刘海屏确实存在，但用起来很快就忽略了——至少对我而言，它没有影响任何实际使用。</p><hr><h2 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h2><h3 id="编译体验"><a href="#编译体验" class="headerlink" title="编译体验"></a>编译体验</h3><p>第一次跑项目的编译时感受最明显，比我旧机器快了一大截。</p><p>根据公开的跑分数据，M4（10 核）的 Geekbench 6 单核成绩在 <strong>3700 左右</strong>，多核约 <strong>14500</strong>——比 M3 提升了大概 20%，比我的旧机器翻了一倍还不止。日常的 Xcode 编译、前端构建这些任务，体感速度提升非常明显。</p><h3 id="日常使用"><a href="#日常使用" class="headerlink" title="日常使用"></a>日常使用</h3><p>开了几十个 Chrome 标签页 + VS Code + 几个终端窗口 + 微信 + 邮件，完全没有卡顿。16G 内存对于我目前的开发场景来说绰绰有余，完全没有感受到内存压力。</p><h3 id="风扇噪音"><a href="#风扇噪音" class="headerlink" title="风扇噪音"></a>风扇噪音</h3><p>零。这台机器没有风扇。</p><p>这是我最满意的地方之一。之前的机器编译时风扇声音大得离谱，开会的时候很尴尬。M4 Air 无论怎么跑都是安静的。满载时机身会热，但没有风扇声。</p><hr><h2 id="续航"><a href="#续航" class="headerlink" title="续航"></a>续航</h2><p>满电状态下：</p><ul><li>日常开发（VS Code + 浏览器 + 终端）：大概能撑 <strong>12-14 小时</strong></li><li>视频播放：<strong>18 小时</strong>（Apple 官方标称数据）</li><li>轻度使用（写文档 + 网页浏览）：<strong>15-18 小时</strong></li></ul><blockquote><p>续航数据来自 Apple 官方标称（视频播放 18 小时 &#x2F; 无线网页 15 小时），日常综合使用预计在 14-16 小时左右。实际续航等用一段时间后回来更新。</p></blockquote><p>充电用的是 MagSafe，很喜欢这个设计——有人绊到线的时候会安全脱落，不会把电脑带下去。</p><hr><h2 id="键盘与触控板"><a href="#键盘与触控板" class="headerlink" title="键盘与触控板"></a>键盘与触控板</h2><p>键盘是妙控键盘，键程比旧款 MacBook 好一些，打字手感扎实。触控板还是那么大，手势操作一如既往地好用。</p><p>Touch ID 很方便，解锁和支付按一下就行，省了输密码。</p><hr><h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><p>两个雷雳 4（USB-C）接口 + 一个 MagSafe 充电口 + 一个 3.5mm 耳机孔。</p><p>接口不算多，但对我够了。外接显示器和扩展坞的时候走一个 USB-C 就行。MagSafe 充电时两个 USB-C 都能空出来用。</p><hr><h2 id="适合谁"><a href="#适合谁" class="headerlink" title="适合谁"></a>适合谁</h2><p><strong>适合：</strong></p><ul><li>日常开发、写代码、写文档为主的人</li><li>需要一台轻薄、安静、续航好的笔记本</li><li>对学生和刚工作的开发者很友好</li></ul><p><strong>不太适合：</strong></p><ul><li>需要长时间跑 GPU 渲染、大规模机器学习的</li><li>需要外接多个高分辨率显示器的</li><li>手头有大量 x86 专用软件还没适配 ARM 的</li></ul><hr><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>MacBook Air M4 是一台目标明确的产品——它不要做性能猛兽，而是做一台你愿意每天都带出门的电脑。</p><p>对我而言，它做到了。轻、安静、续航好、性能够用。这就够了。</p><p><em>等用一段时间之后再回来更新长期使用感受。</em></p>]]>
     </content>
     <id>https://www.tenxiaodao.top/macbook-air-m4-unboxing/</id>
     <link href="https://www.tenxiaodao.top/macbook-air-m4-unboxing/"/>
-    <published>2026-06-18T02:00:00.000Z</published>
+    <published>2026-06-18T17:00:00.000Z</published>
     <summary>
       <![CDATA[<blockquote>
 <p>本文于 2026 年 6 月 18 日持续更新中。</p>
@@ -34,7 +34,7 @@
 <h2 id="为什么换这台机器"><a href="#为什么换这台机器" class="headerlink" title="为什么换这台机器"><]]>
     </summary>
     <title>MacBook Air M4（10+10 核）开箱与初体验</title>
-    <updated>2026-06-17T06:42:47.841Z</updated>
+    <updated>2026-06-18T05:00:22.888Z</updated>
   </entry>
   <entry>
     <author>
@@ -50,14 +50,14 @@
     </content>
     <id>https://www.tenxiaodao.top/my-homelab-setup/</id>
     <link href="https://www.tenxiaodao.top/my-homelab-setup/"/>
-    <published>2026-06-17T08:00:00.000Z</published>
+    <published>2026-06-17T23:00:00.000Z</published>
     <summary>
       <![CDATA[<p>从大一开始折腾，东西不算多，但每一件都是慢慢添起来的。写一篇总结，记录一下目前手上在用的设备。</p>
 <hr>
 <h2 id="MacBook-Air-M4"><a href="#MacBook-Air-M4" class="headerlink" title="MacB]]>
     </summary>
     <title>我的 Homelab 全家桶</title>
-    <updated>2026-06-17T06:43:30.576Z</updated>
+    <updated>2026-06-17T06:43:30.570Z</updated>
   </entry>
   <entry>
     <author>
@@ -72,14 +72,14 @@
     </content>
     <id>https://www.tenxiaodao.top/living-in-datong/</id>
     <link href="https://www.tenxiaodao.top/living-in-datong/"/>
-    <published>2026-06-17T07:00:00.000Z</published>
+    <published>2026-06-17T22:00:00.000Z</published>
     <summary>
       <![CDATA[<p>去年十二月开始在大同实习，到现在也半年了。谈不上多适应，但也慢慢习惯了这座城市。</p>
 <hr>
 <h2 id="为什么来大同"><a href="#为什么来大同" class="headerlink" title="为什么来大同"></a>为什么来大同</h2><p>很]]>
     </summary>
     <title>我在大同的日子</title>
-    <updated>2026-06-17T06:10:14.583Z</updated>
+    <updated>2026-06-17T06:10:14.580Z</updated>
   </entry>
   <entry>
     <author>
@@ -94,14 +94,14 @@
     </content>
     <id>https://www.tenxiaodao.top/my-2025-review/</id>
     <link href="https://www.tenxiaodao.top/my-2025-review/"/>
-    <published>2026-06-17T05:00:00.000Z</published>
+    <published>2026-06-17T20:00:00.000Z</published>
     <summary>
       <![CDATA[<p>今天翻了一下云盘里的照片，发现 2025 年实在是过得太快了——从年初的海南到年末的数据中心，像是被人按了快进键。趁还记得清楚，记一笔。</p>
 <hr>
 <h2 id="一月-·-海南与直升机"><a href="#一月-·-海南与直升机" class="headerli]]>
     </summary>
     <title>我的 2025 年度回顾</title>
-    <updated>2026-06-17T06:07:24.741Z</updated>
+    <updated>2026-06-17T06:07:24.740Z</updated>
   </entry>
   <entry>
     <author>
@@ -117,14 +117,14 @@
     </content>
     <id>https://www.tenxiaodao.top/data-center-internship/</id>
     <link href="https://www.tenxiaodao.top/data-center-internship/"/>
-    <published>2026-06-17T04:00:00.000Z</published>
+    <published>2026-06-17T19:00:00.000Z</published>
     <summary>
       <![CDATA[<p>2025 年 12 月 7 日，我拿到了中联数据集团的实习 offer。说实话，当时的心情比想象中平静——大概是准备材料、面试、等通知这一套流程走下来，人已经有些麻木了。</p>
 <p>但入职那天走进机房的那一刻，我才真正意识到：我真的要开始在这地方上班了。</p>
 <hr]]>
     </summary>
     <title>数据中心实习笔记</title>
-    <updated>2026-06-17T06:07:10.810Z</updated>
+    <updated>2026-06-17T06:07:10.800Z</updated>
   </entry>
   <entry>
     <author>
@@ -141,7 +141,7 @@
     </content>
     <id>https://www.tenxiaodao.top/anime-that-accompanied-me/</id>
     <link href="https://www.tenxiaodao.top/anime-that-accompanied-me/"/>
-    <published>2026-06-15T13:30:00.000Z</published>
+    <published>2026-06-16T04:30:00.000Z</published>
     <summary>
       <![CDATA[<p>前几天整理博客关于页的时候，写到了自己看过的番。列完才发现，原来不知不觉已经追了这么多。</p>
 <p>想想还是写一篇吧，当个记录。</p>
@@ -149,7 +149,7 @@
 <h2 id="EVA-—-最痛的成长"><a href="#EVA-—-最痛的成长" class="headerlink]]>
     </summary>
     <title>那些年陪我的二次元</title>
-    <updated>2026-06-15T09:07:43.089Z</updated>
+    <updated>2026-06-15T09:07:43.080Z</updated>
   </entry>
   <entry>
     <author>
@@ -157,20 +157,20 @@
     </author>
     <category term="DevOps" scheme="https://www.tenxiaodao.top/categories/DevOps/"/>
     <category term="Hexo" scheme="https://www.tenxiaodao.top/tags/Hexo/"/>
-    <category term="CI/CD" scheme="https://www.tenxiaodao.top/tags/CI-CD/"/>
     <category term="GitHub Actions" scheme="https://www.tenxiaodao.top/tags/GitHub-Actions/"/>
+    <category term="CI/CD" scheme="https://www.tenxiaodao.top/tags/CI-CD/"/>
     <category term="自动化部署" scheme="https://www.tenxiaodao.top/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2/"/>
     <content>
       <![CDATA[<h1 id="GitHub-Actions-使用指南：从入门到实战"><a href="#GitHub-Actions-使用指南：从入门到实战" class="headerlink" title="GitHub Actions 使用指南：从入门到实战"></a>GitHub Actions 使用指南：从入门到实战</h1><h2 id="什么是-GitHub-Actions"><a href="#什么是-GitHub-Actions" class="headerlink" title="什么是 GitHub Actions"></a>什么是 GitHub Actions</h2><p>GitHub Actions 是 GitHub 自带的自动化工作流平台。你可以把它理解成 <strong>GitHub 仓库自带的免费服务器</strong>，每次有人推送代码、提 Issue、创建 PR……都可以触发它执行一系列任务。</p><p>对于个人开发者来说，最常见的用法就是 <strong>自动化部署</strong>，也就是 CI&#x2F;CD。但它的能力远不止于此——编译代码、运行测试、发送通知、定时任务，只要是能写脚本完成的事，它都能干。</p><h2 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h2><p>一个 GitHub Actions 工作流由几个层级组成：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Workflow（工作流）          ← 一个 .yml 文件</span><br><span class="line">  └─ Jobs（作业）           ← 可以并行或串行</span><br><span class="line">       └─ Steps（步骤）     ← 按顺序执行</span><br><span class="line">            └─ Actions（动作） ← 可复用的公共模块</span><br></pre></td></tr></table></figure><h3 id="Workflow（工作流）"><a href="#Workflow（工作流）" class="headerlink" title="Workflow（工作流）"></a>Workflow（工作流）</h3><p>工作流就是一个 YAML 文件，放在仓库的 <code>.github/workflows/</code> 目录下。一个仓库可以有多个工作流文件，分别处理不同的事情。</p><h3 id="Events（触发器）"><a href="#Events（触发器）" class="headerlink" title="Events（触发器）"></a>Events（触发器）</h3><p>工作流靠事件来触发。最常用的是 <code>push</code>：</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span> [<span class="string">master</span>]</span><br></pre></td></tr></table></figure><p>其他常见事件：</p><ul><li><code>pull_request</code> — 有人提交 PR 时触发</li><li><code>schedule</code> — 定时触发（cron 表达式）</li><li><code>workflow_dispatch</code> — 手动在 GitHub 页面上点击运行</li><li><code>issue_comment</code> — 有人评论 Issue 时触发</li><li><code>release</code> — 发布 Release 时触发</li></ul><h3 id="Jobs（作业）"><a href="#Jobs（作业）" class="headerlink" title="Jobs（作业）"></a>Jobs（作业）</h3><p>一个工作流可以包含多个 job，默认是并行执行的。如果 job B 依赖 job A 的结果，可以用 <code>needs</code> 来控制顺序：</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">test:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">run:</span> <span class="string">npm</span> <span class="string">test</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">deploy:</span></span><br><span class="line">    <span class="attr">needs:</span> <span class="string">test</span>          <span class="comment"># 等 test 跑完才执行</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">run:</span> <span class="string">npm</span> <span class="string">run</span> <span class="string">build</span></span><br></pre></td></tr></table></figure><h3 id="Steps（步骤）"><a href="#Steps（步骤）" class="headerlink" title="Steps（步骤）"></a>Steps（步骤）</h3><p>每个 job 由多个 step 组成，按顺序执行。每个 step 可以是一条命令，或者引用一个 Action：</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">steps:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">拉取代码</span></span><br><span class="line">    <span class="attr">uses:</span> <span class="string">actions/checkout@v4</span></span><br><span class="line"></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">安装依赖</span></span><br><span class="line">    <span class="attr">run:</span> <span class="string">npm</span> <span class="string">install</span></span><br><span class="line"></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">运行测试</span></span><br><span class="line">    <span class="attr">run:</span> <span class="string">npm</span> <span class="string">test</span></span><br></pre></td></tr></table></figure><h3 id="Actions（可复用模块）"><a href="#Actions（可复用模块）" class="headerlink" title="Actions（可复用模块）"></a>Actions（可复用模块）</h3><p>Actions 是 GitHub Marketplace 上的公共模块，像搭积木一样拼到工作流里。最常用的几个：</p><table><thead><tr><th>Action</th><th>用途</th></tr></thead><tbody><tr><td><code>actions/checkout@v4</code></td><td>拉取仓库代码</td></tr><tr><td><code>actions/setup-node@v4</code></td><td>安装指定版本 Node.js</td></tr><tr><td><code>actions/setup-python@v5</code></td><td>安装指定版本 Python</td></tr><tr><td><code>actions/cache@v4</code></td><td>缓存依赖加速构建</td></tr><tr><td><code>actions/upload-artifact@v4</code></td><td>上传构建产物</td></tr><tr><td><code>peaceiris/actions-gh-pages@v4</code></td><td>部署到 GitHub Pages</td></tr></tbody></table><h2 id="我的博客工作流拆解"><a href="#我的博客工作流拆解" class="headerlink" title="我的博客工作流拆解"></a>我的博客工作流拆解</h2><p>下面是我博客的 GitHub Actions 配置，一步步拆开看：</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">Hexo</span> <span class="string">to</span> <span class="string">GitHub</span> <span class="string">Pages</span></span><br></pre></td></tr></table></figure><p>这是工作流的名字，会显示在 Actions 页面上。</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span> [<span class="string">master</span>]</span><br><span class="line">  <span class="attr">workflow_dispatch:</span></span><br></pre></td></tr></table></figure><p>触发条件：当 <code>master</code> 分支有推送时自动运行，同时支持在页面手动点击触发。</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">permissions:</span></span><br><span class="line">  <span class="attr">contents:</span> <span class="string">write</span></span><br></pre></td></tr></table></figure><p>给工作流分配权限，<code>contents: write</code> 允许它向仓库推送代码。</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">deploy:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br></pre></td></tr></table></figure><p>定义了一个叫 <code>deploy</code> 的作业，运行在最新版 Ubuntu 上。</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">steps:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">uses:</span> <span class="string">actions/checkout@v4</span></span><br><span class="line">    <span class="attr">with:</span></span><br><span class="line">      <span class="attr">fetch-depth:</span> <span class="number">0</span></span><br></pre></td></tr></table></figure><p>第一步：把仓库源码拉到虚拟机上。<code>fetch-depth: 0</code> 表示拉取完整 Git 历史，某些插件需要用到。</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">uses:</span> <span class="string">actions/setup-node@v4</span></span><br><span class="line">  <span class="attr">with:</span></span><br><span class="line">    <span class="attr">node-version:</span> <span class="number">20</span></span><br></pre></td></tr></table></figure><p>第二步：安装 Node.js 20。<code>setup-node</code> 会自动处理下载和环境变量。</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">dependencies</span></span><br><span class="line">  <span class="attr">run:</span> <span class="string">npm</span> <span class="string">install</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Generate</span> <span class="string">site</span></span><br><span class="line">  <span class="attr">run:</span> <span class="string">npx</span> <span class="string">hexo</span> <span class="string">generate</span></span><br></pre></td></tr></table></figure><p>第三步和第四步：安装依赖、生成静态页面。和你在本地执行的 <code>npm install &amp;&amp; hexo g</code> 完全一样。</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">to</span> <span class="string">GitHub</span> <span class="string">Pages</span></span><br><span class="line">  <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">    git clone --depth 1 --branch main https://x-access-token:$&#123;&#123; secrets.GITHUB_TOKEN &#125;&#125;@github.com/tenxiaodao/tenxiaodao.github.io.git deploy</span></span><br><span class="line"><span class="string">    rm -rf deploy/*</span></span><br><span class="line"><span class="string">    cp -r public/* deploy/</span></span><br><span class="line"><span class="string">    cd deploy</span></span><br><span class="line"><span class="string">    git config user.name &#x27;github-actions[bot]&#x27;</span></span><br><span class="line"><span class="string">    git config user.email &#x27;github-actions[bot]@users.noreply.github.com&#x27;</span></span><br><span class="line"><span class="string">    git add -A</span></span><br><span class="line"><span class="string">    git commit -m &quot;deploy: $&#123;&#123; github.sha &#125;&#125;&quot; || exit 0</span></span><br><span class="line"><span class="string">    git push</span></span><br></pre></td></tr></table></figure><p>第五步：部署。先 clone 当前的 <code>main</code> 分支（Pages 用的分支），清空后用生成的静态文件替换，提交并推送。</p><p>这里的 <code>$&#123;&#123; secrets.GITHUB_TOKEN &#125;&#125;</code> 是 GitHub 自动提供的认证令牌，每个工作流运行都会生成一个临时有效的 token，不需要你自己配置。</p><h2 id="怎么看工作流跑没跑通"><a href="#怎么看工作流跑没跑通" class="headerlink" title="怎么看工作流跑没跑通"></a>怎么看工作流跑没跑通</h2><p>推送代码后，打开 GitHub 仓库，点顶部的 <strong>Actions</strong> 标签：</p><ul><li>✅ 绿色表示成功</li><li>❌ 红色表示失败，点进去可以看到每一步的日志</li><li>🟡 黄色表示正在运行</li></ul><p>每步的日志会显示命令的输出，如果构建报错，日志里会明确告诉你在哪行出了问题。</p><h2 id="进阶技巧"><a href="#进阶技巧" class="headerlink" title="进阶技巧"></a>进阶技巧</h2><h3 id="缓存依赖加速构建"><a href="#缓存依赖加速构建" class="headerlink" title="缓存依赖加速构建"></a>缓存依赖加速构建</h3><p>如果你的项目有 <code>package-lock.json</code>（或 <code>yarn.lock</code>），可以用缓存功能：</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">uses:</span> <span class="string">actions/setup-node@v4</span></span><br><span class="line">  <span class="attr">with:</span></span><br><span class="line">    <span class="attr">node-version:</span> <span class="number">20</span></span><br><span class="line">    <span class="attr">cache:</span> <span class="string">npm</span></span><br></pre></td></tr></table></figure><p>这样 <code>node_modules</code> 会被缓存，后续构建就直接恢复缓存，跳过 <code>npm install</code>。<strong>但如果你的项目没有 lockfile，不要加这个选项，会报错。</strong></p><h3 id="并行-Job"><a href="#并行-Job" class="headerlink" title="并行 Job"></a>并行 Job</h3><p>如果你想在部署前先跑测试，可以拆成两个并行 job：</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">lint:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">run:</span> <span class="string">npm</span> <span class="string">run</span> <span class="string">lint</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">deploy:</span></span><br><span class="line">    <span class="attr">needs:</span> <span class="string">lint</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">run:</span> <span class="string">npm</span> <span class="string">run</span> <span class="string">build</span></span><br></pre></td></tr></table></figure><p><code>needs: lint</code> 确保 lint 通过了才部署。</p><h3 id="手动触发"><a href="#手动触发" class="headerlink" title="手动触发"></a>手动触发</h3><p>在 workflow 文件里加上 <code>workflow_dispatch</code>，就可以在 GitHub 页面手动点按钮触发，适合调试。</p><h3 id="定时触发"><a href="#定时触发" class="headerlink" title="定时触发"></a>定时触发</h3><p>如果需要定时任务（比如每天自动更新某个数据），用 cron 表达式：</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">schedule:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">cron:</span> <span class="string">&#x27;0 0 * * *&#x27;</span>   <span class="comment"># 每天 UTC 0 点运行</span></span><br></pre></td></tr></table></figure><h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>GitHub Actions 是我用过最顺手的自动化工具之一。它对公开仓库完全免费，语法清晰，生态成熟，而且和 GitHub 深度集成，不需要额外配置任何东西。</p><p>从一个最简单的自动部署开始，你可以慢慢扩展它的用途——自动检查文章链接是否失效、自动压缩图片、自动同步到其他平台……只要你能想到的自动化任务，它几乎都能做。</p><p>你的第一个工作流跑通了吗？</p>]]>
     </content>
     <id>https://www.tenxiaodao.top/github-actions-guide/</id>
     <link href="https://www.tenxiaodao.top/github-actions-guide/"/>
-    <published>2026-06-13T08:30:00.000Z</published>
+    <published>2026-06-13T23:30:00.000Z</published>
     <summary>
       <![CDATA[<h1 id="GitHub-Actions-使用指南：从入门到实战"><a href="#GitHub-Actions-使用指南：从入门到实战" class="headerlink" title="GitHub Actions 使用指南：从入门到实战"></a>GitHub A]]>
     </summary>
     <title>GitHub Actions 使用指南：从入门到实战</title>
-    <updated>2026-06-13T08:30:00.000Z</updated>
+    <updated>2026-06-13T23:30:00.000Z</updated>
   </entry>
   <entry>
     <author>
@@ -178,22 +178,22 @@
     </author>
     <category term="DevOps" scheme="https://www.tenxiaodao.top/categories/DevOps/"/>
     <category term="Hexo" scheme="https://www.tenxiaodao.top/tags/Hexo/"/>
-    <category term="CI/CD" scheme="https://www.tenxiaodao.top/tags/CI-CD/"/>
     <category term="GitHub Actions" scheme="https://www.tenxiaodao.top/tags/GitHub-Actions/"/>
+    <category term="CI/CD" scheme="https://www.tenxiaodao.top/tags/CI-CD/"/>
     <category term="自动化部署" scheme="https://www.tenxiaodao.top/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2/"/>
     <content>
       <![CDATA[<blockquote><p><strong>更新说明</strong>：本文原本配了 GitHub Actions 自动部署流程，后来还是觉得手动部署更顺手，所以已移除工作流文件。不过 CI&#x2F;CD 的思路和配置方法本身没问题，如果你感兴趣依然可以参考。</p></blockquote><h1 id="CI-CD-配置指南：让你的-Hexo-博客自动部署"><a href="#CI-CD-配置指南：让你的-Hexo-博客自动部署" class="headerlink" title="CI&#x2F;CD 配置指南：让你的 Hexo 博客自动部署"></a>CI&#x2F;CD 配置指南：让你的 Hexo 博客自动部署</h1><h2 id="什么是-CI-CD？"><a href="#什么是-CI-CD？" class="headerlink" title="什么是 CI&#x2F;CD？"></a>什么是 CI&#x2F;CD？</h2><p>CI&#x2F;CD 是 <strong>持续集成（Continuous Integration）</strong> 和 <strong>持续部署（Continuous Deployment）</strong> 的缩写。说白了就是：<strong>你只管写代码推上去，剩下的构建、测试、部署全都自动完成。</strong></p><p>以前更新博客的流程是：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">本地写文章 → hexo generate → hexo deploy → 等待上传完成</span><br></pre></td></tr></table></figure><p>有了 CI&#x2F;CD 之后变成：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">本地写文章 → git push → 剩下全自动</span><br></pre></td></tr></table></figure><p>GitHub 收到你的推送后，会自动拉取代码、安装依赖、生成静态页面、部署到 Pages。整个过程在 GitHub 的服务器上完成，你本地连 Node.js 都不用装。</p><h2 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h2><h3 id="持续集成（CI）"><a href="#持续集成（CI）" class="headerlink" title="持续集成（CI）"></a>持续集成（CI）</h3><p>每次你推送代码到仓库，CI 会自动执行一系列任务：</p><ul><li>拉取最新代码</li><li>安装项目依赖（npm install）</li><li>运行构建命令（hexo generate）</li><li>验证构建是否成功</li></ul><p>如果构建失败（比如依赖出问题、模板语法错误），你会立刻收到通知，不会把坏代码部署上线。</p><h3 id="持续部署（CD）"><a href="#持续部署（CD）" class="headerlink" title="持续部署（CD）"></a>持续部署（CD）</h3><p>CI 验证通过后，CD 会自动把构建产物发布到生产环境。对于 Hexo 博客来说，就是把生成的 <code>public/</code> 目录推送到 GitHub Pages 的分支上，网站就自动更新了。</p><h2 id="我的-Hexo-博客是怎么配置的？"><a href="#我的-Hexo-博客是怎么配置的？" class="headerlink" title="我的 Hexo 博客是怎么配置的？"></a>我的 Hexo 博客是怎么配置的？</h2><p>我的博客源码托管在 GitHub，使用 GitHub Actions 作为 CI&#x2F;CD 平台。GitHub Actions 是 GitHub 自带的免费自动化服务，对于公开仓库完全没有使用限制。</p><h3 id="工作流程文件"><a href="#工作流程文件" class="headerlink" title="工作流程文件"></a>工作流程文件</h3><p>在项目根目录创建 <code>.github/workflows/deploy.yml</code>，内容如下：</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">Hexo</span> <span class="string">to</span> <span class="string">GitHub</span> <span class="string">Pages</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span> [<span class="string">master</span>]</span><br><span class="line">  <span class="attr">workflow_dispatch:</span></span><br><span class="line"></span><br><span class="line"><span class="attr">permissions:</span></span><br><span class="line">  <span class="attr">contents:</span> <span class="string">write</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">deploy:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Checkout</span> <span class="string">source</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/checkout@v4</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">fetch-depth:</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Setup</span> <span class="string">Node.js</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/setup-node@v4</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">node-version:</span> <span class="number">20</span></span><br><span class="line">          <span class="attr">cache:</span> <span class="string">npm</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">dependencies</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npm</span> <span class="string">ci</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Generate</span> <span class="string">site</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npx</span> <span class="string">hexo</span> <span class="string">generate</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">to</span> <span class="string">GitHub</span> <span class="string">Pages</span></span><br><span class="line">        <span class="attr">env:</span></span><br><span class="line">          <span class="attr">GIT_USER:</span> <span class="string">github-actions[bot]</span></span><br><span class="line">          <span class="attr">GIT_PASS:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.GITHUB_TOKEN</span> <span class="string">&#125;&#125;</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">          git config --global user.name &#x27;github-actions[bot]&#x27;</span></span><br><span class="line"><span class="string">          git config --global user.email &#x27;github-actions[bot]@users.noreply.github.com&#x27;</span></span><br><span class="line"><span class="string">          npx hexo deploy</span></span><br></pre></td></tr></table></figure><h3 id="流程拆解"><a href="#流程拆解" class="headerlink" title="流程拆解"></a>流程拆解</h3><p>这个工作流定义了 5 个步骤：</p><ol><li><strong>Checkout</strong> — 把源码拉到 GitHub 的虚拟服务器上</li><li><strong>Setup Node.js</strong> — 安装 Node.js 20 并启用 npm 缓存加速后续构建</li><li><strong>Install dependencies</strong> — 执行 <code>npm ci</code>，根据 <code>package-lock.json</code> 精确安装依赖（比 <code>npm install</code> 更快更稳定）</li><li><strong>Generate site</strong> — 运行 <code>hexo generate</code> 生成静态页面</li><li><strong>Deploy to Pages</strong> — 通过 <code>hexo deploy</code> 将生成的页面推送到 GitHub Pages</li></ol><p>触发条件写的是 <code>push: branches: [master]</code>，也就是只要往 master 分支推送代码，流水线就会自动启动。</p><h2 id="分支策略"><a href="#分支策略" class="headerlink" title="分支策略"></a>分支策略</h2><p>为了配合这个 CI&#x2F;CD 流程，我的博客采用了两个分支：</p><table><thead><tr><th>分支</th><th>内容</th><th>用途</th></tr></thead><tbody><tr><td><code>master</code></td><td>Hexo 源码（Markdown、主题、配置）</td><td>日常写文章、改配置</td></tr><tr><td><code>main</code></td><td>Hexo 生成的静态页面</td><td>GitHub Pages 读取的分支</td></tr></tbody></table><p>以前我需要在本地跑 <code>hexo g &amp;&amp; hexo d</code>，现在只要：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add -A</span><br><span class="line">git commit -m <span class="string">&quot;新文章：xxx&quot;</span></span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure><p>然后去 GitHub 仓库的 <strong>Actions</strong> 标签页就能看到流水线正在运行。等跑完（一般 1-2 分钟），网站就自动更新了。</p><h2 id="CI-CD-的好处"><a href="#CI-CD-的好处" class="headerlink" title="CI&#x2F;CD 的好处"></a>CI&#x2F;CD 的好处</h2><h3 id="1-告别环境依赖"><a href="#1-告别环境依赖" class="headerlink" title="1. 告别环境依赖"></a>1. 告别环境依赖</h3><p>本地换电脑了？重装系统了？只要 GitHub 上有源码，随时可以写文章推上去，构建环境是云端统一管理的，不会出现”在我电脑上是好的啊”这种尴尬。</p><h3 id="2-构建过程可追溯"><a href="#2-构建过程可追溯" class="headerlink" title="2. 构建过程可追溯"></a>2. 构建过程可追溯</h3><p>每次部署的记录都保存在 GitHub Actions 的日志里，构建成功还是失败、用了多少时间、输出了什么内容，一目了然。</p><h3 id="3-多人协作友好"><a href="#3-多人协作友好" class="headerlink" title="3. 多人协作友好"></a>3. 多人协作友好</h3><p>如果你的博客有多位作者，每个人只需要往 master 推送文章，GitHub Actions 会自动处理后续的构建和部署，不需要每个人都配置部署密钥。</p><h3 id="4-免费且稳定"><a href="#4-免费且稳定" class="headerlink" title="4. 免费且稳定"></a>4. 免费且稳定</h3><p>GitHub Actions 对公开仓库完全免费，每月有 2000 分钟的免费运行时长。对于个人博客的更新频率来说，根本用不完。</p><h2 id="如何验证-CI-CD-是否运行正常？"><a href="#如何验证-CI-CD-是否运行正常？" class="headerlink" title="如何验证 CI&#x2F;CD 是否运行正常？"></a>如何验证 CI&#x2F;CD 是否运行正常？</h2><p>代码推送后，打开 GitHub 仓库页面，点顶部的 <strong>Actions</strong> 标签：</p><ol><li>如果流水线显示绿色 ✅，说明构建和部署成功</li><li>如果显示红色 ❌，点进去查看具体的报错日志，通常 <code>npm ci</code> 或构建步骤出问题会有明确提示</li></ol><p>你也可以手动触发：在 Actions 页面找到你的工作流，点 <strong>Run workflow</strong> → 选择分支 → 绿色按钮，不需要推送代码也能触发。</p><h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>配置 CI&#x2F;CD 是我博客搭建以来最值得的投资之一。每次更新博客从原来的多步操作变成一行 <code>git push</code>，这种体验的提升是实实在在的。</p><p>如果你的 Hexo 博客还没配 CI&#x2F;CD，花 10 分钟搞定它，往后每次更新都能省下一两分钟。积少成多，省下的时间够多写好几篇文章了。</p>]]>
     </content>
     <id>https://www.tenxiaodao.top/ci-cd-auto-deploy-guide/</id>
     <link href="https://www.tenxiaodao.top/ci-cd-auto-deploy-guide/"/>
-    <published>2026-06-13T07:00:00.000Z</published>
+    <published>2026-06-13T22:00:00.000Z</published>
     <summary>
       <![CDATA[<blockquote>
 <p><strong>更新说明</strong>：本文原本配了 GitHub Actions 自动部署流程，后来还是觉得手动部署更顺手，所以已移除工作流文件。不过 CI&#x2F;CD 的思路和配置方法本身没问题，如果你感兴趣依然可以参考。</p>
 </]]>
     </summary>
     <title>CI/CD 配置指南：让你的 Hexo 博客自动部署</title>
-    <updated>2026-06-13T07:30:00.000Z</updated>
+    <updated>2026-06-13T22:30:00.000Z</updated>
   </entry>
   <entry>
     <author>
@@ -208,12 +208,12 @@
     </content>
     <id>https://www.tenxiaodao.top/codex-shiyong-zhinan/</id>
     <link href="https://www.tenxiaodao.top/codex-shiyong-zhinan/"/>
-    <published>2026-06-12T15:42:47.000Z</published>
+    <published>2026-06-13T06:42:47.000Z</published>
     <summary>
       <![CDATA[<h1 id="Codex-使用指南"><a href="#Codex-使用指南" class="headerlink" title="Codex 使用指南"></a>Codex 使用指南</h1><p>OpenAI Codex 是一种专注于代码理解与生成的模型，适合用于编程助手]]>
     </summary>
     <title>Codex 使用指南</title>
-    <updated>2026-06-12T15:42:47.000Z</updated>
+    <updated>2026-06-13T06:42:47.000Z</updated>
   </entry>
   <entry>
     <author>
@@ -225,12 +225,12 @@
     </content>
     <id>https://www.tenxiaodao.top/hei-ping-guo-ji-chu/</id>
     <link href="https://www.tenxiaodao.top/hei-ping-guo-ji-chu/"/>
-    <published>2026-05-29T16:00:00.000Z</published>
+    <published>2026-05-30T07:00:00.000Z</published>
     <summary>
       <![CDATA[<h1 id="黑苹果入门指南"><a href="#黑苹果入门指南" class="headerlink" title="黑苹果入门指南"></a>黑苹果入门指南</h1><p>近年来，黑苹果已经从小众折腾变成了一个关注度很高的项目。本文基于国光的 OpenCore 黑苹果教程]]>
     </summary>
     <title>黑苹果基础</title>
-    <updated>2026-05-30T10:01:04.000Z</updated>
+    <updated>2026-05-31T01:01:04.000Z</updated>
   </entry>
   <entry>
     <author>
@@ -242,12 +242,12 @@
     </content>
     <id>https://www.tenxiaodao.top/surfacepro4/</id>
     <link href="https://www.tenxiaodao.top/surfacepro4/"/>
-    <published>2026-05-23T16:00:00.000Z</published>
+    <published>2026-05-24T07:00:00.000Z</published>
     <summary>
       <![CDATA[<h1 id="前言之前"><a href="#前言之前" class="headerlink" title="前言之前"></a>前言之前</h1><p>之前由于工作的原因导致断更了一段时间，前几天心血来潮想装一台完美黑苹果于是就有了以下的内容。你们可以参考国光酱的教程</p>]]>
     </summary>
     <title>在surfacepro4里安装macOS</title>
-    <updated>2026-05-24T04:00:00.000Z</updated>
+    <updated>2026-05-24T19:00:00.000Z</updated>
   </entry>
   <entry>
     <author>
@@ -259,12 +259,12 @@
     </content>
     <id>https://www.tenxiaodao.top/opcloud-usage/</id>
     <link href="https://www.tenxiaodao.top/opcloud-usage/"/>
-    <published>2026-03-15T16:00:00.000Z</published>
+    <published>2026-03-16T07:00:00.000Z</published>
     <summary>
       <![CDATA[<h2 id="1-什么是-opcloud"><a href="#1-什么是-opcloud" class="headerlink" title="1. 什么是 opcloud"></a>1. 什么是 opcloud</h2><p><code>opcloud</code> 是一款]]>
     </summary>
     <title>opcloud的使用</title>
-    <updated>2026-03-16T04:00:00.000Z</updated>
+    <updated>2026-03-16T19:00:00.000Z</updated>
   </entry>
   <entry>
     <author>
@@ -279,14 +279,14 @@
     </content>
     <id>https://www.tenxiaodao.top/oneclip-kai-fa-jing-yan-fen-xiang-cong-ling-dao-yi-de-macos-ying-yong-kai-fa/</id>
     <link href="https://www.tenxiaodao.top/oneclip-kai-fa-jing-yan-fen-xiang-cong-ling-dao-yi-de-macos-ying-yong-kai-fa/"/>
-    <published>2026-02-22T09:46:13.000Z</published>
+    <published>2026-02-23T01:46:13.000Z</published>
     <summary>
       <![CDATA[<blockquote>
 <p>🏗️ 分享 OneClip 开发过程中的<strong>真实经验</strong>、<strong>踩坑记录</strong>、<strong>解决方案</strong>和<strong>最佳实践</strong></p>
 </blockquot]]>
     </summary>
     <title>OneClip 开发经验分享：从零到一的 macOS 应用开发</title>
-    <updated>2026-06-15T09:07:43.081Z</updated>
+    <updated>2026-06-15T09:07:43.080Z</updated>
   </entry>
   <entry>
     <author>
@@ -299,13 +299,13 @@
     </content>
     <id>https://www.tenxiaodao.top/ru-he-zhu-ce-chatgpt/</id>
     <link href="https://www.tenxiaodao.top/ru-he-zhu-ce-chatgpt/"/>
-    <published>2026-02-07T15:09:31.000Z</published>
+    <published>2026-02-08T07:09:31.000Z</published>
     <summary>
       <![CDATA[<h1 id="🤖-如何注册ChatGPT"><a href="#🤖-如何注册ChatGPT" class="headerlink" title="🤖 如何注册ChatGPT"></a>🤖 如何注册ChatGPT</h1><blockquote>
 <p><strong>且]]>
     </summary>
     <title>如何注册ChatGPT</title>
-    <updated>2026-06-15T09:07:43.082Z</updated>
+    <updated>2026-06-15T09:07:43.080Z</updated>
   </entry>
   <entry>
     <author>
@@ -320,10 +320,10 @@
     </content>
     <id>https://www.tenxiaodao.top/ru-he-zai-wei-xin-li-bu-shu-ai-nv-you-kourichat-jiao-cheng/</id>
     <link href="https://www.tenxiaodao.top/ru-he-zai-wei-xin-li-bu-shu-ai-nv-you-kourichat-jiao-cheng/"/>
-    <published>2025-11-17T14:46:18.000Z</published>
+    <published>2025-11-18T06:46:18.000Z</published>
     <summary>本文整理将开源 KouriChat 部署在本地（Windows 虚拟机）并接入微信的流程、关键配置与风险提示，适合学习与测试使用。</summary>
     <title>如何在微信里部署 AI 女友（KouriChat 教程）</title>
-    <updated>2026-06-15T09:07:42.957Z</updated>
+    <updated>2026-06-15T09:07:42.950Z</updated>
   </entry>
   <entry>
     <author>
@@ -336,7 +336,7 @@
     </content>
     <id>https://www.tenxiaodao.top/openeuler-de-an-zhuang-jiao-cheng/</id>
     <link href="https://www.tenxiaodao.top/openeuler-de-an-zhuang-jiao-cheng/"/>
-    <published>2025-11-03T10:55:23.000Z</published>
+    <published>2025-11-04T02:55:23.000Z</published>
     <summary>
       <![CDATA[<blockquote>
 <p>先安装vm可以看往期教程<a href="">vm虚拟机安装</a></p>
@@ -344,7 +344,7 @@
 <h2 id="安装的详细步骤"><a href="#安装的详细步骤" class="headerlink" title="安装的详细步骤">]]>
     </summary>
     <title>Openeuler的安装教程</title>
-    <updated>2026-06-15T09:07:42.959Z</updated>
+    <updated>2026-06-15T09:07:42.950Z</updated>
   </entry>
   <entry>
     <author>
@@ -360,7 +360,7 @@
     </content>
     <id>https://www.tenxiaodao.top/sticky-note-wall/</id>
     <link href="https://www.tenxiaodao.top/sticky-note-wall/"/>
-    <published>2025-10-23T16:00:00.000Z</published>
+    <published>2025-10-24T07:00:00.000Z</published>
     <summary>
       <![CDATA[<blockquote>
 <p>一个支持拖拽、变色、自动保存的便签墙小工具，纯前端实现，无需后端。</p>
@@ -368,7 +368,7 @@
 <p>前段时间用纯 HTML + CSS + JavaScript 做了一个便签墙页面，可以在上面随意添加、拖拽、编辑彩色便签，所有数据保存在浏]]>
     </summary>
     <title>如何制作便签墙网站（附完整代码）</title>
-    <updated>2026-06-14T16:00:00.000Z</updated>
+    <updated>2026-06-15T07:00:00.000Z</updated>
   </entry>
   <entry>
     <author>
@@ -383,12 +383,12 @@
     </content>
     <id>https://www.tenxiaodao.top/linux-ji-chu-ming-ling-su-cha-ru-men/</id>
     <link href="https://www.tenxiaodao.top/linux-ji-chu-ming-ling-su-cha-ru-men/"/>
-    <published>2025-10-22T08:05:21.000Z</published>
+    <published>2025-10-22T23:05:21.000Z</published>
     <summary>
       <![CDATA[<h1 id="Linux-基础命令速查（入门）"><a href="#Linux-基础命令速查（入门）" class="headerlink" title="Linux 基础命令速查（入门）"></a>Linux 基础命令速查（入门）</h1><p>本文为常用基础命令的精简速查]]>
     </summary>
     <title>Linux 基础命令速查（入门）</title>
-    <updated>2026-06-15T09:07:42.947Z</updated>
+    <updated>2026-06-15T09:07:42.940Z</updated>
   </entry>
   <entry>
     <author>
@@ -396,19 +396,19 @@
     </author>
     <category term="Linux" scheme="https://www.tenxiaodao.top/categories/Linux/"/>
     <category term="Linux" scheme="https://www.tenxiaodao.top/tags/Linux/"/>
-    <category term="openEuler" scheme="https://www.tenxiaodao.top/tags/openEuler/"/>
     <category term="运维" scheme="https://www.tenxiaodao.top/tags/%E8%BF%90%E7%BB%B4/"/>
+    <category term="openEuler" scheme="https://www.tenxiaodao.top/tags/openEuler/"/>
     <content>
       <![CDATA[<h1 id="openEuler-常用命令与管理指南（速查）"><a href="#openEuler-常用命令与管理指南（速查）" class="headerlink" title="openEuler 常用命令与管理指南（速查）"></a>openEuler 常用命令与管理指南（速查）</h1><p>本文按场景汇总常用命令与配置示例，便于日常运维快速参考。</p><hr><h2 id="1-开机自动挂载（fstab）"><a href="#1-开机自动挂载（fstab）" class="headerlink" title="1 开机自动挂载（fstab）"></a>1 开机自动挂载（fstab）</h2><p>编辑 &#x2F;etc&#x2F;fstab，添加示例：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 本地 ISO 镜像挂载（iso9660）</span></span><br><span class="line">/dev/cdrom  /root/aaa  iso9660  defaults  0  0</span><br></pre></td></tr></table></figure><p>字段说明：设备 文件系统挂载点 FS类型 挂载选项 dump fsck顺序。修改后重启或执行 mount -a 测试。</p><hr><h2 id="2-配置-SSH-服务"><a href="#2-配置-SSH-服务" class="headerlink" title="2 配置 SSH 服务"></a>2 配置 SSH 服务</h2><p>编辑 &#x2F;etc&#x2F;ssh&#x2F;sshd_config，常用项：</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">PermitRootLogin yes           # 允许 root 用户远程登录</span><br><span class="line">Port 22                       # 允许的端口</span><br><span class="line">PasswordAuthentication yes    # 允许密码登录</span><br><span class="line">AllowUsers user1 user2        # 仅允许 user1 和 user2 登录（登录超时设置（防止空闲连接占用资源））</span><br><span class="line">ClientAliveInterval 300       # 每 5 分钟发送一次心跳</span><br><span class="line">ClientAliveCountMax 3         # 0 表示无限次，可改为 3 等有限次数</span><br></pre></td></tr></table></figure><p>保存后重启：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl restart sshd</span><br></pre></td></tr></table></figure><blockquote><p>配置免密登录<br>两台主机<br>A生成密钥对执行命令生成 RSA 密钥对（一路回车，也可设密码，但设密码后仍需输密钥密码，一般免密场景直接回车留空 ）：</p></blockquote><p>免密登录（在 A 机执行）：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa</span><br><span class="line">ssh-copy-id username@B_IP</span><br><span class="line">ssh username@B_IP   <span class="comment"># 测试无密码登录</span></span><br></pre></td></tr></table></figure><hr><h2 id="3-网络配置（network-scripts-nmtui）"><a href="#3-网络配置（network-scripts-nmtui）" class="headerlink" title="3 网络配置（network-scripts &#x2F; nmtui）"></a>3 网络配置（network-scripts &#x2F; nmtui）</h2><blockquote><p>在 openEuler 中配置 network-scripts（传统网络服务）主要通过编辑 &#x2F;etc&#x2F;sysconfig&#x2F;network-scripts&#x2F; 目录下的网卡配置文件实现。以下是详细<br>步骤，适用于静态 IP 和 DHCP 两种场景：</p></blockquote><p>查看网卡：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ip addr</span><br></pre></td></tr></table></figure><p>静态 IP（&#x2F;etc&#x2F;sysconfig&#x2F;network-scripts&#x2F;ifcfg-ens33 示例）：</p><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">TYPE</span>=EthernetTYPE=Ethernet           <span class="comment"># 网络类型</span></span><br><span class="line"><span class="attr">BOOTPROTO</span>=static                     <span class="comment"># 静态 IP（dhcp 为动态获取）</span></span><br><span class="line"><span class="attr">NAME</span>=ens33                           <span class="comment"># 网卡名称（与文件名一致）</span></span><br><span class="line"><span class="attr">DEVICE</span>=ens33                         <span class="comment"># 设备名（与网卡实际名称一致）</span></span><br><span class="line"><span class="attr">ONBOOT</span>=<span class="literal">yes</span>                           <span class="comment"># 开机启用</span></span><br><span class="line"><span class="attr">IPADDR</span>=<span class="number">192.168</span>.<span class="number">1.100</span>                 <span class="comment"># 静态 IP 地址</span></span><br><span class="line"><span class="attr">PREFIX</span>=<span class="number">24</span>                            <span class="comment"># 子网掩码（24 等价于 255.255.255.0）</span></span><br><span class="line"><span class="attr">GATEWAY</span>=<span class="number">192.168</span>.<span class="number">1.1</span>                  <span class="comment"># 网关地址</span></span><br><span class="line"><span class="attr">DNS1</span>=<span class="number">114.114</span>.<span class="number">114.114</span>                 <span class="comment"># DNS 服务器 1</span></span><br><span class="line"><span class="attr">DNS2</span>=<span class="number">8.8</span>.<span class="number">8.8</span>                         <span class="comment"># DNS 服务器 2（可选）</span></span><br></pre></td></tr></table></figure><p>重启网络：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl restart network</span><br></pre></td></tr></table></figure><p>使用图形化文本界面：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> nmtui</span><br><span class="line"><span class="comment"># 选择 Edit a connection -&gt; 选择网卡 -&gt; 配置静态 IP -&gt; 激活连接</span></span><br></pre></td></tr></table></figure><hr><h2 id="4-命令补全"><a href="#4-命令补全" class="headerlink" title="4 命令补全"></a>4 命令补全</h2><p>安装 bash 补全：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> yum -y install bash-completion</span><br><span class="line"><span class="built_in">exec</span> bash</span><br></pre></td></tr></table></figure><hr><h2 id="5-安装图形化桌面（DDE-UKUI）"><a href="#5-安装图形化桌面（DDE-UKUI）" class="headerlink" title="5 安装图形化桌面（DDE &#x2F; UKUI）"></a>5 安装图形化桌面（DDE &#x2F; UKUI）</h2><blockquote><p>DDE 和 UKUI 都是国产 Linux 图形化桌面环境，相当于电脑的 “可视化操作界面”，类似 Windows 的桌面，但设计理念和适用场景有差异。以下用通俗易懂的方式对比两者区别：</p></blockquote><ol><li>定位与风格<br>DDE（Deepin Desktop Environment，深度桌面环境）<br>风格：更偏向时尚、现代，界面设计简洁美观，动画效果流畅，图标和窗口风格精致，类似 macOS 的简约感。<br>定位：适合追求颜值和操作流畅度的个人用户，比如日常办公、娱乐、编程等，尤其受年轻用户和开发者喜欢。<br>UKUI（优麒麟用户界面）<br>风格：更偏向稳重、实用，界面布局中规中矩，类似 Windows 经典风格（如开始菜单、任务栏位置），学习成本低。<br>定位：适合需要稳定、适配性强的场景，比如政府、企业办公，或国产操作系统的标准化部署（如 openEuler、银河麒麟等）。</li><li>功能与生态<br>DDE<br>功能：内置工具更 “潮”，比如深度商店（应用丰富，支持微信、QQ 等常用软件）、深度截图、系统监控等，交互细节贴心（如全局快捷键、多桌面管理）。<br>生态：深度社区活跃，对国产硬件（如华为、统信芯片）和软件适配较好，适合个人用户打造 “个性化桌面”。<br>UKUI<br>功能：功能更 “基础”，侧重系统稳定性和兼容性，内置工具偏向办公实用（如文件管理器、文本编辑器），界面选项简洁，不易出错。<br>生态：依赖国产操作系统官方支持（如优麒麟、openEuler），对政府 &#x2F; 企业级软件（如电子政务系统）适配更优，适合大规模统一部署。</li><li>使用场景推荐<br>选 DDE：<br>如果你是个人用户，想在 Linux 上体验好看、好用的桌面，或常用国产软件（如微信、WPS），选 DDE 更舒服。<br>选 UKUI：<br>如果你是企业用户或使用国产操作系统（如单位电脑预装的 openEuler），需要稳定、符合传统操作习惯的界面，选 UKUI 更合适。<br>一句话总结<br>DDE：像 “年轻人的时尚桌面”，好看又好用，适合追求个性和流畅体验的个人。<br>UKUI：像 “稳重的办公桌面”，朴实无华但稳定可靠，适合企业和标准化场景。<br>根据需求选就行～ 如果只是日常用电脑，建议先试试 DDE；如果是单位或国产系统设备，可能默认就是 UKUI</li></ol><p>安装示例（视仓库与包名而定）：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> yum -y install ukui      <span class="comment"># 或 dde</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> +x /etc/rc.d/rc.local   <span class="comment"># 若需要</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl set-default graphical.target</span><br><span class="line"><span class="built_in">sudo</span> reboot</span><br></pre></td></tr></table></figure><p>DDE 更美观偏个人，UKUI 更稳重适配企业场景，按需选择。</p><hr><h2 id="6-虚拟机网络模式简介（桥接-Host-Only-NAT）"><a href="#6-虚拟机网络模式简介（桥接-Host-Only-NAT）" class="headerlink" title="6 虚拟机网络模式简介（桥接 &#x2F; Host-Only &#x2F; NAT）"></a>6 虚拟机网络模式简介（桥接 &#x2F; Host-Only &#x2F; NAT）</h2><ul><li>桥接（Bridged）：虚拟机直接加入 LAN，获取同网段 IP，适合做局域网服务。</li><li>仅主机（Host-Only）：仅主机与虚拟机可互通，隔离外网，适合测试隔离环境。</li><li>NAT：虚拟机通过宿主 NAT 上网，配置简单但外网无法主动访问虚拟机（需端口映射）。</li></ul><hr><h2 id="7-常用命令速查"><a href="#7-常用命令速查" class="headerlink" title="7 常用命令速查"></a>7 常用命令速查</h2><p>系统与信息：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">whoami</span>; hostnamectl; <span class="built_in">uname</span> -a; <span class="built_in">uptime</span></span><br><span class="line">free -h; <span class="built_in">df</span> -h; <span class="built_in">du</span> -sh /path</span><br></pre></td></tr></table></figure><p>进程与服务：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ps aux | grep name</span><br><span class="line">pkill -f name</span><br><span class="line"><span class="built_in">sudo</span> systemctl status|start|stop|restart nginx</span><br><span class="line">ss -tulpn | grep :80</span><br></pre></td></tr></table></figure><p>文件与查找：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> -la; <span class="built_in">cat</span> file; less file</span><br><span class="line">find / -name <span class="string">&quot;*.log&quot;</span></span><br><span class="line">grep -R --exclude-dir=node_modules <span class="string">&quot;关键词&quot;</span> .</span><br><span class="line">tar czvf a.tar.gz folder/; tar xzvf a.tar.gz</span><br></pre></td></tr></table></figure><p>网络与传输：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ping -c4 example.com</span><br><span class="line">curl -I https://example.com</span><br><span class="line">scp file user@host:/path</span><br><span class="line">rsync -avz src/ user@host:/dest/</span><br></pre></td></tr></table></figure><hr><h2 id="8-vim-快捷与编辑"><a href="#8-vim-快捷与编辑" class="headerlink" title="8 vim 快捷与编辑"></a>8 vim 快捷与编辑</h2><p>常用模式与命令：</p><ul><li>模式：命令模式 &#x2F; 插入模式 &#x2F; 底行模式  </li><li>插入：i a I A o O  </li><li>行操作：yy 复制行；p 粘贴；dd 删除行  </li><li>底行命令：:w 保存；:q 退出；:wq 保存退出；:q! 强制退出</li></ul><hr><h2 id="9-提权（sudo）"><a href="#9-提权（sudo）" class="headerlink" title="9 提权（sudo）"></a>9 提权（sudo）</h2><p>编辑 sudoers（使用 visudo）：</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 允许 user1 使用 sudo</span><br><span class="line">user1 ALL=(ALL) ALL</span><br></pre></td></tr></table></figure><p>建议通过 visudo 修改以避免语法错误。</p><hr><h2 id="10-安全与建议（简要）"><a href="#10-安全与建议（简要）" class="headerlink" title="10 安全与建议（简要）"></a>10 安全与建议（简要）</h2><ul><li>优先使用密钥登录，禁用 root 密码登录（生产环境）。</li><li>防火墙只开放必要端口，使用 SELinux&#x2F;防火墙策略。</li><li>定期备份 &#x2F;etc、重要配置与数据，使用包管理器更新补丁。</li><li>在生产环境谨慎设置 PermitRootLogin 与 PasswordAuthentication。</li></ul><hr><p>本文为速查手册，覆盖常见场景与示例，具体命令与包名请根据 openEuler 版本与仓库调整，遇到疑问可查看 man 页面或官方文档。</p>]]>
     </content>
     <id>https://www.tenxiaodao.top/openeuler-chang-yong-ming-ling-yu-guan-li-zhi-nan/</id>
     <link href="https://www.tenxiaodao.top/openeuler-chang-yong-ming-ling-yu-guan-li-zhi-nan/"/>
-    <published>2025-10-22T08:05:21.000Z</published>
+    <published>2025-10-22T23:05:21.000Z</published>
     <summary>
       <![CDATA[<h1 id="openEuler-常用命令与管理指南（速查）"><a href="#openEuler-常用命令与管理指南（速查）" class="headerlink" title="openEuler 常用命令与管理指南（速查）"></a>openEuler 常用命令与管理]]>
     </summary>
     <title>openEuler 常用命令与管理指南</title>
-    <updated>2026-06-15T09:07:42.952Z</updated>
+    <updated>2026-06-15T09:07:42.950Z</updated>
   </entry>
   <entry>
     <author>
@@ -423,11 +423,11 @@
     </content>
     <id>https://www.tenxiaodao.top/linux-ming-ling-da-quan/</id>
     <link href="https://www.tenxiaodao.top/linux-ming-ling-da-quan/"/>
-    <published>2025-10-17T04:00:00.000Z</published>
+    <published>2025-10-17T19:00:00.000Z</published>
     <summary>
       <![CDATA[<h1 id="Linux-命令大全"><a href="#Linux-命令大全" class="headerlink" title="Linux 命令大全"></a>Linux 命令大全</h1><p>本文按场景分类，汇总常用的 Linux 命令与典型示例，适合作为日常运维与开]]>
     </summary>
     <title>Linux 命令大全</title>
-    <updated>2026-06-15T09:07:42.955Z</updated>
+    <updated>2026-06-15T09:07:42.950Z</updated>
   </entry>
 </feed>
