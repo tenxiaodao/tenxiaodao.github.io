@@ -11803,6 +11803,9 @@ h1.page-title + .tag-cloud-list {
 #post #post-info #post-firstinfo .meta-firstline a.post-meta-original {
   background: var(--anzhiyu-black);
 }
+#post #post-info #post-firstinfo .meta-firstline a.post-meta-categories {
+  background: var(--anzhiyu-black);
+}
 #post #post-info #post-firstinfo .meta-firstline .article-meta__tags {
   color: var(--anzhiyu-black);
 }
@@ -20202,7 +20205,7 @@ div#category {
   color: var(--anzhiyu-fontcolor);
   padding: 0 0.2em;
   text-decoration: none;
-  font-family: auto;
+  font-family: inherit;
 }
 #article-container
   a:not([data-fancybox="gallery"]):not(.headerlink):not(.cf-friends-link):not(.btn-anzhiyu):not(
@@ -20369,7 +20372,7 @@ html.hide-aside .layout > div:first-child {
   /* 分类/标签较少时，可以选择不设置 width，居中显示 catalog-list-item */
   display: flex;
   white-space: nowrap;
-  overflow-x: scroll;
+  overflow-x: hidden;
 }
 
 #catalog-list::-webkit-scrollbar {
@@ -21999,6 +22002,7 @@ body[data-type="essay"] #web_bg {
   display: flex;
   flex-direction: column;
   text-align: justify;
+  word-break: break-all;
 }
 #bber p {
   margin: 0px;
