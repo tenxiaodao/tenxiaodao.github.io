@@ -1,0 +1,660 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>Codex CLI 疯狂写盘自救指南 | 言志</title><meta name="keywords" content="AI,Codex,OpenAI,CLI,故障排查"><meta name="author" content="周言志"><meta name="copyright" content="周言志"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="Codex CLI 疯狂写盘自救指南"><meta name="application-name" content="Codex CLI 疯狂写盘自救指南"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="Codex CLI 疯狂写盘自救指南"><meta property="og:url" content="https://www.tenxiaodao.top/codex-cli-disk-write-fix/index.html"><meta property="og:site_name" content="言志"><meta property="og:description" content="Codex CLI 疯狂写盘自救指南最近 OpenAI Codex CLI 被曝出一个相当严重的磁盘写入 bug：SQLite 日志在 TRACE 级别全量落盘，一年能写穿一块消费级 NVMe SSD。本文带你理解问题原理、检查自己是否中招，并提供从升级到触发器的完整自救方案。 这个 bug 到底在"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://bu.dusays.com/2026/06/17/6a32390b61ca4.webp"><meta property="article:author" content="周言志"><meta property="article:tag"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://bu.dusays.com/2026/06/17/6a32390b61ca4.webp"><meta name="description" content="Codex CLI 疯狂写盘自救指南最近 OpenAI Codex CLI 被曝出一个相当严重的磁盘写入 bug：SQLite 日志在 TRACE 级别全量落盘，一年能写穿一块消费级 NVMe SSD。本文带你理解问题原理、检查自己是否中招，并提供从升级到触发器的完整自救方案。 这个 bug 到底在"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="https://www.tenxiaodao.top/codex-cli-disk-write-fix/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//cdn.cbd.int"/><meta name="google-site-verification" content="wqPFRrXA8pZc0jE62WYRkxlS0hj9yiHEfvBAtBB8Jhc"/><meta name="baidu-site-verification" content="codeva-21E8Lxoehj"/><meta name="msvalidate.01" content="xxx"/><link rel="manifest" href="/manifest.json"/><meta name="msapplication-TileColor" content="var(--anzhiyu-main)"/><link rel="mask-icon" href="/img/siteicon/apple-icon-180.png" color="#5bbad5"/><link rel="apple-touch-icon" sizes="180x180" href="/img/siteicon/apple-icon-180.png"/><link rel="apple-touch-icon-precomposed" sizes="180x180" href="/img/siteicon/apple-icon-180.png"/><link rel="icon" type="image/png" sizes="32x32" href="/img/siteicon/32.png"/><link rel="icon" type="image/png" sizes="16x16" href="/img/siteicon/16.png"/><link rel="bookmark" href="/img/siteicon/apple-icon-180.png"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2048-2732.jpg" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2732-2048.jpg" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1668-2388.jpg" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2388-1668.jpg" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1536-2048.jpg" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2048-1536.jpg" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1668-2224.jpg" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2224-1668.jpg" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1620-2160.jpg" media="(device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2160-1620.jpg" media="(device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1290-2796.jpg" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2796-1290.jpg" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1179-2556.jpg" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2556-1179.jpg" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1284-2778.jpg" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2778-1284.jpg" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1170-2532.jpg" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2532-1170.jpg" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1125-2436.jpg" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2436-1125.jpg" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1242-2688.jpg" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2688-1242.jpg" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-828-1792.jpg" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1792-828.jpg" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1242-2208.jpg" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2208-1242.jpg" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-750-1334.jpg" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1334-750.jpg" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-640-1136.jpg" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1136-640.jpg" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@6.1.6/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/swiper/swiper.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: undefined,
+  postHeadAiDescription: undefined,
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: {"enable":true,"default":"晚上好👋","list":[{"greeting":"晚安😴","startTime":0,"endTime":5},{"greeting":"早上好鸭👋, 祝你一天好心情！","startTime":6,"endTime":9},{"greeting":"上午好👋, 状态很好，鼓励一下～","startTime":10,"endTime":10},{"greeting":"11点多啦, 在坚持一下就吃饭啦～","startTime":11,"endTime":11},{"greeting":"午安👋, 宝贝","startTime":12,"endTime":14},{"greeting":"🌈充实的一天辛苦啦！","startTime":14,"endTime":18},{"greeting":"19点喽, 奖励一顿丰盛的大餐吧🍔。","startTime":19,"endTime":19},{"greeting":"晚上好👋, 在属于自己的时间好好放松😌~","startTime":20,"endTime":24}]},
+  twikooEnvId: 'https://yuhaozhe-twikoo.hf.space',
+  commentBarrageConfig:undefined,
+  music_page_default: "nav_music",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: {"skills":["🤖️ 数码科技爱好者","🔍 分享与热心帮助","🏠 智能家居小能手","🔨 设计开发一条龙","🤝 专修交互与设计","🏃 脚踏实地行动派","🧱 团队小组发动机","💢 壮汉人狠话不多"]},
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: 周言志","link":"链接: ","source":"来源: 言志","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.2.0/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.2.0/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: '言志',
+  title: 'Codex CLI 疯狂写盘自救指南',
+  postAI: '',
+  pageFillDescription: 'Codex CLI 疯狂写盘自救指南, 这个 bug 到底在干什么, 一、确认自己中没中招, 二、升级到 0.142.0, 三、清理已经被写爆的旧日志, 四、验证修复生效, 五、进阶：用 SQLite Trigger 在线止血, 1. 确诊：TRACE 是不是元凶, 2. 先备份, 3. 用 trigger 拦住 logs 表的 insert, 4. Checkpoint 并截断 WAL把空间收回来, 5. 采样确认彻底不涨了, 让 AI 代跑整套流程, 桌面 App 用户特别注意事项, 常见问题疯狂写盘自救指南最近被曝出一个相当严重的磁盘写入日志在级别全量落盘一年能写穿一块消费级本文带你理解问题原理检查自己是否中招并提供从升级到触发器的完整自救方案这个到底在干什么会把运行日志写进一个本地数据库问题出在它在级别全量落盘每一个事件每一条依赖库的噪声日志都往里写而且不停地造成严重的写放大社区实测一台机器连续跑天向磁盘写了约折算下来一年约消费级的标称写入寿命通常只有左右理论上不到一年就能把一块盘的寿命写穿还带两个连锁故障超过约时会以崩溃能无上限涨到几十发布带来了部分修复两个停掉逐条事件日志和过滤噪声按估算能砍掉约的日志写入纯命令行场景改善明显但它没有完全修好实测在桌面路径下即使内嵌已经是的高频写入依然存在秒采样里还在前进行多人复现所以本篇不只教你升级还给你可靠检测清理在线止血的整套兜底还有一点升级只能止住未来的写入已经被写爆的旧日志不会自动回收完整处置流程是升级真正确认停没停没停就清理止血一确认自己中没中招先看日志文件有多大重点盯那个如果已经是几百甚至级基本可以确定你正被这个持续写盘光看文件大小会骗你的会让稳定在几体积也不怎么涨看着没事底层却一直在写实测更靠谱的判定是隔秒采两次行号看它还涨不涨等秒再跑一次数值仍在大幅前进几百上千正在持续写盘路径是直接在资源管理器里看这三个文件的大小即可二升级到两种方式任选其一方式一手动升级当前解析到的就是已经包含这两个修复升级完确认版本方式二让代办如果你装了把这句话丢给它让它联网搜索并完成升级必须是或更高才带修复及更早版本仍会疯狂写盘重装同一个旧版本没用认准版本号升级后务必回第一步用采样复测因为路径上它可能还没停见下文三清理已经被写爆的旧日志动手前先完全退出命令行会话和桌面都关掉文件还被占用时删不干净也可能立刻重建这个日志库不含任何对话内容或配置纯粹是诊断日志删掉是安全的下次启动会自动重建一个干净的小文件或者一行通配搞定四验证修复生效版本号到位期望输出或更高别只看文件大小按第一步那招采样确认写入真的停了隔秒两次数值基本不动写入真停了进阶直接看实际写入量用对比挂机前后的挂机一小时前后做差值正常情况下增量应该很小而不是之前那种几小时的量级如果你用的是桌面升到后很可能仍在涨这是已知的部分修复缺口这时别干等直接上进阶里的在线止血五进阶用在线止血如果你不想删库又想立刻止住写盘尤其是升级到后在上仍没停的情况可以用拦截表的日志全落在一张名为的表里主键所以能精确处理这也正是之后社区在上仍在用的兜底方案评论里多人在用同名确诊是不是元凶实测里能占到五到七成行数大头是的噪声再隔秒采两次看还在不在涨等秒重复上面两条一次响应能跳几千或每分钟稳定涨一两千就是正在被持续写盘别想着用来压实测设了它照样落进这条持久化路径不吃环境变量的过滤先备份即使在跑也能做一致性备份用拦住表的拦普通表的要用不是那个只能建在视图上照抄会报错之后所有往表的写入都会被静默忽略不报错从源头止住是库级的对已经打开的连接也会即时生效并截断把空间收回来返回第一列是表示截断成功如果是说明还占着连接彻底退出再跑一次采样确认彻底不涨了隔秒两次数值应不变应停在很小不再增长钉死不动不再变大就说明止血成功这是侵入式的临时手段升级到仍是第一步它确实砍掉了一大块等官方把的缺口也补上后记得把删掉还原否则诊断日志会一直写不进去另外只对表下手别对等状态库这么干让代跑整套流程如果你用的是或自己把这段丢给它让它代跑上面的步骤排查是否因日志持续高频写盘看是否占大头隔秒采两次和文件大小确认是否还在涨中招的话先用备份建拦表回收再采样确认和都不再增长桌面用户特别注意事项如果你用的是桌面而非命令行注意以下几点走独立版本线最新发布早于的修复内嵌自己管理的引擎所以升级不一定能让用上这个修复用完彻底退出不是最小化挂后台跑长任务会持续写盘退出能立刻止血需要时改用已修复的干活功能和高度重叠是绕开没修最干净的办法清理时只删别碰等库那些含会话状态删了可能起不来盯官方更新等版本号高于且写明减少磁盘写入的版本常见问题升级完为什么磁盘空间没回来升级只停掉未来的写入已经占用的空间要手动清见第三步我已经升到怎么还在写盘因为只是部分修复实测在桌面路径下的高频写入仍未根治多人复现兜底两招用进阶里的在线止住表别指望实测设了照样落库剩下的盯后续版本删掉会丢对话记录或配置吗不会它只是诊断日志会话历史和配置都在别的文件里不受影响暂时升不了级怎么办如果暂时升不了级可以把日志重定向到内存盘让写入落在内存重启即清完全不碰思路是把指到如的日志不含数据重启丢失无所谓没有等价的简单方案建议直接走升级清理',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2026-06-24 00:50:00',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="言志" type="application/atom+xml">
+</head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="/img/up.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><div class="back-home-button"><i class="anzhiyufont anzhiyu-icon-grip-vertical"></i><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">关注我</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://github.com/tenxiaodao/tenxiaodao.github.io" title="Github"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/up.jpg" alt="Github"/><span class="back-menu-item-text">Github</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://space.bilibili.com/1803174585" title="Bilibili"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/up.jpg" alt="Bilibili"/><span class="back-menu-item-text">Bilibili</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">网盘</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://pan.quark.cn/s/c98d1ceee692" title="软件/工具"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="软件/工具"/><span class="back-menu-item-text">软件/工具</span></a></div></div></div></div><a id="site-name" href="/" accesskey="h"><div class="title">言志</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a><div id="he-plugin-simple"></div><script>var WIDGET = {
+  "CONFIG": {
+    "modules": "0124",
+    "background": "2",
+    "tmpColor": "FFFFFF",
+    "tmpSize": "16",
+    "cityColor": "FFFFFF",
+    "citySize": "16",
+    "aqiColor": "E8D87B",
+    "aqiSize": "16",
+    "weatherIconSize": "24",
+    "alertIconSize": "18",
+    "padding": "10px 10px 10px 10px",
+    "shadow": "0",
+    "language": "auto",
+    "borderRadius": "20",
+    "fixed": "true",
+    "vertical": "top",
+    "horizontal": "left",
+    "left": "20",
+    "top": "7.1",
+    "key": "df245676fb434a0691ead1c63341cd94"
+  }
+}
+</script><link rel="stylesheet" href="https://widget.qweather.net/simple/static/css/he-simple.css?v=1.4.0"/><script src="https://widget.qweather.net/simple/static/js/he-simple.js?v=1.4.0"></script></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 隧道</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 友链</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><i class="anzhiyufont anzhiyu-icon-link faa-tada" style="font-size: 0.9em;"></i><span> 友人帐</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><i class="anzhiyufont anzhiyu-icon-envelope faa-tada" style="font-size: 0.9em;"></i><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/music/?id=13738866688&amp;server=netease"><i class="anzhiyufont anzhiyu-icon-music faa-tada" style="font-size: 0.9em;"></i><span> 音乐馆</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/album/"><i class="anzhiyufont anzhiyu-icon-images faa-tada" style="font-size: 0.9em;"></i><span> 相册集</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于本人</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/essay/"><i class="anzhiyufont anzhiyu-icon-lightbulb faa-tada" style="font-size: 0.9em;"></i><span> 闲言碎语</span></a></li></ul></div></div></div><div id="nav-right"><div class="nav-button only-home" id="travellings_button" title="随机前往一个开往项目网站"><a class="site-page" onclick="anzhiyu.totraveling()" title="随机前往一个开往项目网站" href="javascript:void(0);" rel="external nofollow" data-pjax-state="external"><i class="anzhiyufont anzhiyu-icon-train"></i></a></div><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><div class="nav-button" id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" title="搜索🔍" accesskey="s"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span> 搜索</span></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="/img/wx.jpg" target="_blank"><img class="post-qr-code-img" alt="微信" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/wx.jpg"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/zfb.jpg" target="_blank"><img class="post-qr-code-img" alt="支付宝" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/zfb.jpg"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/AI/" style="font-size: 1.05rem;">AI<sup>5</sup></a><a href="/tags/ARP/" style="font-size: 1.05rem;">ARP<sup>1</sup></a><a href="/tags/CSS/" style="font-size: 1.05rem;">CSS<sup>1</sup></a><a href="/tags/CasaOS/" style="font-size: 1.05rem;">CasaOS<sup>1</sup></a><a href="/tags/Docker/" style="font-size: 1.05rem;">Docker<sup>1</sup></a><a href="/tags/ESP32/" style="font-size: 1.05rem;">ESP32<sup>1</sup></a><a href="/tags/HTML/" style="font-size: 1.05rem;">HTML<sup>1</sup></a><a href="/tags/JavaScript/" style="font-size: 1.05rem;">JavaScript<sup>1</sup></a><a href="/tags/KVM/" style="font-size: 1.05rem;">KVM<sup>1</sup></a><a href="/tags/KouriChat/" style="font-size: 1.05rem;">KouriChat<sup>1</sup></a><a href="/tags/Linux/" style="font-size: 1.05rem;">Linux<sup>5</sup></a><a href="/tags/NAS/" style="font-size: 1.05rem;">NAS<sup>2</sup></a><a href="/tags/Python/" style="font-size: 1.05rem;">Python<sup>3</sup></a><a href="/tags/Scrapy/" style="font-size: 1.05rem;">Scrapy<sup>2</sup></a><a href="/tags/TCP/" style="font-size: 1.05rem;">TCP<sup>1</sup></a><a href="/tags/UDP/" style="font-size: 1.05rem;">UDP<sup>1</sup></a><a href="/tags/Ubuntu/" style="font-size: 1.05rem;">Ubuntu<sup>1</sup></a><a href="/tags/VM%E8%99%9A%E6%8B%9F%E6%9C%BA/" style="font-size: 1.05rem;">VM虚拟机<sup>1</sup></a><a href="/tags/WSL2/" style="font-size: 1.05rem;">WSL2<sup>1</sup></a><a href="/tags/macOS/" style="font-size: 1.05rem;">macOS<sup>2</sup></a><a href="/tags/office/" style="font-size: 1.05rem;">office<sup>1</sup></a><a href="/tags/openEuler/" style="font-size: 1.05rem;">openEuler<sup>1</sup></a><a href="/tags/windows%E9%95%9C%E5%83%8F/" style="font-size: 1.05rem;">windows镜像<sup>1</sup></a><a href="/tags/%E4%BA%A4%E6%8D%A2%E6%9C%BA/" style="font-size: 1.05rem;">交换机<sup>1</sup></a><a href="/tags/%E5%85%A5%E9%97%A8/" style="font-size: 1.05rem;">入门<sup>1</sup></a><a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 1.05rem;">前端<sup>1</sup></a><a href="/tags/%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95/" style="font-size: 1.05rem;">压力测试<sup>1</sup></a><a href="/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/" style="font-size: 1.05rem;">命令行<sup>2</sup></a><a href="/tags/%E5%B9%B4%E5%BA%A6%E5%9B%9E%E9%A1%BE/" style="font-size: 1.05rem;">年度回顾<sup>1</sup></a><a href="/tags/%E5%BE%AE%E4%BF%A1/" style="font-size: 1.05rem;">微信<sup>2</sup></a><a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 1.05rem;">爬虫<sup>2</sup></a><a href="/tags/%E7%8E%A9%E5%AE%A2%E4%BA%91/" style="font-size: 1.05rem;">玩客云<sup>1</sup></a><a href="/tags/%E7%AB%AF%E5%8F%A3%E8%81%9A%E5%90%88/" style="font-size: 1.05rem;">端口聚合<sup>1</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96/" style="font-size: 1.05rem;">网络优化<sup>1</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 1.05rem;">网络协议<sup>1</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 1.05rem;">网络安全<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/" style="font-size: 1.05rem;">网络技术<sup>1</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" style="font-size: 1.05rem;">网络配置<sup>1</sup></a><a href="/tags/%E8%AF%AD%E9%9F%B3%E5%8A%A9%E6%89%8B/" style="font-size: 1.05rem;">语音助手<sup>1</sup></a><a href="/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 1.05rem;">运维<sup>3</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="anzhiyufont anzhiyu-icon-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/06/"><span class="card-archive-list-date">六月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">12</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/05/"><span class="card-archive-list-date">五月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/03/"><span class="card-archive-list-date">三月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/02/"><span class="card-archive-list-date">二月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/11/"><span class="card-archive-list-date">十一月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/10/"><span class="card-archive-list-date">十月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">4</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/05/"><span class="card-archive-list-date">五月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/04/"><span class="card-archive-list-date">四月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">4</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="post-meta-categories"><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/AI/" itemprop="url">AI</a></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/AI/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>AI</span></a><a class="article-meta__tags" href="/tags/Codex/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>Codex</span></a><a class="article-meta__tags" href="/tags/OpenAI/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>OpenAI</span></a><a class="article-meta__tags" href="/tags/CLI/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>CLI</span></a><a class="article-meta__tags" href="/tags/%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>故障排查</span></a></span></div></div><h1 class="post-title" itemprop="name headline">Codex CLI 疯狂写盘自救指南</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2026-06-23T16:50:00.000Z" title="发表于 2026-06-24 00:50:00">2026-06-24</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2026-06-23T16:50:00.000Z" title="更新于 2026-06-24 00:50:00">2026-06-24</time></span></div><div class="meta-secondline"><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为大同"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>大同</span><span class="post-meta-separator"></span><span class="post-meta-commentcount"><i class="anzhiyufont anzhiyu-icon-comments post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/codex-cli-disk-write-fix/#post-comment" tabindex="-1"><span id="twikoo-count"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-spin"></i></span></a></span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src="https://bu.dusays.com/2026/06/17/6a32390b61ca4.webp"></div></header><main id="blog-container"><div class="layout hide-aside" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="https://www.tenxiaodao.top/codex-cli-disk-write-fix/"><header><a class="post-meta-categories" href="/categories/AI/" itemprop="url">AI</a><a href="/tags/AI/" tabindex="-1" itemprop="url">AI</a><a href="/tags/Codex/" tabindex="-1" itemprop="url">Codex</a><a href="/tags/OpenAI/" tabindex="-1" itemprop="url">OpenAI</a><a href="/tags/CLI/" tabindex="-1" itemprop="url">CLI</a><a href="/tags/%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5/" tabindex="-1" itemprop="url">故障排查</a><h1 id="CrawlerTitle" itemprop="name headline">Codex CLI 疯狂写盘自救指南</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">周言志</span><time itemprop="dateCreated datePublished" datetime="2026-06-23T16:50:00.000Z" title="发表于 2026-06-24 00:50:00">2026-06-24</time><time itemprop="dateCreated datePublished" datetime="2026-06-23T16:50:00.000Z" title="更新于 2026-06-24 00:50:00">2026-06-24</time></header><h1 id="Codex-CLI-疯狂写盘自救指南"><a href="#Codex-CLI-疯狂写盘自救指南" class="headerlink" title="Codex CLI 疯狂写盘自救指南"></a>Codex CLI 疯狂写盘自救指南</h1><p>最近 OpenAI Codex CLI 被曝出一个相当严重的磁盘写入 bug：SQLite 日志在 TRACE 级别全量落盘，一年能写穿一块消费级 NVMe SSD。本文带你理解问题原理、检查自己是否中招，并提供从升级到触发器的完整自救方案。</p>
+<h2 id="这个-bug-到底在干什么"><a href="#这个-bug-到底在干什么" class="headerlink" title="这个 bug 到底在干什么"></a>这个 bug 到底在干什么</h2><p>Codex CLI 会把运行日志写进一个本地 SQLite 数据库 <code>~/.codex/logs_2.sqlite</code>。问题出在它在 <strong>TRACE 级别全量落盘</strong>——每一个 WebSocket 事件、每一条依赖库的噪声日志都往里写，而且不停地 insert + prune，造成严重的写放大。</p>
+<p>社区实测（<a target="_blank" rel="noopener" href="https://github.com/openai/codex/issues/28224">issue #28224</a>）：</p>
+<ul>
+<li>一台机器连续跑 21 天，向磁盘写了约 <strong>37 TB</strong>，折算下来一年约 <strong>640 TB</strong>。</li>
+<li>消费级 NVMe SSD 的标称写入寿命（TBW）通常只有 600 TB 左右——<strong>理论上不到一年就能把一块盘的寿命写穿</strong>。</li>
+<li>还带两个连锁故障：<code>logs_2.sqlite</code> 超过约 200MB 时 CLI 会以 SIGTRAP 崩溃（<a target="_blank" rel="noopener" href="https://github.com/openai/codex/issues/29237">#29237</a>）；<code>logs_2.sqlite-wal</code> 能无上限涨到几十 GB（<a target="_blank" rel="noopener" href="https://github.com/openai/codex/issues/28997">#28997</a>）。</li>
+</ul>
+<p><strong>0.142.0（2026-06-22 发布）带来了部分修复</strong>：两个 PR——<a target="_blank" rel="noopener" href="https://github.com/openai/codex/pull/29432">#29432</a>（停掉逐条 WebSocket 事件日志）和 <a target="_blank" rel="noopener" href="https://github.com/openai/codex/pull/29457">#29457</a>（过滤噪声 target）——按 issue 估算能砍掉约 85% 的日志写入，纯命令行场景改善明显。</p>
+<blockquote>
+<p><strong>但它没有完全修好。</strong> 实测在 <strong>macOS + Codex 桌面 App（app-server）</strong> 路径下，即使内嵌 CLI 已经是 0.142.0，<code>TRACE target=log</code> 的高频写入依然存在——60 秒采样里 <code>max(id)</code> 还在前进 1400~1700 行，多人复现（<a target="_blank" rel="noopener" href="https://github.com/openai/codex/issues/29532">#29532</a>，OPEN）。所以本篇不只教你升级，还给你<strong>可靠检测 + 清理 + 在线止血</strong>的整套兜底。</p>
+</blockquote>
+<p>还有一点：升级只能<strong>止住未来的写入</strong>，已经被写爆的旧日志不会自动回收。完整处置流程是 <strong>升级 → 真正确认停没停 → 没停就清理 &#x2F; trigger 止血</strong>。</p>
+<h2 id="一、确认自己中没中招"><a href="#一、确认自己中没中招" class="headerlink" title="一、确认自己中没中招"></a>一、确认自己中没中招</h2><p>先看日志文件有多大，重点盯 <code>-wal</code> 那个：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> -lah ~/.codex/logs_2.sqlite*</span><br><span class="line"><span class="built_in">du</span> -sh ~/.codex/</span><br></pre></td></tr></table></figure>
+
+<p>如果 <code>logs_2.sqlite-wal</code> 已经是几百 MB 甚至 GB 级，基本可以确定你正被这个 bug 持续写盘。</p>
+<blockquote>
+<p><strong>光看文件大小会骗你。</strong> insert + prune 的 churn 会让 <code>-wal</code> 稳定在几 MB、<code>logs_2.sqlite</code> 体积也不怎么涨，看着没事，底层却一直在写（<a target="_blank" rel="noopener" href="https://github.com/openai/codex/issues/29532">#29532</a> 实测）。更靠谱的判定是隔 60 秒采两次行号，看它还涨不涨：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sqlite3 ~/.codex/logs_2.sqlite <span class="string">&quot;SELECT MAX(id) FROM logs;&quot;</span></span><br><span class="line"><span class="comment"># 等 60 秒再跑一次；数值仍在大幅前进（几百上千）= 正在持续写盘</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>Windows 路径是 <code>%USERPROFILE%\.codex\</code>，直接在资源管理器里看这三个 <code>logs_2.sqlite*</code> 文件的大小即可。</p>
+<h2 id="二、升级到-0-142-0"><a href="#二、升级到-0-142-0" class="headerlink" title="二、升级到 0.142.0"></a>二、升级到 0.142.0</h2><p>两种方式任选其一。</p>
+<p><strong>方式一：npm 手动升级</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g @openai/codex@latest</span><br></pre></td></tr></table></figure>
+
+<p><code>@latest</code> 当前解析到的就是 <code>0.142.0</code>，已经包含 <a target="_blank" rel="noopener" href="https://github.com/openai/codex/pull/29432">#29432</a> &#x2F; <a target="_blank" rel="noopener" href="https://github.com/openai/codex/pull/29457">#29457</a> 这两个修复。</p>
+<p>升级完确认版本：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">codex --version</span><br></pre></td></tr></table></figure>
+
+<p><strong>方式二：让 AI 代办</strong></p>
+<p>如果你装了 Claude Code，把这句话丢给它，让它联网搜索并完成升级：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">search web &amp; update codex cli</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>必须是 <code>0.142.0</code> 或更高才带修复。<code>0.141.x</code> 及更早版本仍会疯狂写盘——重装同一个旧版本没用，认准版本号。升级后<strong>务必回第一步用 <code>max(id)</code> 采样复测</strong>，因为 macOS App 路径上它可能还没停（见下文）。</p>
+</blockquote>
+<h2 id="三、清理已经被写爆的旧日志"><a href="#三、清理已经被写爆的旧日志" class="headerlink" title="三、清理已经被写爆的旧日志"></a>三、清理已经被写爆的旧日志</h2><blockquote>
+<p>动手前<strong>先完全退出 Codex</strong>（命令行会话和桌面 App 都关掉）。文件还被占用时删不干净，WAL 也可能立刻重建。</p>
+</blockquote>
+<p>这个日志库<strong>不含任何对话内容或配置</strong>，纯粹是诊断日志，删掉是安全的——Codex 下次启动会自动重建一个干净的小文件。</p>
+<p><strong>macOS &#x2F; Linux：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">rm</span> ~/.codex/logs_2.sqlite ~/.codex/logs_2.sqlite-wal ~/.codex/logs_2.sqlite-shm</span><br></pre></td></tr></table></figure>
+
+<p>或者一行通配搞定：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">rm</span> ~/.codex/logs_2.sqlite*</span><br></pre></td></tr></table></figure>
+
+<p><strong>Windows（PowerShell）：</strong></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Remove-Item</span> <span class="string">&quot;<span class="variable">$env:USERPROFILE</span>\.codex\logs_2.sqlite*&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="四、验证修复生效"><a href="#四、验证修复生效" class="headerlink" title="四、验证修复生效"></a>四、验证修复生效</h2><ol>
+<li>版本号到位：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">codex --version</span><br><span class="line"><span class="comment"># 期望输出 0.142.0 或更高</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><strong>别只看文件大小</strong>，按第一步那招采样 <code>max(id)</code>，确认写入真的停了：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sqlite3 ~/.codex/logs_2.sqlite <span class="string">&quot;SELECT MAX(id) FROM logs;&quot;</span></span><br><span class="line"><span class="comment"># 隔 60 秒两次，数值基本不动 = 写入真停了</span></span><br></pre></td></tr></table></figure>
+
+<p>3.（进阶，Linux）直接看 SSD 实际写入量。用 <code>smartctl</code> 对比挂机前后的 <code>Data Units Written</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> smartctl -a /dev/nvme0 | grep <span class="string">&quot;Data Units Written&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>挂机一小时前后做差值，正常情况下增量应该很小，而不是之前那种几 GB&#x2F;小时的量级。</p>
+<blockquote>
+<p>如果你用的是 <strong>macOS + Codex 桌面 App</strong>，升到 0.142.0 后 <code>max(id)</code> 很可能<strong>仍在涨</strong>——这是已知的部分修复缺口（<a target="_blank" rel="noopener" href="https://github.com/openai/codex/issues/29532">#29532</a>）。这时别干等，直接上「进阶」里的 trigger 在线止血。</p>
+</blockquote>
+<h2 id="五、进阶：用-SQLite-Trigger-在线止血"><a href="#五、进阶：用-SQLite-Trigger-在线止血" class="headerlink" title="五、进阶：用 SQLite Trigger 在线止血"></a>五、进阶：用 SQLite Trigger 在线止血</h2><p>如果你不想删库、又想立刻止住写盘（尤其是升级到 0.142.0 后、在 macOS App 上仍没停的情况），可以用 SQLite trigger 拦截 <code>logs</code> 表的 insert。日志全落在一张名为 <code>logs</code> 的表里（主键 <code>id</code>），所以能精确处理。这也正是 0.142.0 之后社区在 macOS App 上仍在用的兜底方案（<a target="_blank" rel="noopener" href="https://github.com/openai/codex/issues/29532">#29532</a> 评论里多人在用同名 <code>block_log_inserts</code> trigger）。</p>
+<h3 id="1-确诊：TRACE-是不是元凶"><a href="#1-确诊：TRACE-是不是元凶" class="headerlink" title="1. 确诊：TRACE 是不是元凶"></a>1. 确诊：TRACE 是不是元凶</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlite3 ~/.codex/logs_2.sqlite <span class="string">&quot;SELECT level, COUNT(*) FROM logs GROUP BY level ORDER BY COUNT(*) DESC;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>实测里 TRACE 能占到五到七成行数，大头是 <code>target=log</code> 的 websocket &#x2F; tungstenite 噪声。再隔 30 秒采两次 <code>MAX(id)</code>，看还在不在涨：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sqlite3 ~/.codex/logs_2.sqlite <span class="string">&quot;SELECT MAX(id) FROM logs;&quot;</span></span><br><span class="line"><span class="built_in">ls</span> -l ~/.codex/logs_2.sqlite-wal</span><br><span class="line"><span class="comment"># 等 30 秒，重复上面两条</span></span><br></pre></td></tr></table></figure>
+
+<p><code>id</code> 一次响应能跳几千、或每分钟稳定涨一两千，就是正在被持续写盘。</p>
+<blockquote>
+<p>别想着用 <code>RUST_LOG=info</code> 来压——实测设了它，<code>TRACE</code> &#x2F; <code>DEBUG</code> 照样落进 SQLite（<a target="_blank" rel="noopener" href="https://github.com/openai/codex/issues/29532">#29532</a>）。这条持久化路径不吃环境变量的过滤。</p>
+</blockquote>
+<h3 id="2-先备份"><a href="#2-先备份" class="headerlink" title="2. 先备份"></a>2. 先备份</h3><p>即使 Codex 在跑也能做一致性备份：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlite3 ~/.codex/logs_2.sqlite <span class="string">&quot;.backup &#x27;<span class="variable">$HOME</span>/.codex/logs_2.sqlite.bak&#x27;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-用-trigger-拦住-logs-表的-insert"><a href="#3-用-trigger-拦住-logs-表的-insert" class="headerlink" title="3. 用 trigger 拦住 logs 表的 insert"></a>3. 用 trigger 拦住 logs 表的 insert</h3><blockquote>
+<p>拦普通表的 insert 要用 <code>BEFORE INSERT</code> + <code>RAISE(IGNORE)</code>，<strong>不是</strong> <code>INSTEAD OF</code>（那个只能建在视图上，照抄会报错）。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlite3 ~/.codex/logs_2.sqlite <span class="string">&quot;CREATE TRIGGER IF NOT EXISTS block_log_inserts BEFORE INSERT ON logs BEGIN SELECT RAISE(IGNORE); END;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>之后所有往 <code>logs</code> 表的写入都会被静默忽略（不报错），从源头止住。trigger 是库级的，对 Codex 已经打开的连接也会即时生效。</p>
+<h3 id="4-Checkpoint-并截断-WAL，把空间收回来"><a href="#4-Checkpoint-并截断-WAL，把空间收回来" class="headerlink" title="4. Checkpoint 并截断 WAL，把空间收回来"></a>4. Checkpoint 并截断 WAL，把空间收回来</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlite3 ~/.codex/logs_2.sqlite <span class="string">&quot;PRAGMA wal_checkpoint(TRUNCATE);&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>返回第一列是 <code>0</code> 表示截断成功；如果是 <code>1</code>（busy），说明 Codex 还占着连接，彻底退出 Codex 再跑一次。</p>
+<h3 id="5-采样确认彻底不涨了"><a href="#5-采样确认彻底不涨了" class="headerlink" title="5. 采样确认彻底不涨了"></a>5. 采样确认彻底不涨了</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sqlite3 ~/.codex/logs_2.sqlite <span class="string">&quot;SELECT MAX(id) FROM logs;&quot;</span>   <span class="comment"># 隔 30 秒两次，数值应不变</span></span><br><span class="line"><span class="built_in">ls</span> -l ~/.codex/logs_2.sqlite-wal                              <span class="comment"># 应停在很小，不再增长</span></span><br></pre></td></tr></table></figure>
+
+<p><code>MAX(id)</code> 钉死不动、<code>-wal</code> 不再变大，就说明止血成功。</p>
+<blockquote>
+<p>这是侵入式的临时手段，<strong>升级到 0.142.0 仍是第一步</strong>（它确实砍掉了一大块）。等官方把 macOS App 的 <code>target=log</code> 缺口也补上后，记得把 trigger 删掉还原，否则诊断日志会一直写不进去：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlite3 ~/.codex/logs_2.sqlite <span class="string">&quot;DROP TRIGGER IF EXISTS block_log_inserts;&quot;</span></span><br></pre></td></tr></table></figure>
+<p>另外 trigger 只对 <code>logs</code> 表下手，别对 <code>state_5.sqlite</code> 等状态库这么干。</p>
+</blockquote>
+<h3 id="让-AI-代跑整套流程"><a href="#让-AI-代跑整套流程" class="headerlink" title="让 AI 代跑整套流程"></a>让 AI 代跑整套流程</h3><p>如果你用的是 Claude Code 或 Codex 自己，把这段丢给它，让它代跑上面的步骤：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">排查 ~/.codex/logs_2.sqlite 是否因 TRACE 日志持续高频写盘：</span><br><span class="line">1) SELECT level, COUNT(*) FROM logs GROUP BY level ORDER BY COUNT(*) DESC; 看 TRACE 是否占大头</span><br><span class="line">2) 隔 30 秒采两次 SELECT MAX(id) FROM logs; 和 logs_2.sqlite-wal 文件大小，确认是否还在涨</span><br><span class="line">中招的话：先用 .backup 备份 → 建 BEFORE INSERT ... RAISE(IGNORE) trigger 拦 logs 表 insert →</span><br><span class="line">PRAGMA wal_checkpoint(TRUNCATE) 回收 WAL → 再采样确认 MAX(id) 和 WAL 都不再增长。</span><br></pre></td></tr></table></figure>
+
+<h2 id="桌面-App-用户特别注意事项"><a href="#桌面-App-用户特别注意事项" class="headerlink" title="桌面 App 用户特别注意事项"></a>桌面 App 用户特别注意事项</h2><p>如果你用的是 Codex 桌面 App 而非命令行，注意以下几点：</p>
+<ul>
+<li>App 走<strong>独立版本线</strong>（最新 <code>26.616</code>，2026-06-18 发布，早于 CLI 的 0.142.0 修复），内嵌自己管理的引擎——<strong>所以 <code>npm</code> 升级 CLI 不一定能让 App 用上这个修复</strong>。</li>
+<li><strong>用完彻底退出 App</strong>（不是最小化）。App 挂后台跑长任务会持续写盘，退出能立刻止血。</li>
+<li>需要时<strong>改用已修复的 CLI（0.142.0）干活</strong>，功能和 App 高度重叠，是绕开「App 没修」最干净的办法。</li>
+<li>清理时**只删 <code>logs_2.sqlite*</code>**，别碰 <code>state_5.sqlite</code> 等 state &#x2F; memories &#x2F; goals 库——那些含会话状态，删了 App 可能起不来（<a target="_blank" rel="noopener" href="https://github.com/openai/codex/issues/24030">#24030</a>）。</li>
+<li>盯官方更新，等版本号高于 <code>26.616</code>、且写明减少磁盘写入的 App 版本。</li>
+</ul>
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><p><strong>Q：升级完为什么磁盘空间没回来？</strong><br>升级只停掉<strong>未来</strong>的写入，已经占用的空间要手动清（见第三步）。</p>
+<p><strong>Q：我已经升到 0.142.0，怎么还在写盘？</strong><br>因为 0.142.0 只是<strong>部分修复</strong>。实测在 macOS + Codex 桌面 App（app-server）路径下，<code>TRACE target=log</code> 的高频写入仍未根治（<a target="_blank" rel="noopener" href="https://github.com/openai/codex/issues/29532">#29532</a>，OPEN，多人复现）。兜底两招：用「进阶」里的 trigger 在线止住 <code>logs</code> 表 insert；别指望 <code>RUST_LOG=info</code>，实测设了照样落库。剩下的盯后续版本。</p>
+<p><strong>Q：删掉 <code>logs_2.sqlite</code> 会丢对话记录或配置吗？</strong><br>不会。它只是诊断日志，会话历史和配置都在别的文件里，不受影响。</p>
+<p><strong>Q：暂时升不了级怎么办？</strong><br>如果暂时升不了级，可以把日志重定向到内存盘（tmpfs），让写入落在内存、重启即清，完全不碰 SSD。思路是把 <code>logs_2.sqlite*</code> 指到 <code>tmpfs</code>（如 Linux 的 <code>/dev/shm</code>、<code>/tmp</code>）。日志不含数据，重启丢失无所谓。Windows 没有等价的简单方案，建议直接走升级 + 清理。</p>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/up.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/up.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">周言志</div><div class="post-copyright__author_desc">欢迎来到我的世界</div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="https://www.tenxiaodao.top/codex-cli-disk-write-fix/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('https://www.tenxiaodao.top/codex-cli-disk-write-fix/')">Codex CLI 疯狂写盘自救指南</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"></div><div class="shareRight"><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.tenxiaodao.top" target="_blank">言志</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/AI/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>AI<span class="tagsPageCount">5</span></a><a class="post-meta__box__tags" href="/tags/Codex/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>Codex<span class="tagsPageCount">2</span></a><a class="post-meta__box__tags" href="/tags/OpenAI/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>OpenAI<span class="tagsPageCount">2</span></a><a class="post-meta__box__tags" href="/tags/CLI/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>CLI<span class="tagsPageCount">1</span></a><a class="post-meta__box__tags" href="/tags/%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>故障排查<span class="tagsPageCount">1</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="https://bu.dusays.com/2026/06/17/6a32390b61ca4.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/deploy-openclaw-on-oect-with-wechat/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2026/06/19/6a34ba5a4e2ed.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">在 OECT 上部署 OpenClaw 并接入微信</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="anzhiyufont anzhiyu-icon-thumbs-up fa-fw" style="font-size: 1.5rem; margin-right: 4px"></i><span>喜欢这篇文章的人也看了</span></div><div class="relatedPosts-list"><div><a href="/codex-shiyong-zhinan/" title="Codex 使用指南"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2025/10/23/68fa00c56cd6e.webp" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2026-06-12</div><div class="title">Codex 使用指南</div></div></a></div><div><a href="/ru-he-zai-wei-xin-li-bu-shu-ai-nv-you-kourichat-jiao-cheng/" title="如何在微信里部署 AI 女友（KouriChat 教程）"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2025/10/24/68fb3170471bc.webp" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-11-17</div><div class="title">如何在微信里部署 AI 女友（KouriChat 教程）</div></div></a></div><div><a href="/diy-dian-zi-nv-you-xiao-zhi/" title="DIY电子女友小智"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2025/10/18/68f395b2b73e7.webp" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-04-12</div><div class="title">DIY电子女友小智</div></div></a></div><div><a href="/deploy-openclaw-on-oect-with-wechat/" title="在 OECT 上部署 OpenClaw 并接入微信"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2026/06/19/6a34ba5a4e2ed.webp" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2026-06-22</div><div class="title">在 OECT 上部署 OpenClaw 并接入微信</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="anzhiyufont anzhiyu-icon-comments"></i><span> 评论</span></div><div class="comment-randomInfo"><a onclick="anzhiyu.addRandomCommentInfo()" href="javascript:void(0)">匿名评论</a><a href="/privacy" style="margin-left: 4px">隐私政策</a></div><div class="comment-switch"><span class="first-comment">Twikoo</span><span id="switch-btn"></span><span class="second-comment">Waline</span></div><div class="comment-tips" id="comment-tips"><span>✅ 你无需删除空行，直接评论以获取最佳展示效果</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div><div><div id="waline-wrap"></div></div></div></div><div class="comment-barrage"></div></div></div></main><footer id="footer"><div id="footer-wrap"></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">43</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">93</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">11</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">关注我</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://github.com/tenxiaodao/tenxiaodao.github.io" title="Github"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/up.jpg" alt="Github"/><span class="back-menu-item-text">Github</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://space.bilibili.com/1803174585" title="Bilibili"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/up.jpg" alt="Bilibili"/><span class="back-menu-item-text">Bilibili</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">网盘</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://pan.quark.cn/s/c98d1ceee692" title="软件/工具"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="软件/工具"/><span class="back-menu-item-text">软件/工具</span></a></div></div></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 隧道</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 友链</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><i class="anzhiyufont anzhiyu-icon-link faa-tada" style="font-size: 0.9em;"></i><span> 友人帐</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><i class="anzhiyufont anzhiyu-icon-envelope faa-tada" style="font-size: 0.9em;"></i><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/music/?id=13738866688&amp;server=netease"><i class="anzhiyufont anzhiyu-icon-music faa-tada" style="font-size: 0.9em;"></i><span> 音乐馆</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/album/"><i class="anzhiyufont anzhiyu-icon-images faa-tada" style="font-size: 0.9em;"></i><span> 相册集</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于本人</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/essay/"><i class="anzhiyufont anzhiyu-icon-lightbulb faa-tada" style="font-size: 0.9em;"></i><span> 闲言碎语</span></a></li></ul></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/AI/" style="font-size: 0.88rem;">AI<sup>5</sup></a><a href="/tags/ARP/" style="font-size: 0.88rem;">ARP<sup>1</sup></a><a href="/tags/CSS/" style="font-size: 0.88rem;">CSS<sup>1</sup></a><a href="/tags/CasaOS/" style="font-size: 0.88rem;">CasaOS<sup>1</sup></a><a href="/tags/Docker/" style="font-size: 0.88rem;">Docker<sup>1</sup></a><a href="/tags/ESP32/" style="font-size: 0.88rem;">ESP32<sup>1</sup></a><a href="/tags/HTML/" style="font-size: 0.88rem;">HTML<sup>1</sup></a><a href="/tags/JavaScript/" style="font-size: 0.88rem;">JavaScript<sup>1</sup></a><a href="/tags/KVM/" style="font-size: 0.88rem;">KVM<sup>1</sup></a><a href="/tags/KouriChat/" style="font-size: 0.88rem;">KouriChat<sup>1</sup></a><a href="/tags/Linux/" style="font-size: 0.88rem;">Linux<sup>5</sup></a><a href="/tags/NAS/" style="font-size: 0.88rem;">NAS<sup>2</sup></a><a href="/tags/Python/" style="font-size: 0.88rem;">Python<sup>3</sup></a><a href="/tags/Scrapy/" style="font-size: 0.88rem;">Scrapy<sup>2</sup></a><a href="/tags/TCP/" style="font-size: 0.88rem;">TCP<sup>1</sup></a><a href="/tags/UDP/" style="font-size: 0.88rem;">UDP<sup>1</sup></a><a href="/tags/Ubuntu/" style="font-size: 0.88rem;">Ubuntu<sup>1</sup></a><a href="/tags/VM%E8%99%9A%E6%8B%9F%E6%9C%BA/" style="font-size: 0.88rem;">VM虚拟机<sup>1</sup></a><a href="/tags/WSL2/" style="font-size: 0.88rem;">WSL2<sup>1</sup></a><a href="/tags/macOS/" style="font-size: 0.88rem;">macOS<sup>2</sup></a><a href="/tags/office/" style="font-size: 0.88rem;">office<sup>1</sup></a><a href="/tags/openEuler/" style="font-size: 0.88rem;">openEuler<sup>1</sup></a><a href="/tags/windows%E9%95%9C%E5%83%8F/" style="font-size: 0.88rem;">windows镜像<sup>1</sup></a><a href="/tags/%E4%BA%A4%E6%8D%A2%E6%9C%BA/" style="font-size: 0.88rem;">交换机<sup>1</sup></a><a href="/tags/%E5%85%A5%E9%97%A8/" style="font-size: 0.88rem;">入门<sup>1</sup></a><a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 0.88rem;">前端<sup>1</sup></a><a href="/tags/%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95/" style="font-size: 0.88rem;">压力测试<sup>1</sup></a><a href="/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/" style="font-size: 0.88rem;">命令行<sup>2</sup></a><a href="/tags/%E5%B9%B4%E5%BA%A6%E5%9B%9E%E9%A1%BE/" style="font-size: 0.88rem;">年度回顾<sup>1</sup></a><a href="/tags/%E5%BE%AE%E4%BF%A1/" style="font-size: 0.88rem;">微信<sup>2</sup></a><a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 0.88rem;">爬虫<sup>2</sup></a><a href="/tags/%E7%8E%A9%E5%AE%A2%E4%BA%91/" style="font-size: 0.88rem;">玩客云<sup>1</sup></a><a href="/tags/%E7%AB%AF%E5%8F%A3%E8%81%9A%E5%90%88/" style="font-size: 0.88rem;">端口聚合<sup>1</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96/" style="font-size: 0.88rem;">网络优化<sup>1</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 0.88rem;">网络协议<sup>1</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 0.88rem;">网络安全<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/" style="font-size: 0.88rem;">网络技术<sup>1</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" style="font-size: 0.88rem;">网络配置<sup>1</sup></a><a href="/tags/%E8%AF%AD%E9%9F%B3%E5%8A%A9%E6%89%8B/" style="font-size: 0.88rem;">语音助手<sup>1</sup></a><a href="/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 0.88rem;">运维<sup>3</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="anzhiyufont anzhiyu-icon-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="anzhiyufont anzhiyu-icon-xmark"></i></button></nav><div class="is-center" id="loading-database"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-pulse-icon"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/3251973470&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="https://cdn.jsdelivr.net/npm/hexo-theme-anzhiyu@1.7.0/source/js/utils.min.js"></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-anzhiyu@1.7.0/source/js/main.min.js"></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-anzhiyu@1.7.0/source/js/tw_cn.min.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@6.1.6/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("08/31/2024 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2024 By 安知鱼 V1.7.0",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 周言志 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-anzhiyu@1.7.0/source/js/search/local-search.min.js"></script><div class="js-pjax"><script>(() => {
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://yuhaozhe-twikoo.hf.space',
+      region: 'ap-shanghai',
+      onCommentLoaded: () => {
+        anzhiyu.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') setTimeout(runFn,0)
+    else getScript('https://cdn.cbd.int/twikoo@1.6.44/dist/twikoo.all.min.js').then(runFn)
+  }
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://yuhaozhe-twikoo.hf.space',
+      region: 'ap-shanghai',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const runFn = () => {
+    init();
+    GLOBAL_CONFIG_SITE.isPost && getCount()
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) anzhiyu.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else {
+      loadTwikoo()
+    }
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script><script>(() => {
+  let initFn = window.walineFn || null
+
+  const initWaline = (Fn) => {
+    const waline = Fn(Object.assign({
+      el: '#waline-wrap',
+      serverURL: 'https://waline-test-54hthgju8-yuhaozhes-projects.vercel.app/',
+      pageview: false,
+      dark: 'html[data-theme="dark"]',
+      path: window.location.pathname,
+      comment: true,
+      imageUploader: true,
+    }, null))
+
+    const destroyWaline = () => {
+      waline.destroy()
+    }
+
+    anzhiyu.addGlobalFn('pjax', destroyWaline, 'destroyWaline')
+  }
+
+  const loadWaline = async () => {
+    if (initFn) initWaline(initFn)
+    else {
+      await getCSS('https://cdn.cbd.int/@waline/client@3.8.0/dist/waline.css')
+      if (false) await getCSS('https://cdn.cbd.int/@waline/client@3.8.0/dist/waline-meta.css')
+      const { init } = await import('https://cdn.cbd.int/@waline/client@3.8.0/dist/waline.js')
+      initFn = init || Waline.init
+      initWaline(initFn)
+      window.walineFn = initFn
+    }
+  }
+
+  if ('Twikoo' === 'Waline' || !false) {
+    if (false) anzhiyu.loadComment(document.getElementById('waline-wrap'),loadWaline)
+    else setTimeout(loadWaline, 0)
+  } else {
+    window.loadOtherComment = loadWaline
+  }
+})()</script><input type="hidden" name="page-type" id="page-type" value="post"></div><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getComment = () => {
+    const runTwikoo = () => {
+      twikoo.getRecentComments({
+        envId: 'https://yuhaozhe-twikoo.hf.space',
+        region: 'ap-shanghai',
+        pageSize: 6,
+        includeReply: true
+      }).then(function (res) {
+        const twikooArray = res.map(e => {
+          return {
+            'content': changeContent(e.comment),
+            'avatar': e.avatar,
+            'nick': e.nick,
+            'url': e.url + '#' + e.id,
+            'date': new Date(e.created).toISOString()
+          }
+        })
+
+        saveToLocal.set('twikoo-newest-comments', JSON.stringify(twikooArray), 10/(60*24))
+        generateHtml(twikooArray)
+      }).catch(function (err) {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.textContent= "无法获取评论，请确认相关配置是否正确"
+      })
+    }
+
+    if (typeof twikoo === 'object') {
+      runTwikoo()
+    } else {
+      getScript('https://cdn.cbd.int/twikoo@1.6.44/dist/twikoo.all.min.js').then(runTwikoo)
+    }
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'data-lazy-src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'><div class='name'><span>${array[i].nick} </span></div></a>`
+        }
+        
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}' title='${array[i].content}'>${array[i].content}</a>
+        <time datetime="${array[i].date}">${anzhiyu.diffDate(array[i].date, true)}</time></div>
+        </div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom && ($dom.innerHTML= result)
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('twikoo-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://cdn.cbd.int/qrcodejs@1.0.0/qrcode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-anzhiyu@1.7.0/source/js/anzhiyu/right_click_menu.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["meta[property=\"og:image\"]","meta[property=\"og:title\"]","meta[property=\"og:url\"]","meta[property=\"og:type\"]","meta[property=\"og:site_name\"]","meta[property=\"og:description\"]","head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>
