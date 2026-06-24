@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Strike Force</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0a0a1a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: monospace;
+      overflow: hidden;
+    }
+    #gameContainer {
+      position: relative;
+      border: 2px solid #1a1a3a;
+      box-shadow: 0 0 30px rgba(79, 195, 247, 0.2);
+    }
+    #gameCanvas { display: block; background: #0a0a1a; }
+    #info {
+      position: absolute;
+      bottom: -40px;
+      left: 0; right: 0;
+      text-align: center;
+      color: #555;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div id="gameContainer">
+    <canvas id="gameCanvas"></canvas>
+    <div id="info">WASD / Arrow Keys - Move | SPACE - Fire | ENTER - Start</div>
+  </div>
+
+<script>
+// ============================================================
+//  data/config.js — 游戏配置数据
+// ============================================================
+const CANVAS_WIDTH = 400;
+const CANVAS_HEIGHT = 600;
+
+const CONFIG = {
+  player: {
+    speed: 5, hp: 3, width: 30, height: 36, color: '#4fc3f7',
+    collisionRadius: 12, invincibleDuration: 2000,
+    weapon: { fireRate: 150, bulletSpeed: 8, bulletDamage: 1, bulletWidth: 4, bulletHeight: 12, bulletColor: '#fff', bulletRadius: 3 },
+  },
+  enemies: {
+    scout:   { hp: 1, speed: 2, score: 100, width: 24, height: 24, color: '#f44336', collisionRadius: 10, weapon: { fireRate: 2000, bulletSpeed: 4, bulletDamage: 1, bulletWidth: 4, bulletHeight: 8, bulletColor: '#ff8a80', bulletRadius: 3 } },
+    fighter: { hp: 3, speed: 1.5, score: 300, width: 30, height: 30, color: '#ff9800', collisionRadius: 13, weapon: { fireRate: 1200, bulletSpeed: 5, bulletDamage: 1, bulletWidth: 5, bulletHeight: 10, bulletColor: '#ffcc80', bulletRadius: 4 } },
+    bomber:  { hp: 8, speed: 0.8, score: 500, width: 40, height: 40, color: '#9c27b0', collisionRadius: 18, weapon: { fireRate: 600, bulletSpeed: 3, bulletDamage: 1, bulletWidth: 6, bulletHeight: 8, bulletColor: '#ce93d8', bulletRadius: 4 } },
+  },
+  waves: [
+    { time: 2000,  enemies: [{ type: 'scout', count: 5, pattern: 'line', spacing: 60 }] },
+    { time: 8000,  enemies: [{ type: 'scout', count: 3, pattern: 'v', spacing: 50 }, { type: 'fighter', count: 2, pattern: 'line', spacing: 70 }] },
+    { time: 15000, enemies: [{ type: 'fighter', count: 4, pattern: 'zigzag', spacing: 60 }, { type: 'scout', count: 3, pattern: 'line', spacing: 50 }] },
+    { time: 22000, enemies: [{ type: 'bomber', count: 1, pattern: 'straight', spacing: 0 }, { type: 'fighter', count: 3, pattern: 'v', spacing: 60 }] },
+    { time: 30000, enemies: [{ type: 'bomber', count: 2, pattern: 'line', spacing: 80 }, { type: 'scout', count: 5, pattern: 'v', spacing: 40 }] },
+    { time: 40000, enemies: [{ type: 'bomber', count: 3, pattern: 'line', spacing: 70 }, { type: 'fighter', count: 5, pattern: 'zigzag', spacing: 50 }, { type: 'scout', count: 4, pattern: 'line', spacing: 45 }] },
+  ],
+  bullet: { lifespan: 3000, offscreenMargin: 50 },
+  explosion: { particleCount: 12, lifespan: 500, minSpeed: 1, maxSpeed: 4, minSize: 2, maxSize: 5 },
+  background: { starCount: 80, minSpeed: 0.5, maxSpeed: 2.5, minSize: 1, maxSize: 3 },
+};
+
+// ============================================================
+//  ecs/Entity.js — 实体 ID 管理
+// ============================================================
+let nextId = 1;
+function createEntityId() { return nextId++; }
+function resetEntityIds() { nextId = 1; }
+
+// ============================================================
+//  ecs/ComponentManager.js — 组件存储
+// ============================================================
+class ComponentManager {
+  constructor() { this.stores = new Map(); }
+  register(type) { if (!this.stores.has(type)) this.stores.set(type, new Map()); }
+  add(entityId, type, data) { if (!this.stores.has(type)) this.register(type); this.stores.get(type).set(entityId, data); }
+  get(entityId, type) { return this.stores.get(type)?.get(entityId); }
+  remove(entityId, type) { this.stores.get(type)?.delete(entityId); }
+  removeAll(entityId) { for (const store of this.stores.values()) store.delete(entityId); }
+  has(entityId, type) { return this.stores.get(type)?.has(entityId) ?? false; }
+  getEntitiesWith(type) { return [...(this.stores.get(type)?.keys() ?? [])]; }
+  query(types) {
+    if (types.length === 0) return [];
+    const first = this.getEntitiesWith(types[0]);
+    return first.filter(id => types.every(t => this.has(id, t)));
+  }
+}
+
+// ============================================================
+//  ecs/System.js — 系统基类与调度
+// ============================================================
+class System {
+  constructor(priority = 0) { this.priority = priority; this.world = null; }
+  update(dt, world) { throw new Error(`${this.constructor.name} must implement update()`); }
+}
+class SystemManager {
+  constructor() { this.systems = []; }
+  add(system) { this.systems.push(system); this.systems.sort((a, b) => a.priority - b.priority); }
+  inject(world) { for (const s of this.systems) s.world = world; }
+  update(dt, world) { for (const s of this.systems) s.update(dt, world); }
+}
+
+// ============================================================
+//  ecs/World.js — ECS 世界
+// ============================================================
+class World {
+  constructor() {
+    this.components = new ComponentManager();
+    this.systems = new SystemManager();
+    this.entities = new Set();
+    this.destroyQueue = [];
+    this.gameState = 'menu';
+    this.score = 0;
+    this.gameTime = 0;
+    this.canvas = null;
+    this.ctx = null;
+  }
+  createEntity() { const id = createEntityId(); this.entities.add(id); return id; }
+  addComponent(eid, type, data) { this.components.add(eid, type, data); }
+  getComponent(eid, type) { return this.components.get(eid, type); }
+  removeComponent(eid, type) { this.components.remove(eid, type); }
+  hasComponent(eid, type) { return this.components.has(eid, type); }
+  query(types) { return this.components.query(types); }
+  destroyEntity(eid) { this.destroyQueue.push(eid); }
+  flushDestroyQueue() {
+    for (const id of this.destroyQueue) { this.components.removeAll(id); this.entities.delete(id); }
+    this.destroyQueue = [];
+  }
+  getSystem(SystemClass) { return this.systems.systems.find(s => s instanceof SystemClass); }
+  addSystem(system) { this.systems.add(system); }
+  init() { this.systems.inject(this); }
+  update(dt) { this.systems.update(dt, this); }
+  reset() {
+    resetEntityIds(); this.entities.clear(); this.destroyQueue = [];
+    for (const store of this.components.stores.values()) store.clear();
+    this.score = 0; this.gameTime = 0; this.gameState = 'menu';
+  }
+}
+
+// ============================================================
+//  components/index.js — 组件定义（纯数据工厂函数）
+// ============================================================
+function Position(x=0,y=0){return{x,y}}
+function Velocity(vx=0,vy=0){return{vx,vy}}
+function Sprite(type='unknown',width=20,height=20,color='#fff'){return{type,width,height,color,frame:0,frameCount:1,animTimer:0}}
+function Collision(radius=10){return{radius}}
+function Health(hp=1,maxHp=1){return{hp,maxHp}}
+function Weapon(fireRate=200,bulletSpeed=8,bulletDamage=1){return{fireRate,cooldown:0,bulletSpeed,bulletDamage,active:true}}
+function PlayerControl(speed=5){return{speed,invincible:false,invincibleTimer:0,flashTimer:0}}
+function EnemyAI(type='scout',pattern='straight'){return{type,pattern,phase:0,timer:0,startX:0,startY:0}}
+function Lifespan(maxLife=1000){return{remaining:maxLife,maxLife}}
+function ScoreValue(value=100){return{value}}
+function Tag_Player(){return{}}
+function Tag_Enemy(){return{}}
+function Tag_PlayerBullet(){return{}}
+function Tag_EnemyBullet(){return{}}
+function Tag_Explosion(){return{}}
+function Tag_PowerUp(){return{}}
+function ExplosionParticle(angle=0,speed=1){return{angle,speed,size:3}}
+function PowerUpData(type='weapon'){return{type}}
+function BulletDamage(damage=1){return{damage}}
+
+const COMPONENT = {
+  Position:'Position',Velocity:'Velocity',Sprite:'Sprite',Collision:'Collision',
+  Health:'Health',Weapon:'Weapon',PlayerControl:'PlayerControl',EnemyAI:'EnemyAI',
+  Lifespan:'Lifespan',Score:'Score',Tag_Player:'Tag_Player',Tag_Enemy:'Tag_Enemy',
+  Tag_PlayerBullet:'Tag_PlayerBullet',Tag_EnemyBullet:'Tag_EnemyBullet',
+  Tag_Explosion:'Tag_Explosion',Tag_PowerUp:'Tag_PowerUp',
+  ExplosionParticle:'ExplosionParticle',PowerUpData:'PowerUpData',BulletDamage:'BulletDamage',
+};
+
+// ============================================================
+//  systems/BackgroundSystem.js
+// ============================================================
+class BackgroundSystem extends System {
+  constructor() { super(50); this.stars = []; }
+  initStars(count = 80) {
+    this.stars = [];
+    for (let i = 0; i < count; i++)
+      this.stars.push({ x: Math.random()*CANVAS_WIDTH, y: Math.random()*CANVAS_HEIGHT, speed: 0.5+Math.random()*2, size: 1+Math.random()*2, brightness: 0.3+Math.random()*0.7 });
+  }
+  update(dt) {
+    const scale = dt / 16;
+    for (const star of this.stars) {
+      star.y += star.speed * scale;
+      if (star.y > CANVAS_HEIGHT) { star.y = -2; star.x = Math.random() * CANVAS_WIDTH; }
+    }
+  }
+  render(ctx) {
+    for (const star of this.stars) {
+      ctx.fillStyle = `rgba(255,255,255,${star.brightness})`;
+      ctx.fillRect(star.x, star.y, star.size, star.size);
+    }
+  }
+}
+
+// ============================================================
+//  systems/InputSystem.js
+// ============================================================
+class InputSystem extends System {
+  constructor() { super(100); this.keys = new Set(); this.firing = false; this._bound = false; }
+  bind(canvas) {
+    if (this._bound) return; this._bound = true;
+    window.addEventListener('keydown', (e) => { this.keys.add(e.code); if (e.code==='Space'){e.preventDefault();this.firing=true;} });
+    window.addEventListener('keyup', (e) => { this.keys.delete(e.code); if (e.code==='Space') this.firing=false; });
+  }
+  update() {}
+  isUp(){return this.keys.has('ArrowUp')||this.keys.has('KeyW')}
+  isDown(){return this.keys.has('ArrowDown')||this.keys.has('KeyS')}
+  isLeft(){return this.keys.has('ArrowLeft')||this.keys.has('KeyA')}
+  isRight(){return this.keys.has('ArrowRight')||this.keys.has('KeyD')}
+  isFire(){return this.firing}
+  isEnter(){return this.keys.has('Enter')}
+}
+
+// ============================================================
+//  systems/PlayerMoveSystem.js
+// ============================================================
+class PlayerMoveSystem extends System {
+  constructor() { super(200); }
+  update(dt, world) {
+    if (world.gameState !== 'playing') return;
+    const input = world.getSystem(InputSystem);
+    if (!input) return;
+    const scale = dt / 16;
+    const entities = world.query([COMPONENT.Position, COMPONENT.PlayerControl]);
+    for (const eid of entities) {
+      const pos = world.getComponent(eid, COMPONENT.Position);
+      const ctrl = world.getComponent(eid, COMPONENT.PlayerControl);
+      const sprite = world.getComponent(eid, COMPONENT.Sprite);
+      if (ctrl.invincible) {
+        ctrl.invincibleTimer -= dt; ctrl.flashTimer += dt;
+        if (ctrl.invincibleTimer <= 0) { ctrl.invincible = false; ctrl.invincibleTimer = 0; ctrl.flashTimer = 0; }
+      }
+      let dx = 0, dy = 0;
+      if (input.isUp()) dy = -1; if (input.isDown()) dy = 1;
+      if (input.isLeft()) dx = -1; if (input.isRight()) dx = 1;
+      if (dx !== 0 && dy !== 0) { dx *= 0.707; dy *= 0.707; }
+      pos.x += dx * ctrl.speed * scale; pos.y += dy * ctrl.speed * scale;
+      const hw = (sprite?.width ?? 30) / 2, hh = (sprite?.height ?? 36) / 2;
+      pos.x = Math.max(hw, Math.min(CANVAS_WIDTH - hw, pos.x));
+      pos.y = Math.max(hh, Math.min(CANVAS_HEIGHT - hh, pos.y));
+    }
+  }
+}
+
+// ============================================================
+//  systems/EnemyAISystem.js
+// ============================================================
+class EnemyAISystem extends System {
+  constructor() { super(200); }
+  update(dt, world) {
+    if (world.gameState !== 'playing') return;
+    const entities = world.query([COMPONENT.Position, COMPONENT.Velocity, COMPONENT.EnemyAI]);
+    for (const eid of entities) {
+      const vel = world.getComponent(eid, COMPONENT.Velocity);
+      const ai = world.getComponent(eid, COMPONENT.EnemyAI);
+      ai.timer += dt;
+      const spd = CONFIG.enemies[ai.type]?.speed ?? 1.5;
+      switch (ai.pattern) {
+        case 'straight': vel.vx = 0; vel.vy = spd; break;
+        case 'line': vel.vy = spd; vel.vx = Math.sin(ai.timer * 0.002) * 0.5; break;
+        case 'v': vel.vy = spd; vel.vx = ai.phase === 0 ? -1.5 : 1.5; if (ai.timer > 2000) { ai.phase = ai.phase === 0 ? 1 : 0; ai.timer = 0; } break;
+        case 'zigzag': vel.vy = spd; vel.vx = Math.sin(ai.timer * 0.003 + ai.phase) * 3; break;
+        default: vel.vy = spd; break;
+      }
+    }
+  }
+}
+
+// ============================================================
+//  factory/EntityFactory.js — 实体创建工厂
+// ============================================================
+function createPlayer(world) {
+  const cfg = CONFIG.player; const eid = world.createEntity();
+  world.addComponent(eid, COMPONENT.Position, Position(CANVAS_WIDTH/2, CANVAS_HEIGHT-80));
+  world.addComponent(eid, COMPONENT.Velocity, Velocity(0,0));
+  world.addComponent(eid, COMPONENT.Sprite, Sprite('player',cfg.width,cfg.height,cfg.color));
+  world.addComponent(eid, COMPONENT.Collision, Collision(cfg.collisionRadius));
+  world.addComponent(eid, COMPONENT.Health, Health(cfg.hp,cfg.hp));
+  world.addComponent(eid, COMPONENT.Weapon, Weapon(cfg.weapon.fireRate,cfg.weapon.bulletSpeed,cfg.weapon.bulletDamage));
+  world.addComponent(eid, COMPONENT.PlayerControl, PlayerControl(cfg.speed));
+  world.addComponent(eid, COMPONENT.Tag_Player, Tag_Player());
+  return eid;
+}
+
+function createEnemy(world, type, pattern, x, y) {
+  const cfg = CONFIG.enemies[type]; if (!cfg) return null;
+  const eid = world.createEntity();
+  world.addComponent(eid, COMPONENT.Position, Position(x,y));
+  world.addComponent(eid, COMPONENT.Velocity, Velocity(0,cfg.speed));
+  world.addComponent(eid, COMPONENT.Sprite, Sprite(`enemy_${type}`,cfg.width,cfg.height,cfg.color));
+  world.addComponent(eid, COMPONENT.Collision, Collision(cfg.collisionRadius));
+  world.addComponent(eid, COMPONENT.Health, Health(cfg.hp,cfg.hp));
+  world.addComponent(eid, COMPONENT.Weapon, Weapon(cfg.weapon.fireRate,cfg.weapon.bulletSpeed,cfg.weapon.bulletDamage));
+  world.addComponent(eid, COMPONENT.EnemyAI, EnemyAI(type,pattern));
+  world.addComponent(eid, COMPONENT.Score, ScoreValue(cfg.score));
+  world.addComponent(eid, COMPONENT.Tag_Enemy, Tag_Enemy());
+  return eid;
+}
+
+function createBullet(world, x, y, vx, vy, damage, owner) {
+  const isPlayer = owner === 'player';
+  const bulletCfg = isPlayer ? CONFIG.player.weapon : {bulletWidth:4,bulletHeight:8,bulletColor:'#ff8a80',bulletRadius:3};
+  const eid = world.createEntity();
+  world.addComponent(eid, COMPONENT.Position, Position(x,y));
+  world.addComponent(eid, COMPONENT.Velocity, Velocity(vx,vy));
+  world.addComponent(eid, COMPONENT.Sprite, Sprite(isPlayer?'bullet_player':'bullet_enemy', isPlayer?bulletCfg.bulletWidth:4, isPlayer?bulletCfg.bulletHeight:8, isPlayer?bulletCfg.bulletColor:'#ff8a80'));
+  world.addComponent(eid, COMPONENT.BulletDamage, BulletDamage(damage));
+  world.addComponent(eid, COMPONENT.Collision, Collision(isPlayer?bulletCfg.bulletRadius:3));
+  world.addComponent(eid, COMPONENT.Lifespan, Lifespan(CONFIG.bullet.lifespan));
+  world.addComponent(eid, isPlayer?COMPONENT.Tag_PlayerBullet:COMPONENT.Tag_EnemyBullet, isPlayer?Tag_PlayerBullet():Tag_EnemyBullet());
+  return eid;
+}
+
+function createExplosion(world, x, y) {
+  const cfg = CONFIG.explosion;
+  for (let i = 0; i < cfg.particleCount; i++) {
+    const angle = (Math.PI*2/cfg.particleCount)*i + Math.random()*0.5;
+    const speed = cfg.minSpeed + Math.random()*(cfg.maxSpeed-cfg.minSpeed);
+    const size = cfg.minSize + Math.random()*(cfg.maxSize-cfg.minSize);
+    const eid = world.createEntity();
+    world.addComponent(eid, COMPONENT.Position, Position(x,y));
+    world.addComponent(eid, COMPONENT.Velocity, Velocity(Math.cos(angle)*speed, Math.sin(angle)*speed));
+    world.addComponent(eid, COMPONENT.Sprite, Sprite('explosion',size,size,`hsl(${30+Math.random()*30},100%,${50+Math.random()*30}%)`));
+    world.addComponent(eid, COMPONENT.Lifespan, Lifespan(cfg.lifespan));
+    world.addComponent(eid, COMPONENT.ExplosionParticle, ExplosionParticle(angle,speed));
+    world.addComponent(eid, COMPONENT.Tag_Explosion, Tag_Explosion());
+  }
+}
+
+// ============================================================
+//  systems/WeaponSystem.js
+// ============================================================
+class WeaponSystem extends System {
+  constructor() { super(300); }
+  update(dt, world) {
+    if (world.gameState !== 'playing') return;
+    const input = world.getSystem(InputSystem);
+    // 玩家射击
+    const players = world.query([COMPONENT.Position, COMPONENT.Weapon, COMPONENT.PlayerControl, COMPONENT.Tag_Player]);
+    for (const eid of players) {
+      const weapon = world.getComponent(eid, COMPONENT.Weapon);
+      if (!weapon.active) continue;
+      weapon.cooldown -= dt;
+      if (input && input.isFire() && weapon.cooldown <= 0) {
+        const pos = world.getComponent(eid, COMPONENT.Position);
+        weapon.cooldown = weapon.fireRate;
+        createBullet(world, pos.x, pos.y - 18, 0, -weapon.bulletSpeed, weapon.bulletDamage, 'player');
+      }
+    }
+    // 敌机射击
+    const enemies = world.query([COMPONENT.Position, COMPONENT.Weapon, COMPONENT.EnemyAI, COMPONENT.Tag_Enemy]);
+    for (const eid of enemies) {
+      const weapon = world.getComponent(eid, COMPONENT.Weapon);
+      if (!weapon.active) continue;
+      weapon.cooldown -= dt;
+      if (weapon.cooldown <= 0) {
+        const pos = world.getComponent(eid, COMPONENT.Position);
+        const sprite = world.getComponent(eid, COMPONENT.Sprite);
+        weapon.cooldown = weapon.fireRate;
+        createBullet(world, pos.x, pos.y + (sprite?.height ?? 24)/2, 0, weapon.bulletSpeed, weapon.bulletDamage, 'enemy');
+      }
+    }
+  }
+}
+
+// ============================================================
+//  systems/MoveSystem.js
+// ============================================================
+class MoveSystem extends System {
+  constructor() { super(400); }
+  update(dt, world) {
+    if (world.gameState !== 'playing') return;
+    const scale = dt / 16;
+    const entities = world.query([COMPONENT.Position, COMPONENT.Velocity]);
+    for (const eid of entities) {
+      const pos = world.getComponent(eid, COMPONENT.Position);
+      const vel = world.getComponent(eid, COMPONENT.Velocity);
+      pos.x += vel.vx * scale; pos.y += vel.vy * scale;
+    }
+  }
+}
+
+// ============================================================
+//  systems/CollisionSystem.js
+// ============================================================
+class CollisionSystem extends System {
+  constructor() { super(500); this.collisions = []; }
+  update(dt, world) {
+    if (world.gameState !== 'playing') return;
+    this.collisions = [];
+    const playerBullets = world.query([COMPONENT.Position, COMPONENT.Collision, COMPONENT.Tag_PlayerBullet]);
+    const enemyBullets = world.query([COMPONENT.Position, COMPONENT.Collision, COMPONENT.Tag_EnemyBullet]);
+    const enemies = world.query([COMPONENT.Position, COMPONENT.Collision, COMPONENT.Tag_Enemy]);
+    const players = world.query([COMPONENT.Position, COMPONENT.Collision, COMPONENT.Tag_Player, COMPONENT.Health]);
+    const cc = (pA,cA,pB,cB) => { const dx=pA.x-pB.x,dy=pA.y-pB.y,d=dx*dx+dy*dy,r=cA.radius+cB.radius; return d<r*r; };
+    for (const bId of playerBullets) { const bP=world.getComponent(bId,COMPONENT.Position),bC=world.getComponent(bId,COMPONENT.Collision); for (const eId of enemies) { const eP=world.getComponent(eId,COMPONENT.Position),eC=world.getComponent(eId,COMPONENT.Collision); if(cc(bP,bC,eP,eC)) this.collisions.push({a:bId,b:eId,type:'playerBullet_hit_enemy'}); } }
+    for (const bId of enemyBullets) { const bP=world.getComponent(bId,COMPONENT.Position),bC=world.getComponent(bId,COMPONENT.Collision); for (const pId of players) { const pP=world.getComponent(pId,COMPONENT.Position),pC=world.getComponent(pId,COMPONENT.Collision),pCtrl=world.getComponent(pId,COMPONENT.PlayerControl); if(pCtrl&&pCtrl.invincible)continue; if(cc(bP,bC,pP,pC)) this.collisions.push({a:bId,b:pId,type:'enemyBullet_hit_player'}); } }
+    for (const eId of enemies) { const eP=world.getComponent(eId,COMPONENT.Position),eC=world.getComponent(eId,COMPONENT.Collision); for (const pId of players) { const pP=world.getComponent(pId,COMPONENT.Position),pC=world.getComponent(pId,COMPONENT.Collision),pCtrl=world.getComponent(pId,COMPONENT.PlayerControl); if(pCtrl&&pCtrl.invincible)continue; if(cc(eP,eC,pP,pC)) this.collisions.push({a:eId,b:pId,type:'enemy_hit_player'}); } }
+  }
+}
+
+// ============================================================
+//  systems/DamageSystem.js
+// ============================================================
+class DamageSystem extends System {
+  constructor() { super(600); }
+  update(dt, world) {
+    if (world.gameState !== 'playing') return;
+    const collisionSys = world.getSystem(CollisionSystem);
+    if (!collisionSys) return;
+    for (const c of collisionSys.collisions) {
+      switch (c.type) {
+        case 'playerBullet_hit_enemy': this._hitEnemy(world,c.a,c.b); break;
+        case 'enemyBullet_hit_player': this._hitPlayer(world,c.a,c.b); break;
+        case 'enemy_hit_player': this._crashPlayer(world,c.a,c.b); break;
+      }
+    }
+  }
+  _hitEnemy(world,bId,eId) {
+    const dmg = world.getComponent(bId,COMPONENT.BulletDamage)?.damage ?? 1;
+    const hp = world.getComponent(eId,COMPONENT.Health);
+    if (hp) { hp.hp -= dmg; if (hp.hp <= 0) { const pos=world.getComponent(eId,COMPONENT.Position); const sc=world.getComponent(eId,COMPONENT.Score); if(sc) world.score+=sc.value; createExplosion(world,pos.x,pos.y); world.destroyEntity(eId); } }
+    world.destroyEntity(bId);
+  }
+  _hitPlayer(world,bId,pId) {
+    const ctrl=world.getComponent(pId,COMPONENT.PlayerControl), hp=world.getComponent(pId,COMPONENT.Health);
+    if(ctrl&&!ctrl.invincible&&hp){ hp.hp-=1; ctrl.invincible=true; ctrl.invincibleTimer=CONFIG.player.invincibleDuration; ctrl.flashTimer=0; if(hp.hp<=0) world.gameState='gameover'; }
+    world.destroyEntity(bId);
+  }
+  _crashPlayer(world,eId,pId) {
+    const ctrl=world.getComponent(pId,COMPONENT.PlayerControl), hp=world.getComponent(pId,COMPONENT.Health);
+    if(ctrl&&!ctrl.invincible&&hp){ hp.hp-=1; ctrl.invincible=true; ctrl.invincibleTimer=CONFIG.player.invincibleDuration; ctrl.flashTimer=0; if(hp.hp<=0) world.gameState='gameover'; }
+    const pos=world.getComponent(eId,COMPONENT.Position); createExplosion(world,pos.x,pos.y); world.destroyEntity(eId);
+  }
+}
+
+// ============================================================
+//  systems/SpawnSystem.js
+// ============================================================
+class SpawnSystem extends System {
+  constructor() { super(700); this.spawnedWaves = new Set(); this.spawnQueue = []; this.spawnTimer = 0; }
+  update(dt, world) {
+    if (world.gameState !== 'playing') return;
+    world.gameTime += dt;
+    for (let i = 0; i < CONFIG.waves.length; i++) {
+      if (!this.spawnedWaves.has(i) && world.gameTime >= CONFIG.waves[i].time) { this.spawnedWaves.add(i); this._enqueueWave(CONFIG.waves[i]); }
+    }
+    this.spawnTimer += dt;
+    const toSpawn = this.spawnQueue.filter(s => this.spawnTimer >= s.delay);
+    this.spawnQueue = this.spawnQueue.filter(s => this.spawnTimer < s.delay);
+    for (const s of toSpawn) createEnemy(world, s.type, s.pattern, s.x, s.y);
+    if (this.spawnedWaves.size >= CONFIG.waves.length) { this.spawnedWaves.clear(); this.spawnTimer = 0; world.gameTime = 0; }
+  }
+  _enqueueWave(wave) {
+    const base = this.spawnTimer; let offset = 0;
+    for (const g of wave.enemies) { if(!CONFIG.enemies[g.type]) continue; for (let i=0;i<g.count;i++) { this.spawnQueue.push({type:g.type,pattern:g.pattern,x:this._getSpawnX(g.pattern,i,g.count,g.spacing),y:-30-i*(g.spacing??60),delay:base+offset}); offset+=300; } }
+  }
+  _getSpawnX(pattern,index,count,spacing=60) {
+    const cx=CANVAS_WIDTH/2;
+    switch(pattern){
+      case 'line': return cx-((count-1)*spacing)/2+index*spacing;
+      case 'v': { const side=index%2===0?-1:1; return cx+side*Math.ceil(index/2)*spacing; }
+      case 'zigzag': return cx-((count-1)*spacing)/2+index*spacing;
+      default: return cx+(Math.random()-0.5)*200;
+    }
+  }
+  reset() { this.spawnedWaves.clear(); this.spawnQueue=[]; this.spawnTimer=0; }
+}
+
+// ============================================================
+//  systems/LifespanSystem.js
+// ============================================================
+class LifespanSystem extends System {
+  constructor() { super(800); }
+  update(dt, world) {
+    for (const eid of world.query([COMPONENT.Lifespan])) {
+      const ls = world.getComponent(eid, COMPONENT.Lifespan); ls.remaining -= dt;
+      if (ls.remaining <= 0) world.destroyEntity(eid);
+    }
+  }
+}
+
+// ============================================================
+//  systems/CleanupSystem.js
+// ============================================================
+class CleanupSystem extends System {
+  constructor() { super(900); }
+  update(dt, world) {
+    const margin = CONFIG.bullet.offscreenMargin;
+    for (const eid of world.query([COMPONENT.Position, COMPONENT.Velocity])) {
+      const pos = world.getComponent(eid, COMPONENT.Position);
+      if (pos.y<-margin||pos.y>CANVAS_HEIGHT+margin||pos.x<-margin||pos.x>CANVAS_WIDTH+margin) {
+        if (!world.hasComponent(eid, COMPONENT.Tag_Player)) world.destroyEntity(eid);
+      }
+    }
+    world.flushDestroyQueue();
+  }
+}
+
+// ============================================================
+//  systems/RenderSystem.js
+// ============================================================
+class RenderSystem extends System {
+  constructor() { super(1000); }
+  update(dt, world) {
+    const ctx = world.ctx; if (!ctx) return;
+    ctx.fillStyle='#0a0a1a'; ctx.fillRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
+    const bgSys = world.getSystem(BackgroundSystem); if(bgSys) bgSys.render(ctx);
+    if (world.gameState==='menu') { this._menu(ctx); return; }
+    this._entities(ctx,world);
+    if (world.gameState==='gameover') this._gameover(ctx,world);
+  }
+  _entities(ctx,world) {
+    const LO={explosion:0,bullet_player:1,bullet_enemy:2,enemy_scout:3,enemy_fighter:3,enemy_bomber:3,player:4};
+    const sorted=world.query([COMPONENT.Position,COMPONENT.Sprite]).sort((a,b)=>{
+      const sa=world.getComponent(a,COMPONENT.Sprite),sb=world.getComponent(b,COMPONENT.Sprite);
+      return (LO[sa.type]??5)-(LO[sb.type]??5);
+    });
+    for (const eid of sorted) {
+      const pos=world.getComponent(eid,COMPONENT.Position),spr=world.getComponent(eid,COMPONENT.Sprite);
+      if(spr.type==='player'){const c=world.getComponent(eid,COMPONENT.PlayerControl); if(c&&c.invincible&&Math.floor(c.flashTimer/80)%2===0) continue;}
+      if(spr.type==='explosion'){this._explosion(ctx,eid,pos,spr,world);continue;}
+      ctx.save(); ctx.translate(pos.x,pos.y);
+      switch(spr.type){
+        case 'player': this._drawPlayer(ctx,spr); break;
+        case 'enemy_scout': this._drawScout(ctx,spr); break;
+        case 'enemy_fighter': this._drawFighter(ctx,spr); break;
+        case 'enemy_bomber': this._drawBomber(ctx,spr); break;
+        case 'bullet_player': ctx.fillStyle=spr.color; ctx.shadowColor='#4fc3f7'; ctx.shadowBlur=6; ctx.fillRect(-spr.width/2,-spr.height/2,spr.width,spr.height); ctx.shadowBlur=0; break;
+        case 'bullet_enemy': ctx.fillStyle=spr.color; ctx.shadowColor='#f44336'; ctx.shadowBlur=4; ctx.beginPath(); ctx.arc(0,0,spr.width/2,0,Math.PI*2); ctx.fill(); ctx.shadowBlur=0; break;
+        default: ctx.fillStyle=spr.color; ctx.fillRect(-spr.width/2,-spr.height/2,spr.width,spr.height);
+      }
+      ctx.restore();
+    }
+  }
+  _drawPlayer(ctx,s){
+    ctx.fillStyle=s.color; ctx.beginPath(); ctx.moveTo(0,-s.height/2); ctx.lineTo(-s.width/2,s.height/2); ctx.lineTo(-4,s.height/4); ctx.lineTo(0,s.height/3); ctx.lineTo(4,s.height/4); ctx.lineTo(s.width/2,s.height/2); ctx.closePath(); ctx.fill();
+    ctx.fillStyle='#ff9800'; ctx.beginPath(); ctx.moveTo(-5,s.height/3); ctx.lineTo(0,s.height/2+6+Math.random()*4); ctx.lineTo(5,s.height/3); ctx.closePath(); ctx.fill();
+  }
+  _drawScout(ctx,s){
+    ctx.fillStyle=s.color; ctx.beginPath(); ctx.moveTo(0,s.height/2); ctx.lineTo(-s.width/2,-s.height/3); ctx.lineTo(-3,-s.height/2); ctx.lineTo(3,-s.height/2); ctx.lineTo(s.width/2,-s.height/3); ctx.closePath(); ctx.fill();
+  }
+  _drawFighter(ctx,s){
+    ctx.fillStyle=s.color; ctx.beginPath(); ctx.moveTo(0,s.height/2); ctx.lineTo(-s.width/2,0); ctx.lineTo(-s.width/3,-s.height/2); ctx.lineTo(s.width/3,-s.height/2); ctx.lineTo(s.width/2,0); ctx.closePath(); ctx.fill();
+    ctx.fillStyle='#fff3'; ctx.fillRect(-3,-3,6,6);
+  }
+  _drawBomber(ctx,s){
+    ctx.fillStyle=s.color; ctx.beginPath(); ctx.arc(0,0,s.width/2,0,Math.PI*2); ctx.fill();
+    ctx.fillStyle='#fff2'; ctx.beginPath(); ctx.arc(0,0,s.width/4,0,Math.PI*2); ctx.fill();
+    ctx.fillStyle=s.color; ctx.fillRect(-s.width/2-5,-3,10,6); ctx.fillRect(s.width/2-5,-3,10,6);
+  }
+  _explosion(ctx,eid,pos,spr,world){
+    const p=world.getComponent(eid,COMPONENT.ExplosionParticle); if(!p)return;
+    const ls=world.getComponent(eid,COMPONENT.Lifespan); const alpha=ls?ls.remaining/ls.maxLife:1;
+    ctx.save(); ctx.translate(pos.x,pos.y); ctx.globalAlpha=alpha; ctx.fillStyle=spr.color;
+    ctx.fillRect(-p.size/2,-p.size/2,p.size,p.size); ctx.globalAlpha=1; ctx.restore();
+  }
+  _menu(ctx){
+    ctx.fillStyle='#fff'; ctx.font='bold 36px monospace'; ctx.textAlign='center';
+    ctx.fillText('STRIKE FORCE',CANVAS_WIDTH/2,CANVAS_HEIGHT/2-60);
+    ctx.font='16px monospace'; ctx.fillStyle='#4fc3f7';
+    ctx.fillText('WASD / Arrow Keys - Move',CANVAS_WIDTH/2,CANVAS_HEIGHT/2);
+    ctx.fillText('SPACE - Fire',CANVAS_WIDTH/2,CANVAS_HEIGHT/2+30);
+    ctx.fillStyle='#ff9800'; ctx.font='20px monospace';
+    if(Math.floor(Date.now()/500)%2) ctx.fillText('PRESS ENTER TO START',CANVAS_WIDTH/2,CANVAS_HEIGHT/2+80);
+  }
+  _gameover(ctx,world){
+    ctx.fillStyle='rgba(0,0,0,0.6)'; ctx.fillRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
+    ctx.fillStyle='#f44336'; ctx.font='bold 36px monospace'; ctx.textAlign='center';
+    ctx.fillText('GAME OVER',CANVAS_WIDTH/2,CANVAS_HEIGHT/2-30);
+    ctx.fillStyle='#fff'; ctx.font='20px monospace'; ctx.fillText(`Score: ${world.score}`,CANVAS_WIDTH/2,CANVAS_HEIGHT/2+20);
+    ctx.fillStyle='#ff9800'; ctx.font='16px monospace';
+    if(Math.floor(Date.now()/500)%2) ctx.fillText('PRESS ENTER TO RESTART',CANVAS_WIDTH/2,CANVAS_HEIGHT/2+60);
+  }
+}
+
+// ============================================================
+//  systems/HUDSystem.js
+// ============================================================
+class HUDSystem extends System {
+  constructor() { super(1100); }
+  update(dt, world) {
+    if (world.gameState !== 'playing') return;
+    const ctx = world.ctx; if (!ctx) return;
+    let hp = 0;
+    for (const eid of world.query([COMPONENT.Health, COMPONENT.Tag_Player])) hp = world.getComponent(eid, COMPONENT.Health).hp;
+    ctx.fillStyle='#fff'; ctx.font='16px monospace'; ctx.textAlign='left'; ctx.fillText(`SCORE: ${world.score}`,10,24);
+    ctx.textAlign='right'; ctx.fillText('LIFE: ',CANVAS_WIDTH-70,24);
+    for(let i=0;i<hp;i++){
+      ctx.fillStyle='#4fc3f7'; ctx.beginPath(); const hx=CANVAS_WIDTH-60+i*22;
+      ctx.moveTo(hx,18); ctx.lineTo(hx-6,24); ctx.lineTo(hx-3,16); ctx.lineTo(hx,12); ctx.lineTo(hx+3,16); ctx.lineTo(hx+6,24); ctx.closePath(); ctx.fill();
+    }
+  }
+}
+
+// ============================================================
+//  main.js — 初始化和主循环
+// ============================================================
+const canvas = document.getElementById('gameCanvas');
+canvas.width = CANVAS_WIDTH; canvas.height = CANVAS_HEIGHT;
+const ctx = canvas.getContext('2d');
+
+const world = new World();
+world.canvas = canvas; world.ctx = ctx;
+
+world.addSystem(new BackgroundSystem());
+world.addSystem(new InputSystem());
+world.addSystem(new PlayerMoveSystem());
+world.addSystem(new EnemyAISystem());
+world.addSystem(new WeaponSystem());
+world.addSystem(new MoveSystem());
+world.addSystem(new CollisionSystem());
+world.addSystem(new DamageSystem());
+world.addSystem(new SpawnSystem());
+world.addSystem(new LifespanSystem());
+world.addSystem(new CleanupSystem());
+world.addSystem(new RenderSystem());
+world.addSystem(new HUDSystem());
+world.init();
+
+const bgSys = world.getSystem(BackgroundSystem);
+if (bgSys) bgSys.initStars(CONFIG.background.starCount);
+const inputSys = world.getSystem(InputSystem);
+if (inputSys) inputSys.bind(canvas);
+
+let startWasDown = false;
+
+function startGame() {
+  world.reset(); world.gameState = 'playing';
+  if (bgSys) bgSys.initStars(CONFIG.background.starCount);
+  const spawnSys = world.getSystem(SpawnSystem); if(spawnSys) spawnSys.reset();
+  createPlayer(world);
+}
+
+let lastTime = 0;
+function gameLoop(timestamp) {
+  const dt = lastTime ? Math.min(timestamp - lastTime, 50) : 16;
+  lastTime = timestamp;
+  const startDown = inputSys && (inputSys.isEnter() || inputSys.isFire());
+  if (startDown && !startWasDown && (world.gameState === 'menu' || world.gameState === 'gameover')) startGame();
+  startWasDown = startDown;
+  world.update(dt);
+  requestAnimationFrame(gameLoop);
+}
+requestAnimationFrame(gameLoop);
+</script>
+</body>
+</html>
