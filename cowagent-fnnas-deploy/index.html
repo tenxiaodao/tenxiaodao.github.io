@@ -1,0 +1,840 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>飞牛 NAS 部署 CowAgent 并开放局域网访问 | 言志</title><meta name="keywords" content="CowAgent,飞牛NAS,部署,chatgpt-on-wechat,局域网"><meta name="author" content="周言志"><meta name="copyright" content="周言志"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="飞牛 NAS 部署 CowAgent 并开放局域网访问"><meta name="application-name" content="飞牛 NAS 部署 CowAgent 并开放局域网访问"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="飞牛 NAS 部署 CowAgent 并开放局域网访问"><meta property="og:url" content="https://www.tenxiaodao.top/cowagent-fnnas-deploy/index.html"><meta property="og:site_name" content="言志"><meta property="og:description" content="本文记录在飞牛 NAS 上通过源码部署 CowAgent（chatgpt-on-wechat）并开放 Web 控制台局域网访问的完整流程，含源码安装、初始配置、systemd 托管、常见坑与速查命令。"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://bu.dusays.com/2026/06/25/6a3c190b7ec32.webp"><meta property="article:author" content="周言志"><meta property="article:tag"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://bu.dusays.com/2026/06/25/6a3c190b7ec32.webp"><meta name="description" content="本文记录在飞牛 NAS 上通过源码部署 CowAgent（chatgpt-on-wechat）并开放 Web 控制台局域网访问的完整流程，含源码安装、初始配置、systemd 托管、常见坑与速查命令。"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="https://www.tenxiaodao.top/cowagent-fnnas-deploy/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//cdn.cbd.int"/><meta name="google-site-verification" content="wqPFRrXA8pZc0jE62WYRkxlS0hj9yiHEfvBAtBB8Jhc"/><meta name="baidu-site-verification" content="codeva-21E8Lxoehj"/><meta name="msvalidate.01" content="xxx"/><link rel="manifest" href="/manifest.json"/><meta name="msapplication-TileColor" content="var(--anzhiyu-main)"/><link rel="mask-icon" href="/img/siteicon/apple-icon-180.png" color="#5bbad5"/><link rel="apple-touch-icon" sizes="180x180" href="/img/siteicon/apple-icon-180.png"/><link rel="apple-touch-icon-precomposed" sizes="180x180" href="/img/siteicon/apple-icon-180.png"/><link rel="icon" type="image/png" sizes="32x32" href="/img/siteicon/32.png"/><link rel="icon" type="image/png" sizes="16x16" href="/img/siteicon/16.png"/><link rel="bookmark" href="/img/siteicon/apple-icon-180.png"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2048-2732.jpg" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2732-2048.jpg" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1668-2388.jpg" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2388-1668.jpg" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1536-2048.jpg" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2048-1536.jpg" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1668-2224.jpg" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2224-1668.jpg" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1620-2160.jpg" media="(device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2160-1620.jpg" media="(device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1290-2796.jpg" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2796-1290.jpg" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1179-2556.jpg" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2556-1179.jpg" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1284-2778.jpg" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2778-1284.jpg" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1170-2532.jpg" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2532-1170.jpg" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1125-2436.jpg" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2436-1125.jpg" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1242-2688.jpg" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2688-1242.jpg" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-828-1792.jpg" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1792-828.jpg" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1242-2208.jpg" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2208-1242.jpg" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-750-1334.jpg" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1334-750.jpg" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-640-1136.jpg" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1136-640.jpg" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@6.1.6/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/swiper/swiper.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: undefined,
+  postHeadAiDescription: undefined,
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: {"enable":true,"default":"晚上好👋","list":[{"greeting":"晚安😴","startTime":0,"endTime":5},{"greeting":"早上好鸭👋, 祝你一天好心情！","startTime":6,"endTime":9},{"greeting":"上午好👋, 状态很好，鼓励一下～","startTime":10,"endTime":10},{"greeting":"11点多啦, 在坚持一下就吃饭啦～","startTime":11,"endTime":11},{"greeting":"午安👋, 宝贝","startTime":12,"endTime":14},{"greeting":"🌈充实的一天辛苦啦！","startTime":14,"endTime":18},{"greeting":"19点喽, 奖励一顿丰盛的大餐吧🍔。","startTime":19,"endTime":19},{"greeting":"晚上好👋, 在属于自己的时间好好放松😌~","startTime":20,"endTime":24}]},
+  twikooEnvId: 'https://yuhaozhe-twikoo.hf.space',
+  commentBarrageConfig:undefined,
+  music_page_default: "nav_music",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: {"skills":["🤖️ 数码科技爱好者","🔍 分享与热心帮助","🏠 智能家居小能手","🔨 设计开发一条龙","🤝 专修交互与设计","🏃 脚踏实地行动派","🧱 团队小组发动机","💢 壮汉人狠话不多"]},
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: 周言志","link":"链接: ","source":"来源: 言志","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.2.0/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.2.0/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: '言志',
+  title: '飞牛 NAS 部署 CowAgent 并开放局域网访问',
+  postAI: '',
+  pageFillDescription: '飞牛 NAS 部署 CowAgent 并开放局域网访问, 为什么选源码部署, 1. 获取 CowAgent, 1.1 前置条件检查, 1.2 克隆源码, 1.3 创建虚拟环境并安装, 1.4 验证安装, 2. 初始配置, 2.1 创建配置文件, 2.2 关键字段说明, 2.3 最小可用配置示例, 2.4 填入 API key, 3. 开放局域网访问, 推荐做法：用 sed 一行插入, 替代做法：vi 手动编辑, 飞牛防火墙放行, 4. 配置 systemd 托管, 4.1 创建服务文件, 4.2 启动并设置开机自启, 4.3 日常管理命令, 5. 从电脑访问, 常见坑, 常用命令速查, 文件清单飞牛部署并开放局域网访问环境飞牛主机名普通用户源码位于控制台端口所有命令在上以运行即命令名包名是一个可以把接入微信飞书的聊天机器人框架支持多模型后端智谱等技能扩展控制台等功能飞牛没有自带浏览器控制台默认只监听本机访问不了所以需要把监听地址改成让局域网内的电脑手机能通过浏览器访问本文从零开始记录完整部署流程获取源码安装依赖初始配置用托管服务开放局域网访问最后附常见坑和速查命令为什么选源码部署项目提供了一个但引用的预构建镜像只有版本飞牛如果是架构方式会触发平台不匹配警告虽然可以通过模拟运行或本地自建镜像但都比较折腾性能也打折源码部署更直接克隆代码装好就能用改配置方便后续装技能改源码都即时生效所以本次走的是源码安装方式获取前置条件检查飞牛系自带先确认版本期望输出确认可用默认带期望输出确认可用如果不存在用系统包管理器补上如果报错缺模块装一下包克隆源码切到克隆到如果你的是定制换成对应的仓库地址即可关键是源码最终在这个路径下创建虚拟环境并安装建议建一个独立避免污染系统安装参数这样改源码即时生效命令也能直接用这一步会安装依赖包括等耗时取决于网络一般几分钟验证安装看到版本号输出即安装成功也可以用方式验证初始配置创建配置文件的配置文件是首次使用需要从模板复制一份如果仓库里没有直接手动创建参考下面的完整示例关键字段说明字段作用示例值渠道类型表示控制台语言控制台端口监听地址默认无即控制台登录密码自定义后端类型模型名智谱从获取智谱地址上下文上限和在模板里默认没有需要手动加第节专门讲最小可用配置示例以下是接通智谱并开放控制台的最小配置省略了不相关字段你的登录密码你的智谱如果用兼容接口把改成用替代智谱相关字段填对应模型名填入拿到智谱后用写入注意替换你的智谱你的智谱或者直接编辑找到那行改掉验证开放局域网访问默认配置没有字段因此监听只能本机访问需要在里加两个字段监听所有网卡自己设一个登录密码推荐做法用一行插入在前面插入和你的密码终端自动换行会把长命令断成两行导致报错如果复制粘贴失败改用反斜杠续行或直接用手动编辑验证是否改成功看到即成功替代做法手动编辑找到那一行按进入编辑模式在前面加上你的密码按输入回车保存飞牛防火墙放行如果上一步做完仍然从局域网访问不了检查防火墙是否放行了端口查看当前规则没有的话手动放行大部分版本默认不拦局域网端口这一步通常不需要但如果你在飞牛网络或虚拟接口环境下部署可能需要手动放行配置托管需要长期运行最好交给管理开机自启崩溃自动重启日志统一收集创建服务文件几个关键点设为确保和源码能被找到用里的而不是系统确保依赖正确加载进程崩溃后秒自动拉起避免重启风暴日志统一写到启动并设置开机自启看到即成功确认日志正常输出看到控制台启动监听的日志行就对了日常管理命令查看状态重启改完后必须执行停止看实时日志如果暂时不想用也可以用或后台运行方式按再按脱离会话方式这两种方式都不支持开机自启和崩溃重启长期运行还是推荐从电脑访问先查的局域网然后在电脑手机浏览器打开的例如是就访问输入第步设的登录登录后就能在控制台里直接跟对话也可以从这里安装管理技能如果页面打不开依次排查确认服务在跑确认是确认没错浏览器和在同一局域网同网段常见坑现象原因解决报终端自动换行把命令截断加了缩进改用或卡住进了输入模式退出改用命令被换行断成两行用反斜杠续行或后对操作报访问是安装去找源码普通用户没权限读用切到再运行控制台打不开没改成或服务没启动确认配置确认服务在跑报权限错误没用直接装到了系统确保先浏览器能打开但提示密码错误没设或设了但没重启服务飞牛重启后服务没自动起来没执行页面能打开但不回复没填对或配错检查对照第节示例日志报端口被占找到占用进程掉或改常用命令速查切到在下需要权限查看配置改监听地址你的密码验证查局域网重启服务改完配置后执行查看服务状态看实时日志文件清单路径作用源码目录虚拟环境隔离依赖主配置文件端口监听地址等配置模板初始复制用服务文件运行日志',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2026-08-26 01:51:20',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="言志" type="application/atom+xml">
+</head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="/img/up.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><div class="back-home-button"><i class="anzhiyufont anzhiyu-icon-grip-vertical"></i><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">关注我</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://github.com/tenxiaodao/tenxiaodao.github.io" title="Github"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/up.jpg" alt="Github"/><span class="back-menu-item-text">Github</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://space.bilibili.com/1803174585" title="Bilibili"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/up.jpg" alt="Bilibili"/><span class="back-menu-item-text">Bilibili</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">网盘</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://pan.quark.cn/s/c98d1ceee692" title="软件/工具"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="软件/工具"/><span class="back-menu-item-text">软件/工具</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">常用网站</div><div class="back-menu-list"><a class="back-menu-item" href="/nav/" title="导航页"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/up.jpg" alt="导航页"/><span class="back-menu-item-text">导航页</span></a></div></div></div></div><a id="site-name" href="/" accesskey="h"><div class="title">言志</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a><div id="he-plugin-simple"></div><script>var WIDGET = {
+  "CONFIG": {
+    "modules": "0124",
+    "background": "2",
+    "tmpColor": "FFFFFF",
+    "tmpSize": "16",
+    "cityColor": "FFFFFF",
+    "citySize": "16",
+    "aqiColor": "E8D87B",
+    "aqiSize": "16",
+    "weatherIconSize": "24",
+    "alertIconSize": "18",
+    "padding": "10px 10px 10px 10px",
+    "shadow": "0",
+    "language": "auto",
+    "borderRadius": "20",
+    "fixed": "true",
+    "vertical": "top",
+    "horizontal": "left",
+    "left": "20",
+    "top": "7.1",
+    "key": "df245676fb434a0691ead1c63341cd94"
+  }
+}
+</script><link rel="stylesheet" href="https://widget.qweather.net/simple/static/css/he-simple.css?v=1.4.0"/><script src="https://widget.qweather.net/simple/static/js/he-simple.js?v=1.4.0"></script></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 隧道</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 友链</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><i class="anzhiyufont anzhiyu-icon-link faa-tada" style="font-size: 0.9em;"></i><span> 友人帐</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><i class="anzhiyufont anzhiyu-icon-envelope faa-tada" style="font-size: 0.9em;"></i><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/music/?id=13738866688&amp;server=netease"><i class="anzhiyufont anzhiyu-icon-music faa-tada" style="font-size: 0.9em;"></i><span> 音乐馆</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/album/"><i class="anzhiyufont anzhiyu-icon-images faa-tada" style="font-size: 0.9em;"></i><span> 相册集</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于本人</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/essay/"><i class="anzhiyufont anzhiyu-icon-lightbulb faa-tada" style="font-size: 0.9em;"></i><span> 闲言碎语</span></a></li></ul></div></div></div><div id="nav-right"><div class="nav-button only-home" id="travellings_button" title="随机前往一个开往项目网站"><a class="site-page" onclick="anzhiyu.totraveling()" title="随机前往一个开往项目网站" href="javascript:void(0);" rel="external nofollow" data-pjax-state="external"><i class="anzhiyufont anzhiyu-icon-train"></i></a></div><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><div class="nav-button" id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" title="搜索🔍" accesskey="s"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span> 搜索</span></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="/img/wx.jpg" target="_blank"><img class="post-qr-code-img" alt="微信" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/wx.jpg"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/zfb.jpg" target="_blank"><img class="post-qr-code-img" alt="支付宝" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/zfb.jpg"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/AI/" style="font-size: 1.05rem;">AI<sup>5</sup></a><a href="/tags/ARP/" style="font-size: 1.05rem;">ARP<sup>1</sup></a><a href="/tags/CSS/" style="font-size: 1.05rem;">CSS<sup>1</sup></a><a href="/tags/CasaOS/" style="font-size: 1.05rem;">CasaOS<sup>1</sup></a><a href="/tags/Docker/" style="font-size: 1.05rem;">Docker<sup>1</sup></a><a href="/tags/ESP32/" style="font-size: 1.05rem;">ESP32<sup>1</sup></a><a href="/tags/HTML/" style="font-size: 1.05rem;">HTML<sup>1</sup></a><a href="/tags/Hexo/" style="font-size: 1.05rem;">Hexo<sup>8</sup></a><a href="/tags/JavaScript/" style="font-size: 1.05rem;">JavaScript<sup>2</sup></a><a href="/tags/KVM/" style="font-size: 1.05rem;">KVM<sup>1</sup></a><a href="/tags/KouriChat/" style="font-size: 1.05rem;">KouriChat<sup>1</sup></a><a href="/tags/Linux/" style="font-size: 1.05rem;">Linux<sup>5</sup></a><a href="/tags/NAS/" style="font-size: 1.05rem;">NAS<sup>2</sup></a><a href="/tags/Python/" style="font-size: 1.05rem;">Python<sup>4</sup></a><a href="/tags/Scrapy/" style="font-size: 1.05rem;">Scrapy<sup>2</sup></a><a href="/tags/TCP/" style="font-size: 1.05rem;">TCP<sup>1</sup></a><a href="/tags/UDP/" style="font-size: 1.05rem;">UDP<sup>1</sup></a><a href="/tags/Ubuntu/" style="font-size: 1.05rem;">Ubuntu<sup>1</sup></a><a href="/tags/VM%E8%99%9A%E6%8B%9F%E6%9C%BA/" style="font-size: 1.05rem;">VM虚拟机<sup>1</sup></a><a href="/tags/WSL2/" style="font-size: 1.05rem;">WSL2<sup>1</sup></a><a href="/tags/macOS/" style="font-size: 1.05rem;">macOS<sup>3</sup></a><a href="/tags/office/" style="font-size: 1.05rem;">office<sup>1</sup></a><a href="/tags/openEuler/" style="font-size: 1.05rem;">openEuler<sup>1</sup></a><a href="/tags/windows%E9%95%9C%E5%83%8F/" style="font-size: 1.05rem;">windows镜像<sup>1</sup></a><a href="/tags/%E4%BA%A4%E6%8D%A2%E6%9C%BA/" style="font-size: 1.05rem;">交换机<sup>1</sup></a><a href="/tags/%E5%85%A5%E9%97%A8/" style="font-size: 1.05rem;">入门<sup>1</sup></a><a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 1.05rem;">前端<sup>1</sup></a><a href="/tags/%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95/" style="font-size: 1.05rem;">压力测试<sup>1</sup></a><a href="/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/" style="font-size: 1.05rem;">命令行<sup>2</sup></a><a href="/tags/%E5%BE%AE%E4%BF%A1/" style="font-size: 1.05rem;">微信<sup>2</sup></a><a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 1.05rem;">爬虫<sup>2</sup></a><a href="/tags/%E7%8E%A9%E5%AE%A2%E4%BA%91/" style="font-size: 1.05rem;">玩客云<sup>1</sup></a><a href="/tags/%E7%AB%AF%E5%8F%A3%E8%81%9A%E5%90%88/" style="font-size: 1.05rem;">端口聚合<sup>1</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96/" style="font-size: 1.05rem;">网络优化<sup>1</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 1.05rem;">网络协议<sup>1</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 1.05rem;">网络安全<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/" style="font-size: 1.05rem;">网络技术<sup>1</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" style="font-size: 1.05rem;">网络配置<sup>1</sup></a><a href="/tags/%E8%AF%AD%E9%9F%B3%E5%8A%A9%E6%89%8B/" style="font-size: 1.05rem;">语音助手<sup>1</sup></a><a href="/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 1.05rem;">运维<sup>3</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="anzhiyufont anzhiyu-icon-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/09/"><span class="card-archive-list-date">九月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/07/"><span class="card-archive-list-date">七月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">4</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/06/"><span class="card-archive-list-date">六月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">14</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/05/"><span class="card-archive-list-date">五月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/03/"><span class="card-archive-list-date">三月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/02/"><span class="card-archive-list-date">二月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/11/"><span class="card-archive-list-date">十一月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/10/"><span class="card-archive-list-date">十月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">4</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="post-meta-categories"><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/AI-%E6%8E%A2%E7%B4%A2/" itemprop="url">AI 探索</a></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/CowAgent/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>CowAgent</span></a><a class="article-meta__tags" href="/tags/%E9%A3%9E%E7%89%9BNAS/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>飞牛NAS</span></a><a class="article-meta__tags" href="/tags/%E9%83%A8%E7%BD%B2/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>部署</span></a><a class="article-meta__tags" href="/tags/chatgpt-on-wechat/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>chatgpt-on-wechat</span></a><a class="article-meta__tags" href="/tags/%E5%B1%80%E5%9F%9F%E7%BD%91/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>局域网</span></a></span></div></div><h1 class="post-title" itemprop="name headline">飞牛 NAS 部署 CowAgent 并开放局域网访问</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2026-07-12T07:00:00.000Z" title="发表于 2026-07-12 15:00:00">2026-07-12</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2026-08-25T17:51:20.254Z" title="更新于 2026-08-26 01:51:20">2026-08-26</time></span></div><div class="meta-secondline"><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为大同"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>大同</span><span class="post-meta-separator"></span><span class="post-meta-commentcount"><i class="anzhiyufont anzhiyu-icon-comments post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/cowagent-fnnas-deploy/#post-comment" tabindex="-1"><span id="twikoo-count"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-spin"></i></span></a></span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src="https://bu.dusays.com/2026/06/25/6a3c190b7ec32.webp"></div></header><main id="blog-container"><div class="layout hide-aside" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="https://www.tenxiaodao.top/cowagent-fnnas-deploy/"><header><a class="post-meta-categories" href="/categories/AI-%E6%8E%A2%E7%B4%A2/" itemprop="url">AI 探索</a><a href="/tags/CowAgent/" tabindex="-1" itemprop="url">CowAgent</a><a href="/tags/%E9%A3%9E%E7%89%9BNAS/" tabindex="-1" itemprop="url">飞牛NAS</a><a href="/tags/%E9%83%A8%E7%BD%B2/" tabindex="-1" itemprop="url">部署</a><a href="/tags/chatgpt-on-wechat/" tabindex="-1" itemprop="url">chatgpt-on-wechat</a><a href="/tags/%E5%B1%80%E5%9F%9F%E7%BD%91/" tabindex="-1" itemprop="url">局域网</a><h1 id="CrawlerTitle" itemprop="name headline">飞牛 NAS 部署 CowAgent 并开放局域网访问</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">周言志</span><time itemprop="dateCreated datePublished" datetime="2026-07-12T07:00:00.000Z" title="发表于 2026-07-12 15:00:00">2026-07-12</time><time itemprop="dateCreated datePublished" datetime="2026-08-25T17:51:20.254Z" title="更新于 2026-08-26 01:51:20">2026-08-26</time></header><h1 id="飞牛-NAS-部署-CowAgent-并开放局域网访问"><a href="#飞牛-NAS-部署-CowAgent-并开放局域网访问" class="headerlink" title="飞牛 NAS 部署 CowAgent 并开放局域网访问"></a>飞牛 NAS 部署 CowAgent 并开放局域网访问</h1><blockquote>
+<p>环境：飞牛 NAS（主机名 <code>fnnas</code>，普通用户 <code>FNNAS</code>，Python 3.11）<br>CowAgent 源码位于 <code>/root/CowAgent/</code>，Web 控制台端口 <code>9899</code><br>所有命令在 NAS 上以 <strong>root</strong> 运行（<code>sudo -i</code>）</p>
+</blockquote>
+<p>CowAgent 即 <code>chatgpt-on-wechat</code>（命令名 <code>cow</code>，包名 <code>cowagent</code>），是一个可以把 AI 接入微信&#x2F;飞书的聊天机器人框架，支持多模型后端（智谱 GLM、OpenAI 等）、技能扩展、Web 控制台等功能。飞牛 NAS 没有自带浏览器，Web 控制台默认只监听 <code>127.0.0.1</code>，本机访问不了，所以需要把监听地址改成 <code>0.0.0.0</code>，让局域网内的电脑&#x2F;手机能通过浏览器访问。</p>
+<p>本文从零开始记录完整部署流程：获取源码、安装依赖、初始配置、用 systemd 托管服务、开放局域网访问，最后附常见坑和速查命令。</p>
+<hr>
+<h2 id="为什么选源码部署"><a href="#为什么选源码部署" class="headerlink" title="为什么选源码部署"></a>为什么选源码部署</h2><p>项目提供了一个 <code>docker-compose.yml</code>，但引用的预构建镜像只有 <code>amd64</code> 版本。飞牛 NAS 如果是 ARM 架构（<code>aarch64</code>），Docker 方式会触发平台不匹配警告——虽然可以通过 <code>platform: linux/amd64</code> 模拟运行，或本地 <code>docker build</code> 自建 arm64 镜像，但都比较折腾，性能也打折。</p>
+<p>源码部署更直接：克隆代码、<code>pip install -e .</code> 装好就能用，改配置方便，后续装技能、改源码都即时生效。所以本次走的是<strong>源码 + editable 安装</strong>方式。</p>
+<hr>
+<h2 id="1-获取-CowAgent"><a href="#1-获取-CowAgent" class="headerlink" title="1. 获取 CowAgent"></a>1. 获取 CowAgent</h2><h3 id="1-1-前置条件检查"><a href="#1-1-前置条件检查" class="headerlink" title="1.1 前置条件检查"></a>1.1 前置条件检查</h3><p>飞牛 NAS（fnOS，Debian 系）自带 Python 3.11，先确认版本：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python3 --version</span><br><span class="line"><span class="comment"># 期望输出 Python 3.11.x</span></span><br></pre></td></tr></table></figure>
+
+<p>确认 git 可用（fnOS 默认带）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git --version</span><br><span class="line"><span class="comment"># 期望输出 git version 2.x.x</span></span><br></pre></td></tr></table></figure>
+
+<p>确认 pip 可用：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -m pip --version</span><br></pre></td></tr></table></figure>
+
+<p>如果 pip 不存在，用系统包管理器补上：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt update &amp;&amp; apt install -y python3-pip</span><br></pre></td></tr></table></figure>
+
+<p>如果 <code>python3 -m venv</code> 报错缺模块，装一下 <code>venv</code> 包：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install -y python3-venv</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-2-克隆源码"><a href="#1-2-克隆源码" class="headerlink" title="1.2 克隆源码"></a>1.2 克隆源码</h3><p>切到 root，克隆到 <code>/root/CowAgent/</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> -i</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/zhayujie/chatgpt-on-wechat.git /root/CowAgent</span><br><span class="line"><span class="built_in">cd</span> /root/CowAgent</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果你的 CowAgent 是定制 fork，换成对应的仓库地址即可。关键是源码最终在 <code>/root/CowAgent/</code> 这个路径下。</p>
+</blockquote>
+<h3 id="1-3-创建虚拟环境并安装"><a href="#1-3-创建虚拟环境并安装" class="headerlink" title="1.3 创建虚拟环境并安装"></a>1.3 创建虚拟环境并安装</h3><p>建议建一个独立 venv，避免污染系统 Python：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">python3 -m venv /root/CowAgent/venv</span><br><span class="line"><span class="built_in">source</span> /root/CowAgent/venv/bin/activate</span><br><span class="line">pip install -U pip</span><br></pre></td></tr></table></figure>
+
+<p>editable 安装（<code>-e</code> 参数），这样改源码即时生效，<code>cow</code> 命令也能直接用：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install -e .</span><br></pre></td></tr></table></figure>
+
+<p>这一步会安装依赖（包括 <code>itchat</code>、<code>requests</code>、<code>flask</code> 等），耗时取决于网络，一般几分钟。</p>
+<h3 id="1-4-验证安装"><a href="#1-4-验证安装" class="headerlink" title="1.4 验证安装"></a>1.4 验证安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cow --version</span><br></pre></td></tr></table></figure>
+
+<p>看到版本号输出即安装成功。也可以用 Python 方式验证：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -c <span class="string">&quot;import cowagent; print(&#x27;ok&#x27;)&quot;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="2-初始配置"><a href="#2-初始配置" class="headerlink" title="2. 初始配置"></a>2. 初始配置</h2><h3 id="2-1-创建配置文件"><a href="#2-1-创建配置文件" class="headerlink" title="2.1 创建配置文件"></a>2.1 创建配置文件</h3><p>CowAgent 的配置文件是 <code>config.json</code>，首次使用需要从模板复制一份：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /root/CowAgent</span><br><span class="line"><span class="built_in">cp</span> config-template.json config.json</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果仓库里没有 <code>config-template.json</code>，直接 <code>vi config.json</code> 手动创建，参考下面的完整示例。</p>
+</blockquote>
+<h3 id="2-2-关键字段说明"><a href="#2-2-关键字段说明" class="headerlink" title="2.2 关键字段说明"></a>2.2 关键字段说明</h3><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>作用</th>
+<th>示例值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>channel_type</code></td>
+<td>渠道类型，<code>web</code> 表示 Web 控制台</td>
+<td><code>&quot;web&quot;</code></td>
+</tr>
+<tr>
+<td><code>cow_lang</code></td>
+<td>语言</td>
+<td><code>&quot;zh&quot;</code></td>
+</tr>
+<tr>
+<td><code>web_port</code></td>
+<td>Web 控制台端口</td>
+<td><code>9899</code></td>
+</tr>
+<tr>
+<td><code>web_host</code></td>
+<td>Web 监听地址，默认无（即 <code>127.0.0.1</code>）</td>
+<td><code>&quot;0.0.0.0&quot;</code></td>
+</tr>
+<tr>
+<td><code>web_password</code></td>
+<td>Web 控制台登录密码</td>
+<td>自定义</td>
+</tr>
+<tr>
+<td><code>bot_type</code></td>
+<td>AI 后端类型（<code>zhipu</code> &#x2F; <code>openai</code>）</td>
+<td><code>&quot;zhipu&quot;</code></td>
+</tr>
+<tr>
+<td><code>model</code></td>
+<td>模型名</td>
+<td><code>&quot;glm-5-turbo&quot;</code></td>
+</tr>
+<tr>
+<td><code>zhipu_ai_api_key</code></td>
+<td>智谱 API key</td>
+<td>从 <a target="_blank" rel="noopener" href="https://open.bigmodel.cn/">open.bigmodel.cn</a> 获取</td>
+</tr>
+<tr>
+<td><code>zhipu_ai_api_base</code></td>
+<td>智谱 API 地址</td>
+<td><code>&quot;https://open.bigmodel.cn/api/paas/v4&quot;</code></td>
+</tr>
+<tr>
+<td><code>agent_max_context_tokens</code></td>
+<td>上下文 token 上限</td>
+<td><code>50000</code></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><code>web_host</code> 和 <code>web_password</code> 在模板里默认没有，需要手动加（第 3 节专门讲）。</p>
+</blockquote>
+<h3 id="2-3-最小可用配置示例"><a href="#2-3-最小可用配置示例" class="headerlink" title="2.3 最小可用配置示例"></a>2.3 最小可用配置示例</h3><p>以下是接通智谱 GLM 并开放 Web 控制台的最小配置（省略了不相关字段）：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;channel_type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;web&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;cow_lang&quot;</span><span class="punctuation">:</span> <span class="string">&quot;zh&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;web_port&quot;</span><span class="punctuation">:</span> <span class="number">9899</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;web_host&quot;</span><span class="punctuation">:</span> <span class="string">&quot;0.0.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;web_password&quot;</span><span class="punctuation">:</span> <span class="string">&quot;你的登录密码&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;bot_type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;zhipu&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;model&quot;</span><span class="punctuation">:</span> <span class="string">&quot;glm-5-turbo&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;zhipu_ai_api_key&quot;</span><span class="punctuation">:</span> <span class="string">&quot;你的智谱key&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;zhipu_ai_api_base&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://open.bigmodel.cn/api/paas/v4&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;agent_max_context_tokens&quot;</span><span class="punctuation">:</span> <span class="number">50000</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果用 OpenAI 兼容接口，把 <code>bot_type</code> 改成 <code>&quot;openai&quot;</code>，用 <code>open_ai_api_key</code> &#x2F; <code>open_ai_api_base</code> 替代智谱相关字段，<code>model</code> 填对应模型名。</p>
+</blockquote>
+<h3 id="2-4-填入-API-key"><a href="#2-4-填入-API-key" class="headerlink" title="2.4 填入 API key"></a>2.4 填入 API key</h3><p>拿到智谱 key 后，用 sed 写入（注意替换 <code>你的智谱key</code>）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i <span class="string">&#x27;s/&quot;zhipu_ai_api_key&quot;: &quot;YOUR_KEY&quot;/&quot;zhipu_ai_api_key&quot;: &quot;你的智谱key&quot;/&#x27;</span> /root/CowAgent/config.json</span><br></pre></td></tr></table></figure>
+
+<p>或者直接 <code>vi</code> 编辑，找到 <code>zhipu_ai_api_key</code> 那行改掉。验证：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep zhipu_ai_api_key /root/CowAgent/config.json</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="3-开放局域网访问"><a href="#3-开放局域网访问" class="headerlink" title="3. 开放局域网访问"></a>3. 开放局域网访问</h2><p>默认配置<strong>没有</strong> <code>web_host</code> 字段，因此监听 <code>127.0.0.1</code>，只能本机访问。需要在 <code>config.json</code> 里加两个字段：</p>
+<ul>
+<li><code>web_host</code>: <code>0.0.0.0</code> —— 监听所有网卡</li>
+<li><code>web_password</code>: 自己设一个登录密码</li>
+</ul>
+<h3 id="推荐做法：用-sed-一行插入"><a href="#推荐做法：用-sed-一行插入" class="headerlink" title="推荐做法：用 sed 一行插入"></a>推荐做法：用 sed 一行插入</h3><p>在 <code>&quot;web_port&quot;: 9899</code> 前面插入 <code>web_host</code> 和 <code>web_password</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> sed -i <span class="string">&#x27;s/&quot;web_port&quot;: 9899/&quot;web_host&quot;: &quot;0.0.0.0&quot;,&quot;web_password&quot;: &quot;你的密码&quot;,&quot;web_port&quot;: 9899/&#x27;</span> /root/CowAgent/config.json</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>终端自动换行会把长命令断成两行导致报错。如果复制粘贴失败，改用反斜杠续行，或直接用 <code>vi</code> 手动编辑。</p>
+</blockquote>
+<p>验证是否改成功：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep web_host /root/CowAgent/config.json</span><br></pre></td></tr></table></figure>
+
+<p>看到 <code>&quot;web_host&quot;: &quot;0.0.0.0&quot;</code> 即成功。</p>
+<h3 id="替代做法：vi-手动编辑"><a href="#替代做法：vi-手动编辑" class="headerlink" title="替代做法：vi 手动编辑"></a>替代做法：vi 手动编辑</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> vi /root/CowAgent/config.json</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>找到 <code>&quot;web_port&quot;: 9899</code> 那一行</li>
+<li>按 <code>i</code> 进入编辑模式</li>
+<li>在 <code>&quot;web_port&quot;</code> 前面加上 <code>&quot;web_host&quot;: &quot;0.0.0.0&quot;, &quot;web_password&quot;: &quot;你的密码&quot;,</code></li>
+<li>按 <code>Esc</code>，输入 <code>:wq</code> 回车保存</li>
+</ol>
+<h3 id="飞牛防火墙放行"><a href="#飞牛防火墙放行" class="headerlink" title="飞牛防火墙放行"></a>飞牛防火墙放行</h3><p>如果上一步做完仍然从局域网访问不了，检查 fnOS 防火墙是否放行了 <code>9899</code> 端口：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看当前规则</span></span><br><span class="line">iptables -L -n | grep 9899</span><br><span class="line"></span><br><span class="line"><span class="comment"># 没有的话手动放行</span></span><br><span class="line">iptables -I INPUT -p tcp --dport 9899 -j ACCEPT</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>fnOS 大部分版本默认不拦局域网端口，这一步通常不需要。但如果你在飞牛 Docker 网络或虚拟接口环境下部署，可能需要手动放行。</p>
+</blockquote>
+<hr>
+<h2 id="4-配置-systemd-托管"><a href="#4-配置-systemd-托管" class="headerlink" title="4. 配置 systemd 托管"></a>4. 配置 systemd 托管</h2><p>CowAgent 需要长期运行，最好交给 systemd 管理——开机自启、崩溃自动重启、日志统一收集。</p>
+<h3 id="4-1-创建服务文件"><a href="#4-1-创建服务文件" class="headerlink" title="4.1 创建服务文件"></a>4.1 创建服务文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> &gt; /etc/systemd/system/cowagent.service &lt;&lt; <span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">[Unit]</span><br><span class="line">Description=CowAgent (chatgpt-on-wechat)</span><br><span class="line">After=network-online.target</span><br><span class="line">Wants=network-online.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">WorkingDirectory=/root/CowAgent</span><br><span class="line">ExecStart=/root/CowAgent/venv/bin/python3 app.py</span><br><span class="line">Restart=always</span><br><span class="line">RestartSec=10</span><br><span class="line">StandardOutput=append:/var/log/cowagent.log</span><br><span class="line">StandardError=append:/var/log/cowagent.log</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+
+<p>几个关键点：</p>
+<ul>
+<li><code>WorkingDirectory</code> 设为 <code>/root/CowAgent</code>，确保 <code>config.json</code> 和源码能被找到</li>
+<li><code>ExecStart</code> 用 venv 里的 Python，而不是系统 Python，确保依赖正确加载</li>
+<li><code>Restart=always</code> + <code>RestartSec=10</code>：进程崩溃后 10 秒自动拉起，避免重启风暴</li>
+<li>日志统一写到 <code>/var/log/cowagent.log</code></li>
+</ul>
+<h3 id="4-2-启动并设置开机自启"><a href="#4-2-启动并设置开机自启" class="headerlink" title="4.2 启动并设置开机自启"></a>4.2 启动并设置开机自启</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl <span class="built_in">enable</span> --now cowagent</span><br><span class="line">systemctl status cowagent --no-pager</span><br></pre></td></tr></table></figure>
+
+<p>看到 <code>active (running)</code> 即成功。确认日志正常输出：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">tail</span> -f /var/log/cowagent.log</span><br></pre></td></tr></table></figure>
+
+<p>看到 Web 控制台启动、监听 <code>0.0.0.0:9899</code> 的日志行就对了。</p>
+<h3 id="4-3-日常管理命令"><a href="#4-3-日常管理命令" class="headerlink" title="4.3 日常管理命令"></a>4.3 日常管理命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看状态</span></span><br><span class="line">systemctl status cowagent</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启（改完 config.json 后必须执行）</span></span><br><span class="line">systemctl restart cowagent</span><br><span class="line"></span><br><span class="line"><span class="comment"># 停止</span></span><br><span class="line">systemctl stop cowagent</span><br><span class="line"></span><br><span class="line"><span class="comment"># 看实时日志</span></span><br><span class="line"><span class="built_in">tail</span> -f /var/log/cowagent.log</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果暂时不想用 systemd，也可以用 <code>screen</code> 或 <code>nohup</code> 后台运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># screen 方式</span></span><br><span class="line">screen -S cowagent</span><br><span class="line"><span class="built_in">cd</span> /root/CowAgent &amp;&amp; <span class="built_in">source</span> venv/bin/activate &amp;&amp; python3 app.py</span><br><span class="line"><span class="comment"># 按 Ctrl+A 再按 D 脱离会话</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># nohup 方式</span></span><br><span class="line"><span class="built_in">nohup</span> /root/CowAgent/venv/bin/python3 app.py &gt; /var/log/cowagent.log 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+
+<p>这两种方式都不支持开机自启和崩溃重启，长期运行还是推荐 systemd。</p>
+</blockquote>
+<hr>
+<h2 id="5-从电脑访问"><a href="#5-从电脑访问" class="headerlink" title="5. 从电脑访问"></a>5. 从电脑访问</h2><p>先查 NAS 的局域网 IP：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hostname -I</span><br></pre></td></tr></table></figure>
+
+<p>然后在电脑&#x2F;手机浏览器打开：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://NAS的IP:9899</span><br></pre></td></tr></table></figure>
+
+<p>例如 NAS IP 是 <code>192.168.1.100</code>，就访问 <code>http://192.168.1.100:9899</code>，输入第 3 步设的 <code>web_password</code> 登录。</p>
+<p>登录后就能在 Web 控制台里直接跟 AI 对话，也可以从这里安装&#x2F;管理技能（<code>cow skill install ...</code>）。</p>
+<blockquote>
+<p>如果页面打不开，依次排查：</p>
+<ol>
+<li><code>systemctl status cowagent</code> 确认服务在跑</li>
+<li><code>grep web_host /root/CowAgent/config.json</code> 确认是 <code>0.0.0.0</code></li>
+<li><code>hostname -I</code> 确认 IP 没错</li>
+<li>浏览器和 NAS 在同一局域网（同网段）</li>
+</ol>
+</blockquote>
+<hr>
+<h2 id="常见坑"><a href="#常见坑" class="headerlink" title="常见坑"></a>常见坑</h2><table>
+<thead>
+<tr>
+<th>现象</th>
+<th>原因</th>
+<th>解决</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>python3 -c &quot;...&quot;</code> 报 <code>IndentationError</code></td>
+<td>终端自动换行把命令截断、加了缩进</td>
+<td>改用 <code>sed</code> 或 <code>vi</code></td>
+</tr>
+<tr>
+<td>heredoc <code>cat &gt; /tmp/fix.py</code> 卡住</td>
+<td>进了输入模式</td>
+<td><code>Ctrl+C</code> 退出，改用 <code>sed</code></td>
+</tr>
+<tr>
+<td><code>sed: no input files</code> &#x2F; <code>Permission denied</code></td>
+<td>命令被换行断成两行</td>
+<td>用 <code>sudo</code> + 反斜杠续行，或 <code>cd /root/CowAgent</code> 后对 <code>config.json</code> 操作</td>
+</tr>
+<tr>
+<td><code>cow skill install ...</code> 报 <code>Permission denied</code> 访问 <code>/root/CowAgent/cli/__init__.py</code></td>
+<td><code>cow</code> 是 editable 安装，去 <code>/root/CowAgent/</code> 找源码；普通用户 <code>FNNAS</code> 没权限读 <code>/root</code></td>
+<td>用 <code>sudo -i</code> 切到 root 再运行 <code>cow</code></td>
+</tr>
+<tr>
+<td>Web 控制台打不开</td>
+<td><code>web_host</code> 没改成 <code>0.0.0.0</code>，或 systemd 服务没启动</td>
+<td><code>grep web_host config.json</code> 确认配置，<code>systemctl status cowagent</code> 确认服务在跑</td>
+</tr>
+<tr>
+<td><code>pip install -e .</code> 报权限错误</td>
+<td>没用 venv，直接装到了系统 Python</td>
+<td>确保先 <code>source venv/bin/activate</code></td>
+</tr>
+<tr>
+<td>浏览器能打开但提示密码错误</td>
+<td><code>web_password</code> 没设，或设了但没重启服务</td>
+<td><code>systemctl restart cowagent</code></td>
+</tr>
+<tr>
+<td>飞牛 NAS 重启后服务没自动起来</td>
+<td><code>systemctl enable</code> 没执行</td>
+<td><code>systemctl enable cowagent</code></td>
+</tr>
+<tr>
+<td>页面能打开但 AI 不回复</td>
+<td>API key 没填对，或 <code>bot_type</code> &#x2F; <code>model</code> 配错</td>
+<td><code>grep -E &#39;bot_type|model|api_key&#39; config.json</code> 检查，对照第 2 节示例</td>
+</tr>
+<tr>
+<td>日志报 <code>Address already in use</code></td>
+<td>9899 端口被占</td>
+<td><code>lsof -i:9899</code> 找到占用进程，<code>kill</code> 掉或改 <code>web_port</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="常用命令速查"><a href="#常用命令速查" class="headerlink" title="常用命令速查"></a>常用命令速查</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 切到 root（CowAgent 在 /root 下，需要 root 权限）</span></span><br><span class="line"><span class="built_in">sudo</span> -i</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看配置</span></span><br><span class="line"><span class="built_in">cat</span> /root/CowAgent/config.json</span><br><span class="line"></span><br><span class="line"><span class="comment"># 改监听地址</span></span><br><span class="line"><span class="built_in">sudo</span> sed -i <span class="string">&#x27;s/&quot;web_port&quot;: 9899/&quot;web_host&quot;: &quot;0.0.0.0&quot;,&quot;web_password&quot;: &quot;你的密码&quot;,&quot;web_port&quot;: 9899/&#x27;</span> /root/CowAgent/config.json</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证</span></span><br><span class="line">grep web_host /root/CowAgent/config.json</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查 NAS 局域网 IP</span></span><br><span class="line">hostname -I</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启服务（改完配置后执行）</span></span><br><span class="line">systemctl restart cowagent</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看服务状态</span></span><br><span class="line">systemctl status cowagent</span><br><span class="line"></span><br><span class="line"><span class="comment"># 看实时日志</span></span><br><span class="line"><span class="built_in">tail</span> -f /var/log/cowagent.log</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="文件清单"><a href="#文件清单" class="headerlink" title="文件清单"></a>文件清单</h2><table>
+<thead>
+<tr>
+<th>路径</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>/root/CowAgent/</code></td>
+<td>CowAgent 源码目录</td>
+</tr>
+<tr>
+<td><code>/root/CowAgent/venv/</code></td>
+<td>Python 虚拟环境（隔离依赖）</td>
+</tr>
+<tr>
+<td><code>/root/CowAgent/config.json</code></td>
+<td>主配置文件（端口、监听地址、API key 等）</td>
+</tr>
+<tr>
+<td><code>/root/CowAgent/config-template.json</code></td>
+<td>配置模板（初始复制用）</td>
+</tr>
+<tr>
+<td><code>/etc/systemd/system/cowagent.service</code></td>
+<td>systemd 服务文件</td>
+</tr>
+<tr>
+<td><code>/var/log/cowagent.log</code></td>
+<td>运行日志</td>
+</tr>
+</tbody></table>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/up.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/up.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">周言志</div><div class="post-copyright__author_desc">欢迎来到我的世界</div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="https://www.tenxiaodao.top/cowagent-fnnas-deploy/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('https://www.tenxiaodao.top/cowagent-fnnas-deploy/')">飞牛 NAS 部署 CowAgent 并开放局域网访问</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"></div><div class="shareRight"><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.tenxiaodao.top" target="_blank">言志</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/CowAgent/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>CowAgent<span class="tagsPageCount">2</span></a><a class="post-meta__box__tags" href="/tags/%E9%A3%9E%E7%89%9BNAS/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>飞牛NAS<span class="tagsPageCount">2</span></a><a class="post-meta__box__tags" href="/tags/%E9%83%A8%E7%BD%B2/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>部署<span class="tagsPageCount">2</span></a><a class="post-meta__box__tags" href="/tags/chatgpt-on-wechat/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>chatgpt-on-wechat<span class="tagsPageCount">1</span></a><a class="post-meta__box__tags" href="/tags/%E5%B1%80%E5%9F%9F%E7%BD%91/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>局域网<span class="tagsPageCount">2</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="/img/up.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/headroom-fnnas-deploy/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2026/06/25/6a3c190b4a0b8.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">飞牛 NAS 部署 Headroom 压缩代理：给 CowAgent 省 Token 的完整指南</div></div></a></div><div class="next-post pull-right"><a href="/2026/09/19/ctf/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">ctf</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="anzhiyufont anzhiyu-icon-thumbs-up fa-fw" style="font-size: 1.5rem; margin-right: 4px"></i><span>喜欢这篇文章的人也看了</span></div><div class="relatedPosts-list"><div><a href="/headroom-fnnas-deploy/" title="飞牛 NAS 部署 Headroom 压缩代理：给 CowAgent 省 Token 的完整指南"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2026/06/25/6a3c190b4a0b8.webp" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2026-07-12</div><div class="title">飞牛 NAS 部署 Headroom 压缩代理：给 CowAgent 省 Token 的完整指南</div></div></a></div><div><a href="/deploy-openclaw-on-oect-with-wechat/" title="在 OECT 上部署 OpenClaw 并接入微信"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2026/06/19/6a34ba5a4e2ed.webp" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2026-06-22</div><div class="title">在 OECT 上部署 OpenClaw 并接入微信</div></div></a></div><div><a href="/synergy-kvm-share/" title="Synergy 1.14.6 — 多设备键鼠共享，一套键鼠控制多台电脑"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2026/06/25/6a3cebee8e974.webp" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2026-07-01</div><div class="title">Synergy 1.14.6 — 多设备键鼠共享，一套键鼠控制多台电脑</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="anzhiyufont anzhiyu-icon-comments"></i><span> 评论</span></div><div class="comment-randomInfo"><a onclick="anzhiyu.addRandomCommentInfo()" href="javascript:void(0)">匿名评论</a><a href="/privacy" style="margin-left: 4px">隐私政策</a></div><div class="comment-switch"><span class="first-comment">Twikoo</span><span id="switch-btn"></span><span class="second-comment">Waline</span></div><div class="comment-tips" id="comment-tips"><span>✅ 你无需删除空行，直接评论以获取最佳展示效果</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div><div><div id="waline-wrap"></div></div></div></div><div class="comment-barrage"></div></div></div></main><footer id="footer"><div id="footer-wrap"></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">51</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">122</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">14</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">关注我</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://github.com/tenxiaodao/tenxiaodao.github.io" title="Github"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/up.jpg" alt="Github"/><span class="back-menu-item-text">Github</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://space.bilibili.com/1803174585" title="Bilibili"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/up.jpg" alt="Bilibili"/><span class="back-menu-item-text">Bilibili</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">网盘</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://pan.quark.cn/s/c98d1ceee692" title="软件/工具"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="软件/工具"/><span class="back-menu-item-text">软件/工具</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">常用网站</div><div class="back-menu-list"><a class="back-menu-item" href="/nav/" title="导航页"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/up.jpg" alt="导航页"/><span class="back-menu-item-text">导航页</span></a></div></div></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 隧道</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 友链</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><i class="anzhiyufont anzhiyu-icon-link faa-tada" style="font-size: 0.9em;"></i><span> 友人帐</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><i class="anzhiyufont anzhiyu-icon-envelope faa-tada" style="font-size: 0.9em;"></i><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/music/?id=13738866688&amp;server=netease"><i class="anzhiyufont anzhiyu-icon-music faa-tada" style="font-size: 0.9em;"></i><span> 音乐馆</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/album/"><i class="anzhiyufont anzhiyu-icon-images faa-tada" style="font-size: 0.9em;"></i><span> 相册集</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于本人</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/essay/"><i class="anzhiyufont anzhiyu-icon-lightbulb faa-tada" style="font-size: 0.9em;"></i><span> 闲言碎语</span></a></li></ul></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/AI/" style="font-size: 0.88rem;">AI<sup>5</sup></a><a href="/tags/ARP/" style="font-size: 0.88rem;">ARP<sup>1</sup></a><a href="/tags/CSS/" style="font-size: 0.88rem;">CSS<sup>1</sup></a><a href="/tags/CasaOS/" style="font-size: 0.88rem;">CasaOS<sup>1</sup></a><a href="/tags/Docker/" style="font-size: 0.88rem;">Docker<sup>1</sup></a><a href="/tags/ESP32/" style="font-size: 0.88rem;">ESP32<sup>1</sup></a><a href="/tags/HTML/" style="font-size: 0.88rem;">HTML<sup>1</sup></a><a href="/tags/Hexo/" style="font-size: 0.88rem;">Hexo<sup>8</sup></a><a href="/tags/JavaScript/" style="font-size: 0.88rem;">JavaScript<sup>2</sup></a><a href="/tags/KVM/" style="font-size: 0.88rem;">KVM<sup>1</sup></a><a href="/tags/KouriChat/" style="font-size: 0.88rem;">KouriChat<sup>1</sup></a><a href="/tags/Linux/" style="font-size: 0.88rem;">Linux<sup>5</sup></a><a href="/tags/NAS/" style="font-size: 0.88rem;">NAS<sup>2</sup></a><a href="/tags/Python/" style="font-size: 0.88rem;">Python<sup>4</sup></a><a href="/tags/Scrapy/" style="font-size: 0.88rem;">Scrapy<sup>2</sup></a><a href="/tags/TCP/" style="font-size: 0.88rem;">TCP<sup>1</sup></a><a href="/tags/UDP/" style="font-size: 0.88rem;">UDP<sup>1</sup></a><a href="/tags/Ubuntu/" style="font-size: 0.88rem;">Ubuntu<sup>1</sup></a><a href="/tags/VM%E8%99%9A%E6%8B%9F%E6%9C%BA/" style="font-size: 0.88rem;">VM虚拟机<sup>1</sup></a><a href="/tags/WSL2/" style="font-size: 0.88rem;">WSL2<sup>1</sup></a><a href="/tags/macOS/" style="font-size: 0.88rem;">macOS<sup>3</sup></a><a href="/tags/office/" style="font-size: 0.88rem;">office<sup>1</sup></a><a href="/tags/openEuler/" style="font-size: 0.88rem;">openEuler<sup>1</sup></a><a href="/tags/windows%E9%95%9C%E5%83%8F/" style="font-size: 0.88rem;">windows镜像<sup>1</sup></a><a href="/tags/%E4%BA%A4%E6%8D%A2%E6%9C%BA/" style="font-size: 0.88rem;">交换机<sup>1</sup></a><a href="/tags/%E5%85%A5%E9%97%A8/" style="font-size: 0.88rem;">入门<sup>1</sup></a><a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 0.88rem;">前端<sup>1</sup></a><a href="/tags/%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95/" style="font-size: 0.88rem;">压力测试<sup>1</sup></a><a href="/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/" style="font-size: 0.88rem;">命令行<sup>2</sup></a><a href="/tags/%E5%BE%AE%E4%BF%A1/" style="font-size: 0.88rem;">微信<sup>2</sup></a><a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 0.88rem;">爬虫<sup>2</sup></a><a href="/tags/%E7%8E%A9%E5%AE%A2%E4%BA%91/" style="font-size: 0.88rem;">玩客云<sup>1</sup></a><a href="/tags/%E7%AB%AF%E5%8F%A3%E8%81%9A%E5%90%88/" style="font-size: 0.88rem;">端口聚合<sup>1</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96/" style="font-size: 0.88rem;">网络优化<sup>1</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 0.88rem;">网络协议<sup>1</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 0.88rem;">网络安全<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/" style="font-size: 0.88rem;">网络技术<sup>1</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" style="font-size: 0.88rem;">网络配置<sup>1</sup></a><a href="/tags/%E8%AF%AD%E9%9F%B3%E5%8A%A9%E6%89%8B/" style="font-size: 0.88rem;">语音助手<sup>1</sup></a><a href="/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 0.88rem;">运维<sup>3</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="anzhiyufont anzhiyu-icon-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="anzhiyufont anzhiyu-icon-xmark"></i></button></nav><div class="is-center" id="loading-database"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-pulse-icon"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/3251973470&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="https://cdn.jsdelivr.net/npm/hexo-theme-anzhiyu@1.7.0/source/js/utils.min.js"></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-anzhiyu@1.7.0/source/js/main.min.js"></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-anzhiyu@1.7.0/source/js/tw_cn.min.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@6.1.6/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("08/31/2024 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2024 By 安知鱼 V1.7.0",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 周言志 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-anzhiyu@1.7.0/source/js/search/local-search.min.js"></script><div class="js-pjax"><script>(() => {
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://yuhaozhe-twikoo.hf.space',
+      region: 'ap-shanghai',
+      onCommentLoaded: () => {
+        anzhiyu.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') setTimeout(runFn,0)
+    else getScript('https://cdn.cbd.int/twikoo@1.6.44/dist/twikoo.all.min.js').then(runFn)
+  }
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://yuhaozhe-twikoo.hf.space',
+      region: 'ap-shanghai',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const runFn = () => {
+    init();
+    GLOBAL_CONFIG_SITE.isPost && getCount()
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) anzhiyu.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else {
+      loadTwikoo()
+    }
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script><script>(() => {
+  let initFn = window.walineFn || null
+
+  const initWaline = (Fn) => {
+    const waline = Fn(Object.assign({
+      el: '#waline-wrap',
+      serverURL: 'https://waline-test-54hthgju8-yuhaozhes-projects.vercel.app/',
+      pageview: false,
+      dark: 'html[data-theme="dark"]',
+      path: window.location.pathname,
+      comment: true,
+      imageUploader: true,
+    }, null))
+
+    const destroyWaline = () => {
+      waline.destroy()
+    }
+
+    anzhiyu.addGlobalFn('pjax', destroyWaline, 'destroyWaline')
+  }
+
+  const loadWaline = async () => {
+    if (initFn) initWaline(initFn)
+    else {
+      await getCSS('https://cdn.cbd.int/@waline/client@3.8.0/dist/waline.css')
+      if (false) await getCSS('https://cdn.cbd.int/@waline/client@3.8.0/dist/waline-meta.css')
+      const { init } = await import('https://cdn.cbd.int/@waline/client@3.8.0/dist/waline.js')
+      initFn = init || Waline.init
+      initWaline(initFn)
+      window.walineFn = initFn
+    }
+  }
+
+  if ('Twikoo' === 'Waline' || !false) {
+    if (false) anzhiyu.loadComment(document.getElementById('waline-wrap'),loadWaline)
+    else setTimeout(loadWaline, 0)
+  } else {
+    window.loadOtherComment = loadWaline
+  }
+})()</script><input type="hidden" name="page-type" id="page-type" value="post"></div><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getComment = () => {
+    const runTwikoo = () => {
+      twikoo.getRecentComments({
+        envId: 'https://yuhaozhe-twikoo.hf.space',
+        region: 'ap-shanghai',
+        pageSize: 6,
+        includeReply: true
+      }).then(function (res) {
+        const twikooArray = res.map(e => {
+          return {
+            'content': changeContent(e.comment),
+            'avatar': e.avatar,
+            'nick': e.nick,
+            'url': e.url + '#' + e.id,
+            'date': new Date(e.created).toISOString()
+          }
+        })
+
+        saveToLocal.set('twikoo-newest-comments', JSON.stringify(twikooArray), 10/(60*24))
+        generateHtml(twikooArray)
+      }).catch(function (err) {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.textContent= "无法获取评论，请确认相关配置是否正确"
+      })
+    }
+
+    if (typeof twikoo === 'object') {
+      runTwikoo()
+    } else {
+      getScript('https://cdn.cbd.int/twikoo@1.6.44/dist/twikoo.all.min.js').then(runTwikoo)
+    }
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'data-lazy-src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'><div class='name'><span>${array[i].nick} </span></div></a>`
+        }
+        
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}' title='${array[i].content}'>${array[i].content}</a>
+        <time datetime="${array[i].date}">${anzhiyu.diffDate(array[i].date, true)}</time></div>
+        </div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom && ($dom.innerHTML= result)
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('twikoo-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://cdn.cbd.int/qrcodejs@1.0.0/qrcode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-anzhiyu@1.7.0/source/js/anzhiyu/right_click_menu.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["meta[property=\"og:image\"]","meta[property=\"og:title\"]","meta[property=\"og:url\"]","meta[property=\"og:type\"]","meta[property=\"og:site_name\"]","meta[property=\"og:description\"]","head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>

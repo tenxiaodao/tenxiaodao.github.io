@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>我的导航</title>
+<style>
+  :root {
+    --bg: #0f1115;
+    --card: #1a1d24;
+    --card-hover: #232730;
+    --border: #2a2f3a;
+    --text: #e6e6e6;
+    --text-dim: #9aa0aa;
+    --accent: #5b9dff;
+    --radius: 14px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 40px 20px 60px;
+  }
+
+  .container { max-width: 1000px; margin: 0 auto; }
+
+  header { text-align: center; margin-bottom: 36px; }
+
+  header h1 {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+  }
+
+  .search {
+    display: flex;
+    max-width: 560px;
+    margin: 0 auto;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    overflow: hidden;
+    transition: border-color .2s;
+  }
+  .search:focus-within { border-color: var(--accent); }
+
+  .search select {
+    background: transparent;
+    border: none;
+    color: var(--text-dim);
+    padding: 0 16px 0 20px;
+    outline: none;
+    cursor: pointer;
+    font-size: 14px;
+  }
+
+  .search input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--text);
+    padding: 14px 8px;
+    font-size: 15px;
+    outline: none;
+  }
+  .search input::placeholder { color: var(--text-dim); }
+
+  .search button {
+    background: var(--accent);
+    border: none;
+    color: #fff;
+    padding: 0 22px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .search button:hover { filter: brightness(1.1); }
+
+  section { margin-bottom: 32px; }
+
+  section h2 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-dim);
+    margin-bottom: 14px;
+    padding-left: 4px;
+    letter-spacing: .5px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px;
+  }
+
+  .card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px;
+    text-decoration: none;
+    color: var(--text);
+    transition: background .15s, transform .15s, border-color .15s;
+  }
+  .card:hover {
+    background: var(--card-hover);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .card .icon {
+    width: 28px; height: 28px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    color: #fff;
+  }
+  .card .name { font-size: 14px; font-weight: 500; }
+  .card .desc { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
+
+  footer {
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 12px;
+    margin-top: 40px;
+  }
+
+  @media (max-width: 600px) {
+    header h1 { font-size: 22px; }
+    .search select { padding: 0 10px 0 14px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <h1>🚀 我的导航</h1>
+    <form class="search" onsubmit="return doSearch(event)">
+      <select id="engine">
+        <option value="https://www.google.com/search?q=">Google</option>
+        <option value="https://www.bing.com/search?q=">Bing</option>
+        <option value="https://www.baidu.com/s?wd=">百度</option>
+        <option value="https://duckduckgo.com/?q=">DuckDuckGo</option>
+      </select>
+      <input type="text" id="q" placeholder="输入关键词搜索，回车跳转…" autocomplete="off">
+      <button type="submit">搜索</button>
+    </form>
+  </header>
+
+  <section>
+    <h2>常用</h2>
+    <div class="grid">
+      <a class="card" href="https://github.com" target="_blank" rel="noopener">
+        <div class="icon" style="background:#24292e">G</div>
+        <div><div class="name">GitHub</div><div class="desc">代码托管</div></div>
+      </a>
+      <a class="card" href="https://www.google.com" target="_blank" rel="noopener">
+        <div class="icon" style="background:#4285f4">G</div>
+        <div><div class="name">Google</div><div class="desc">搜索引擎</div></div>
+      </a>
+      <a class="card" href="https://mail.google.com" target="_blank" rel="noopener">
+        <div class="icon" style="background:#ea4335">M</div>
+        <div><div class="name">Gmail</div><div class="desc">邮箱</div></div>
+      </a>
+      <a class="card" href="https://www.youtube.com" target="_blank" rel="noopener">
+        <div class="icon" style="background:#ff0000">Y</div>
+        <div><div class="name">YouTube</div><div class="desc">视频</div></div>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <h2>开发</h2>
+    <div class="grid">
+      <a class="card" href="https://stackoverflow.com" target="_blank" rel="noopener">
+        <div class="icon" style="background:#f48024">S</div>
+        <div><div class="name">StackOverflow</div><div class="desc">问答社区</div></div>
+      </a>
+      <a class="card" href="https://developer.mozilla.org" target="_blank" rel="noopener">
+        <div class="icon" style="background:#000000">M</div>
+        <div><div class="name">MDN</div><div class="desc">Web 文档</div></div>
+      </a>
+      <a class="card" href="https://code.visualstudio.com" target="_blank" rel="noopener">
+        <div class="icon" style="background:#007acc">V</div>
+        <div><div class="name">VS Code</div><div class="desc">编辑器</div></div>
+      </a>
+      <a class="card" href="https://docs.anthropic.com" target="_blank" rel="noopener">
+        <div class="icon" style="background:#d97757">A</div>
+        <div><div class="name">Anthropic</div><div class="desc">Claude 文档</div></div>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <h2>AI</h2>
+    <div class="grid">
+      <a class="card" href="https://claude.ai" target="_blank" rel="noopener">
+        <div class="icon" style="background:#d97757">C</div>
+        <div><div class="name">Claude</div><div class="desc">Anthropic</div></div>
+      </a>
+      <a class="card" href="https://chat.openai.com" target="_blank" rel="noopener">
+        <div class="icon" style="background:#10a37f">O</div>
+        <div><div class="name">ChatGPT</div><div class="desc">OpenAI</div></div>
+      </a>
+      <a class="card" href="https://huggingface.co" target="_blank" rel="noopener">
+        <div class="icon" style="background:#ffcc4d">H</div>
+        <div><div class="name">HuggingFace</div><div class="desc">模型仓库</div></div>
+      </a>
+      <a class="card" href="https://gemini.google.com" target="_blank" rel="noopener">
+        <div class="icon" style="background:#4285f4">✦</div>
+        <div><div class="name">Gemini</div><div class="desc">Google AI</div></div>
+      </a>
+      <a class="card" href="https://chat.deepseek.com" target="_blank" rel="noopener">
+        <div class="icon" style="background:#4d6bfe">D</div>
+        <div><div class="name">DeepSeek</div><div class="desc">深度求索</div></div>
+      </a>
+      <a class="card" href="https://kimi.moonshot.cn" target="_blank" rel="noopener">
+        <div class="icon" style="background:#1f1f1f">K</div>
+        <div><div class="name">Kimi</div><div class="desc">月之暗面</div></div>
+      </a>
+      <a class="card" href="https://chatglm.cn" target="_blank" rel="noopener">
+        <div class="icon" style="background:#3b82f6">G</div>
+        <div><div class="name">智谱清言</div><div class="desc">ChatGLM</div></div>
+      </a>
+      <a class="card" href="https://yiyan.baidu.com" target="_blank" rel="noopener">
+        <div class="icon" style="background:#2932e1">文</div>
+        <div><div class="name">文心一言</div><div class="desc">百度</div></div>
+      </a>
+      <a class="card" href="https://tongyi.aliyun.com" target="_blank" rel="noopener">
+        <div class="icon" style="background:#615ced">通</div>
+        <div><div class="name">通义千问</div><div class="desc">阿里</div></div>
+      </a>
+      <a class="card" href="https://yuanbao.tencent.com" target="_blank" rel="noopener">
+        <div class="icon" style="background:#0053e0">元</div>
+        <div><div class="name">腾讯元宝</div><div class="desc">混元</div></div>
+      </a>
+      <a class="card" href="https://www.doubao.com" target="_blank" rel="noopener">
+        <div class="icon" style="background:#ff2d55">豆</div>
+        <div><div class="name">豆包</div><div class="desc">字节跳动</div></div>
+      </a>
+      <a class="card" href="https://chat.qwenlm.ai" target="_blank" rel="noopener">
+        <div class="icon" style="background:#615ced">Q</div>
+        <div><div class="name">Qwen Chat</div><div class="desc">国际版</div></div>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <h2>国内</h2>
+    <div class="grid">
+      <a class="card" href="https://www.baidu.com" target="_blank" rel="noopener">
+        <div class="icon" style="background:#2932e1">百</div>
+        <div><div class="name">百度</div><div class="desc">搜索引擎</div></div>
+      </a>
+      <a class="card" href="https://www.bilibili.com" target="_blank" rel="noopener">
+        <div class="icon" style="background:#fb7299">B</div>
+        <div><div class="name">哔哩哔哩</div><div class="desc">视频</div></div>
+      </a>
+      <a class="card" href="https://www.zhihu.com" target="_blank" rel="noopener">
+        <div class="icon" style="background:#0084ff">知</div>
+        <div><div class="name">知乎</div><div class="desc">问答社区</div></div>
+      </a>
+      <a class="card" href="https://weibo.com" target="_blank" rel="noopener">
+        <div class="icon" style="background:#e6162d">微</div>
+        <div><div class="name">微博</div><div class="desc">社交</div></div>
+      </a>
+      <a class="card" href="https://www.douban.com" target="_blank" rel="noopener">
+        <div class="icon" style="background:#007722">豆</div>
+        <div><div class="name">豆瓣</div><div class="desc">书影音</div></div>
+      </a>
+      <a class="card" href="https://www.taobao.com" target="_blank" rel="noopener">
+        <div class="icon" style="background:#ff5000">淘</div>
+        <div><div class="name">淘宝</div><div class="desc">购物</div></div>
+      </a>
+      <a class="card" href="https://www.jd.com" target="_blank" rel="noopener">
+        <div class="icon" style="background:#e1251b">京</div>
+        <div><div class="name">京东</div><div class="desc">购物</div></div>
+      </a>
+      <a class="card" href="https://www.xiaohongshu.com" target="_blank" rel="noopener">
+        <div class="icon" style="background:#ff2442">书</div>
+        <div><div class="name">小红书</div><div class="desc">生活分享</div></div>
+      </a>
+      <a class="card" href="https://gitee.com" target="_blank" rel="noopener">
+        <div class="icon" style="background:#c71d23">G</div>
+        <div><div class="name">Gitee</div><div class="desc">代码托管</div></div>
+      </a>
+      <a class="card" href="https://juejin.cn" target="_blank" rel="noopener">
+        <div class="icon" style="background:#1e80ff">掘</div>
+        <div><div class="name">掘金</div><div class="desc">技术社区</div></div>
+      </a>
+      <a class="card" href="https://www.csdn.net" target="_blank" rel="noopener">
+        <div class="icon" style="background:#fc5531">C</div>
+        <div><div class="name">CSDN</div><div class="desc">技术博客</div></div>
+      </a>
+      <a class="card" href="https://developer.aliyun.com" target="_blank" rel="noopener">
+        <div class="icon" style="background:#ff6a00">阿</div>
+        <div><div class="name">阿里云</div><div class="desc">云计算</div></div>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <h2>社交</h2>
+    <div class="grid">
+      <a class="card" href="https://twitter.com" target="_blank" rel="noopener">
+        <div class="icon" style="background:#1da1f2">X</div>
+        <div><div class="name">Twitter</div><div class="desc">社交</div></div>
+      </a>
+      <a class="card" href="https://www.reddit.com" target="_blank" rel="noopener">
+        <div class="icon" style="background:#ff4500">R</div>
+        <div><div class="name">Reddit</div><div class="desc">论坛</div></div>
+      </a>
+      <a class="card" href="https://t.me" target="_blank" rel="noopener">
+        <div class="icon" style="background:#0088cc">T</div>
+        <div><div class="name">Telegram</div><div class="desc">即时通讯</div></div>
+      </a>
+    </div>
+  </section>
+
+  <footer>© 2026 我的导航</footer>
+
+</div>
+
+<script>
+  function doSearch(e) {
+    e.preventDefault();
+    const q = document.getElementById('q').value.trim();
+    if (!q) return false;
+    const engine = document.getElementById('engine').value;
+    window.open(engine + encodeURIComponent(q), '_blank');
+    return false;
+  }
+  // 聚焦搜索框
+  document.getElementById('q').focus();
+</script>
+</body>
+</html>
