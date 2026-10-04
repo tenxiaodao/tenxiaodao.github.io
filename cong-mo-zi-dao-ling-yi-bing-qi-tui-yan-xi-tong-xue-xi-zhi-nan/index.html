@@ -1,0 +1,907 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>从墨子到灵奕：兵棋推演系统学习指南 | 言志</title><meta name="keywords" content="兵棋推演,灵奕,墨子,智能体"><meta name="author" content="周言志"><meta name="copyright" content="周言志"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="从墨子到灵奕：兵棋推演系统学习指南"><meta name="application-name" content="从墨子到灵奕：兵棋推演系统学习指南"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="从墨子到灵奕：兵棋推演系统学习指南"><meta property="og:url" content="https://www.tenxiaodao.top/cong-mo-zi-dao-ling-yi-bing-qi-tui-yan-xi-tong-xue-xi-zhi-nan/index.html"><meta property="og:site_name" content="言志"><meta property="og:description" content="本文整合墨子·未来指挥官的作战规则教学与灵奕智能推演系统的新增特性，梳理从入门到智能体开发的学习路径，适合中北大学兵棋推演协会成员及兵棋爱好者参考。"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://www.tenxiaodao.top/img/up.jpg"><meta property="article:author" content="周言志"><meta property="article:tag"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://www.tenxiaodao.top/img/up.jpg"><meta name="description" content="本文整合墨子·未来指挥官的作战规则教学与灵奕智能推演系统的新增特性，梳理从入门到智能体开发的学习路径，适合中北大学兵棋推演协会成员及兵棋爱好者参考。"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="https://www.tenxiaodao.top/cong-mo-zi-dao-ling-yi-bing-qi-tui-yan-xi-tong-xue-xi-zhi-nan/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//cdn.cbd.int"/><meta name="google-site-verification" content="wqPFRrXA8pZc0jE62WYRkxlS0hj9yiHEfvBAtBB8Jhc"/><meta name="baidu-site-verification" content="codeva-21E8Lxoehj"/><meta name="msvalidate.01" content="xxx"/><link rel="manifest" href="/manifest.json"/><meta name="msapplication-TileColor" content="var(--anzhiyu-main)"/><link rel="mask-icon" href="/img/siteicon/apple-icon-180.png" color="#5bbad5"/><link rel="apple-touch-icon" sizes="180x180" href="/img/siteicon/apple-icon-180.png"/><link rel="apple-touch-icon-precomposed" sizes="180x180" href="/img/siteicon/apple-icon-180.png"/><link rel="icon" type="image/png" sizes="32x32" href="/img/siteicon/32.png"/><link rel="icon" type="image/png" sizes="16x16" href="/img/siteicon/16.png"/><link rel="bookmark" href="/img/siteicon/apple-icon-180.png"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2048-2732.jpg" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2732-2048.jpg" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1668-2388.jpg" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2388-1668.jpg" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1536-2048.jpg" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2048-1536.jpg" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1668-2224.jpg" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2224-1668.jpg" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1620-2160.jpg" media="(device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2160-1620.jpg" media="(device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1290-2796.jpg" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2796-1290.jpg" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1179-2556.jpg" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2556-1179.jpg" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1284-2778.jpg" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2778-1284.jpg" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1170-2532.jpg" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2532-1170.jpg" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1125-2436.jpg" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2436-1125.jpg" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1242-2688.jpg" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2688-1242.jpg" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-828-1792.jpg" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1792-828.jpg" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1242-2208.jpg" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2208-1242.jpg" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-750-1334.jpg" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1334-750.jpg" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-640-1136.jpg" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1136-640.jpg" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@6.1.6/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/swiper/swiper.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: undefined,
+  postHeadAiDescription: undefined,
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: {"enable":true,"default":"晚上好👋","list":[{"greeting":"晚安😴","startTime":0,"endTime":5},{"greeting":"早上好鸭👋, 祝你一天好心情！","startTime":6,"endTime":9},{"greeting":"上午好👋, 状态很好，鼓励一下～","startTime":10,"endTime":10},{"greeting":"11点多啦, 在坚持一下就吃饭啦～","startTime":11,"endTime":11},{"greeting":"午安👋, 宝贝","startTime":12,"endTime":14},{"greeting":"🌈充实的一天辛苦啦！","startTime":14,"endTime":18},{"greeting":"19点喽, 奖励一顿丰盛的大餐吧🍔。","startTime":19,"endTime":19},{"greeting":"晚上好👋, 在属于自己的时间好好放松😌~","startTime":20,"endTime":24}]},
+  twikooEnvId: 'https://yuhaozhe-twikoo.hf.space',
+  commentBarrageConfig:undefined,
+  music_page_default: "nav_music",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: {"skills":["🤖️ 数码科技爱好者","🔍 分享与热心帮助","🏠 智能家居小能手","🔨 设计开发一条龙","🤝 专修交互与设计","🏃 脚踏实地行动派","🧱 团队小组发动机","💢 壮汉人狠话不多"]},
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: 周言志","link":"链接: ","source":"来源: 言志","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.2.0/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.2.0/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: '言志',
+  title: '从墨子到灵奕：兵棋推演系统学习指南',
+  postAI: '',
+  pageFillDescription: '从墨子到灵奕：兵棋推演系统学习指南, 一、墨子与灵奕是什么关系, 二、平台安装与入门, 2.1 下载安装, 2.2 注册与登录, 2.3 添加好友, 2.4 创建房间与加载想定, 2.5 想定类型, 2.6 对战模式, 三、想定编辑, 3.1 想定时间与描述, 3.2 添加和导入单元, 3.3 单位移位、拷贝、重命名, 四、任务规划, 4.1 预警, 4.2 空战巡逻（AAW）, 4.3 地面防空, 4.4 空对地（海）攻击, 4.5 地（海）对地攻击, 4.6 挂载与弹药, 4.7 空中加油, 五、事件、触发器与动作, 5.1 创建触发器, 5.2 创建动作, 5.3 创建事件, 六、战中干预, 6.1 侦察和干扰, 6.2 机动与返航, 6.3 自动开火与手动开火, 6.4 规避, 七、评估与复盘, 7.1 消耗和战损, 7.2 评分, 7.3 存盘, 八、辅助工具, 8.1 距离度量, 8.2 地图标绘, 8.3 使用手册与快捷键, 九、灵奕新增特性（重点学习）, 9.1 智能体开发框架, 9.2 战前规划阶段, 9.3 编组（飞机编组）, 9.4 防作弊鉴权, 十、推荐学习路径（分三周）, 第一周：把灵奕当墨子用熟悉差异, 第二周：学智能体开发, 第三周：对抗与优化, 十一、实战要点速查, 十二、资料获取, 写在最后从墨子到灵奕兵棋推演系统学习指南本文将墨子未来指挥官的作战规则教学与灵奕智能推演系统的新增特性整合在一起形成一份从人指挥打仗到写程序代替人指挥打仗的完整学习指南作战规则部分以墨子教学为底灵奕新增部分智能体开发战前规划编组作战防作弊鉴权以学习指南为底力求一份文档覆盖全部核心知识一墨子与灵奕是什么关系墨子未来指挥官官网是一套纯人指挥的兵棋人建想定人下命令人对战或打人机灵奕智能推演系统在墨子的作战规则底座上新增了两条全新主线维度墨子旧灵奕新对战方式人人人机人人人机智能体程序对战指挥主体人手动指挥人指挥或智能体自动指挥推演流程直接开打多了战前规划阶段倒计时可移动部署单元组织单机单舰新增编组飞机编组编组挂载构成防作弊弱签名父进程血缘鉴权单机引擎迁移至支持本地离线推演态势同步单向仿真状态暂停运行双向同步给客户端一句话概括墨子教你怎么指挥打仗灵奕在此基础上让你写程序代替人指挥打仗并补齐了战前部署编组作战防作弊这些专业环节学习策略旧里的作战规则任务规划航线开火侦察干扰仍适用只需要重点补智能体开发战前规划编组这三块新增内容二平台安装与入门下载安装安装包可在官网下载若使用浏览器可能遇到安全提示点击高级继续访问即可也可以在群中向老队员索取已下载好的压缩包解压到想要存放的文件夹即可灵奕用户注意若拦截使用处理注册与登录打开安装目录下文件夹进入第二个子文件夹找到双击运行点击注册账号填入个人信息完成注册添加好友点击右下角放大镜图标输入好友的注册手机号或用户名进行查找选中目标后点击添加好友创建房间与加载想定在大赛训练营非大赛期间为自由推演专区中创建房间房间上限一般个点击创建房间进入创建页面房间名称可自由更改点击加载想定选择想推演的地图加载后点击右下角确认可勾选方框设置房间密码双击某一行可切换推演角色勾选开启导演席可进入导演席位点击对战模式栏右侧倒三角选择对战模式点击开始对战即可开启推演想定类型公有想定所有登录用户均可使用但不能编辑可右键存为私有想定私有想定用户私有可编辑更改可共享给好友共享想定好友之间互相分享对战模式人机对战进入人机想定即可与编辑好任务的人机方对战追求高分熟悉单元人人对战进入人人对战想定邀请好友或等待加入追求博弈中的最优解智能体对战灵奕新增接入程序自动指挥是赛事主流模式注意即便是同一张图人机和人人的想定也会有差别请勿用人机想定删除任务后开启人人对战三想定编辑想定编辑功能既可以创建新想定也可以更改现有想定在大厅建立房间后新建想定或选择现有想定建立房间并开启编辑模式即可想定编辑在导演模式下更加高效方便创建新想定后应设置想定时间想定时间与描述在编辑模式下进入想定点击上方想定编辑选项想定时间点击想定时间编辑确认即可想定当前时间不得早于想定开始时间想定描述点击想定描述撰写完成后确认任务简报在想定编辑窗口中编辑可通过切换推演方来编辑不同阵营的想定添加和导入单元添加单元在想定编辑窗口中点击单元操作添加单元在地图上选择一个位置单击左键在弹出窗口中选择单元类型国家和地区缩小查找范围也可在型号中输入单元型如如果添加的是空中单位需要选择挂载才能添加到地图上在载机平台添加飞机选择一个载机平台如机场船舶在想定编辑窗口中点击单元操作编辑飞机设置国家以缩小检索范围输入型号选择某型号飞机输入呼号和数量添加所选在载机平台的对象信息窗口中点击载机设置飞机挂载选择立即出动准备可省去挂载时间导入作战部署在想定编辑窗口中选择单元导入导出点击导入作战部署在部署数据中选择国家地区勾选需要的军事设施点击导入部署单位即可出现在地图上导入作战编制操作同理但需要在地图上选择作战编制出现的位置单位移位拷贝重命名位移选择单位单元操作移动单元点击地图确认坐标确认拷贝选择单位单元操作复制单元点击地图重命名选择单位单元操作调整单元名称输入新名称确认四任务规划任务规划是兵棋推演的核心环节涵盖预警空战巡逻地面防空空对地海攻击地海对地攻击挂载弹药与空中加油等内容预警预警任务规划步骤建立参考点并激活建立支援任务将预警机添加进任务并在电磁管控中使雷达处于打开状态开始推演后预警机起飞飞到参考点附近盘旋利用机载预警雷达监视地空态势空战巡逻空战巡逻是战机在一定巡逻空域内执行警戒任务的行为要求尽量出动空优战机执行必须划定巡逻区域规划步骤建立两个以上参考点并激活创建任务巡逻空战巡逻激活的参考点会自动添加到巡逻区形成红色巡逻区域分配战机执行任务战机只会在巡逻区内机动并警戒来犯飞机地面防空地面防空是防空单位如防空导弹高炮拦截敌机的行为地面防空单位要利用雷达红外等传感器或目视发现敌机才有机会发射武器注意地面传感器对低空飞机探测效率不佳规划步骤建立打击空中拦截任务将地面防空单位添加到任务可在任务目标清单中添加某一敌机作为优先攻击目标注意电磁管控设置大部分地面防空单位需要雷达锁定敌机并引导导弹要使雷达处于打开状态一旦敌机飞入射程且条件允许防空单位会自动攻击空对地海攻击利用战机挂载对地海打击弹药攻击地面或海上单位对地海攻击之前要识别敌人的准确位置这是精确打击的前提反辐射武器的被动传感器不需要确定敌人位置只需敌人开启雷达即可锁定发射规划步骤建立打击对陆打击任务或对海打击任务将对地海攻击战机添加到任务中如有需要可添加空优战机护航添加敌方地面或海上目标我方战机起飞根据航线飞向目标当敌人位置被识别并进入武器射程时发射弹药确认摧毁后返航地海对地攻击利用陆基或海基平台发射武器打击地面目标与空对地打击一样都需要识别敌人准确位置才能攻击巡航导弹之类的武器可以制定导弹攻击航线规划步骤建立打击对地打击任务将我方地面或海上打击平台添加到任务中在目标清单中添加敌方地面目标如果目标位置明确且在武器射程内我方将发射弹药攻击目标直到目标被摧毁挂载与弹药战场上战机可以挂载各种类型的弹药以满足任务需求重装时间空对空弹药需小时空对地弹药需小时有些剧本设置了分钟的快速挂载最多重装次地面海上单位武器发射架在发射后也需要装填弹药各种武器重装时间不同一般个小时更换挂载方法选择载机平台点击载机展开并选择某型号飞机点击出动准备在出动准备窗口中选择挂载方案确认查看武器重装时间选择地面或海上目标点击武器空中加油利用加油机为战机装填燃料增加飞行时间有的战机是软管输油有的是硬管输油加油机必须有对应的输油管才能加油规划步骤新建并激活参考点建立支援任务将加油机添加到任务中注意检查任务中的加油选项加油机起飞飞到参考点盘旋如果战机燃料处于状态战机会自动飞向最近的加油机进行空中加油五事件触发器与动作一个事件由触发器和动作组合而成触发器玩家设定的特定条件当想定从不满足变为满足时被触发动作玩家设定的特定指令当对应的触发器被触发时执行创建触发器点击想定编辑触发器在弹出窗口下方的下拉框中选择触发器类型如单元被摧毁点击创建新触发器在编辑窗口中为触发器命名在触发器设置中逐层确认目标单元至最精确分类点击确认创建动作点击条令规则动作在弹出窗口下方下拉框中选择动作类型如得分点击创建新动作在编辑窗口中为动作命名在动作设置中设置对应动作如设置蓝方得分点击确认创建事件点击条令规则事件在弹出窗口中点击创建新事件在编辑窗口中为事件命名勾选事件启用使其生效在下方分别选择对应的触发器和动作并点击添加完成后确认六战中干预侦察和干扰电子情报设备可以侦测到敌人的雷达波通信信号并估算大致位置侦测时间越长距离目标越近估算位置越准确电子干扰设备可以干扰敌方传感器使其无法探测追踪锁定我方单位也会使发射的导弹脱锁或失去引导信号降低敌人武器命中率注意事项搭载电子情报设备的单位尽量分散部署从多角度探测敌方电磁设备更准确电子干扰设备既可干扰敌方传感器也可能被敌人侦测到干扰源而暴露自己搭载这两种设备的飞机都很重要而且很贵尽量安排战机护卫侦察操作通过给作战单元规划航线控制目标向指定方向进行机动侦察通过手动打开不同传感器雷达声纳等对不同目标进行侦察干扰操作选中作战单元点击右侧传感器按钮在弹出框中勾选电子干扰选项敌方作战单元将被干扰机动与返航航线规划快捷键右键单位点击航线规划或选中单位后按鼠标变成十字准星点击地图生成导航点可一次设置多个规划完成后点击右键鼠标恢复原样单位就会向导航点行驶清除导航点再次进入航线规划后点击右键即可清除修改导航点选择单位后点击并拖拽已生成的导航点油门与高度右键作战单位选择油门高度深度在弹出窗口中进行选择返航右键点击单位点击返航如需更改降落机场右键点击单位选择新基地选择可降落的机场自动开火与手动开火自动开火快捷键右键选中作战单元选择攻击作战目标自动接战鼠标变成十字左键点击需要攻击的目标单位会自动飞向攻击目标手动开火快捷键右键选中作战单元选择攻击作战目标手动接战鼠标变成十字左键点击需要攻击的目标会弹出窗口选择武器武器数量等两者区别自动开火根据挂载弹药数量自动选择武器手动开火可以自己调整武器和数量虽然更麻烦但相较于自动开火更省弹药交战规则武器有四种攻击目标对空对海对潜对地交战规则分为自由开火谨慎开火和限制开火其中自由开火和谨慎开火是自动开火限制开火必须手动开火规避一般情况下作战单元将要受到攻击时会自动执行规避点击作战单位在右侧信息栏中可自行选择是否自动规避七评估与复盘消耗和战损推演过程中的弹药消耗和单位损失在推演控制面板战损消耗查看战损表显示损失的单位消耗表显示消耗的弹药其他统计显示死亡人数和经济损失评分推演方的得分丢分情况在推演控制面板评分查看评估显示某方推演成绩战损与消耗显示推演方的损失单位和消耗弹药情况评分记录显示推演方得分丢分的原因存盘在推演过程中点击文件控制栏下的保存想定按钮可以保存当前态势八辅助工具距离度量按住测量距离快捷键点击地图上起测点再点击测量终点将会出现黄色直线和距离显示框地图标绘在地图标准栏提供了种常用标注符号可根据需要使用使用手册与快捷键快捷键查询点击帮助栏下热键按钮使用手册查询点击帮助栏下使用手册灵奕的智能体接入说明也在此处九灵奕新增特性重点学习以下内容是灵奕相对于墨子的新增部分也是从人指挥迈向指挥的关键智能体开发框架这是灵奕和墨子最大的区别灵奕允许你写一个程序智能体接入推演引擎让它自动接收态势自动决策自动下命令技术要点引擎叫单机引擎在目录有智能体调度机制智能体每帧向引擎请求当前帧态势引擎再回传支持比赛进度改变时主动把状态推送给智能体启动智能体时需要指定推演引擎默认路径开发步骤进软件后找使用手册帮助栏使用手册里面有智能体的接入说明和智能体一般用开发核心循环包括接收态势敌我位置状态油弹态势评估威胁判断目标分配决策输出下命令航线开火规避电磁管控状态同步处理暂停运行信号先跑官方示例智能体再改自己的决策逻辑具体函数名和务必在软件使用手册里查或问协会老队员要包不要凭猜测写战前规划阶段灵奕在开始对战和正式推演之间插入了一个战前规划阶段进入后有一段倒计时倒计时期间可以移动地面移动装备调整部署墨子开打前不能动倒计时归零后才进入正式推演从战前正式战术意义你能在开打前抢占有利阵位把防空前推把坦克展开别浪费这个窗口它往往决定开局优劣更新日志里反复修过一个战前规划结束后仍能移动单元说明这个阶段边界很重要倒计时一结束就老老实实进入推演编组飞机编组灵奕新增了编组概念主要针对飞机编组编组构成一个编组由哪些单元组成编组挂载编组整体的武器挂载方案编组类型不同类型编组行为不同飞机编组的右键菜单特殊可选择基地返回基地取消返航编组可设置禁用手操禁用右键禁用空中航线规划导演席规则控制和墨子的区别墨子里飞机一架一架独立指挥灵奕里把多架飞机编成一个编组统一指挥更适合批量决策智能体下发一条编组命令多机协同执行防作弊鉴权灵奕加了严格的启动鉴权参加正式比赛必须知道签名启动参数带签名篡改就拒父进程血缘检查是谁拉起你的程序防止注入本地套接字一次性令牌检测到调试器附加会直接跳过校验并发布版弹启动参数校验失败含义自己开发智能体时别想着调试绕过引擎老老实实走接口非发布版才提示正式版静默退出十推荐学习路径分三周第一周把灵奕当墨子用熟悉差异装好灵奕用处理拦截照旧流程注册加好友建房加载想定开打重点体验战前规划阶段观察倒计时试着移动地面单位试用编组把几架飞机编成编组对比单架指挥的区别看一遍软件内使用手册和热键第二周学智能体开发找协会要智能体和示例代码跑通官方最简智能体能连上引擎收一帧态势打印出来逐步加决策先做被动决策雷达管控自动规避限制开火规则再做主动决策航线规划任务分配目标优先级用人机想定测试你的智能体追求高分第三周对抗与优化让你的智能体和人打看哪里决策蠢让你的智能体和官方队友智能体打重点优化态势评估威胁排序目标价值资源管理油弹消耗挂载重装时间空空空地快速挂载次编组协同编组内分工护航打击电子战战前部署利用战前阶段抢占阵位十一实战要点速查通用作战原则先侦察后打击识别准确位置是精确打击前提反辐射武器除外只需敌人开雷达电磁管控是双刃剑开雷达看得远也容易被电子情报定位电子干扰干扰敌人也暴露自己电子情报干扰机要分散护航贵且重要多角度探测更准地面防空对低空差别指望它拦超低空突防挂载重装有时间成本空空空地关键节点别乱打光弹药快速挂载只有次灵奕特有要点战前规划别浪费开打前把防空前推飞机挂载就绪载机平台选立即出动准备省挂载时间编组作战用编组统一指挥下发效率高注意编组禁用规则智能体帧率请求态势别太频繁引擎有调度决策要做事件驱动定时混合状态同步处理好暂停运行信号别在暂停时下命令浪费防作弊比赛环境别调试附加别改启动参数会直接踢十二资料获取软件内使用手册热键最权威务必先看帮助栏协会老队员学长要智能体示例代码历年赛事想定群更新日志更新日志每次更新的功能点反推系统特性公开网络资料极少灵奕是封闭赛事平台别浪费时间搜以软件内文档和协会内部资料为准写在最后作战规则看旧新增功能智能体战前编组看软件手册和更新日志实战经验靠协会先把灵奕当墨子用熟再上智能体兵棋推演的魅力在于它既考验你对作战规则的理解深度也考验你将战术思维转化为代码逻辑的能力从手动指挥到智能体指挥不只是工具的升级更是思维方式的跃迁',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2026-10-05 01:53:03',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="言志" type="application/atom+xml">
+</head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="/img/up.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><div class="back-home-button"><i class="anzhiyufont anzhiyu-icon-grip-vertical"></i><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">关注我</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://github.com/tenxiaodao/tenxiaodao.github.io" title="Github"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/up.jpg" alt="Github"/><span class="back-menu-item-text">Github</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://space.bilibili.com/1803174585" title="Bilibili"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/up.jpg" alt="Bilibili"/><span class="back-menu-item-text">Bilibili</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">网盘</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://pan.quark.cn/s/c98d1ceee692" title="软件/工具"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="软件/工具"/><span class="back-menu-item-text">软件/工具</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">常用网站</div><div class="back-menu-list"><a class="back-menu-item" href="/nav/" title="导航页"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/up.jpg" alt="导航页"/><span class="back-menu-item-text">导航页</span></a></div></div></div></div><a id="site-name" href="/" accesskey="h"><div class="title">言志</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a><div id="he-plugin-simple"></div><script>var WIDGET = {
+  "CONFIG": {
+    "modules": "0124",
+    "background": "2",
+    "tmpColor": "FFFFFF",
+    "tmpSize": "16",
+    "cityColor": "FFFFFF",
+    "citySize": "16",
+    "aqiColor": "E8D87B",
+    "aqiSize": "16",
+    "weatherIconSize": "24",
+    "alertIconSize": "18",
+    "padding": "10px 10px 10px 10px",
+    "shadow": "0",
+    "language": "auto",
+    "borderRadius": "20",
+    "fixed": "true",
+    "vertical": "top",
+    "horizontal": "left",
+    "left": "20",
+    "top": "7.1",
+    "key": "df245676fb434a0691ead1c63341cd94"
+  }
+}
+</script><link rel="stylesheet" href="https://widget.qweather.net/simple/static/css/he-simple.css?v=1.4.0"/><script src="https://widget.qweather.net/simple/static/js/he-simple.js?v=1.4.0"></script></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 隧道</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 友链</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><i class="anzhiyufont anzhiyu-icon-link faa-tada" style="font-size: 0.9em;"></i><span> 友人帐</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><i class="anzhiyufont anzhiyu-icon-envelope faa-tada" style="font-size: 0.9em;"></i><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/music/?id=13738866688&amp;server=netease"><i class="anzhiyufont anzhiyu-icon-music faa-tada" style="font-size: 0.9em;"></i><span> 音乐馆</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/album/"><i class="anzhiyufont anzhiyu-icon-images faa-tada" style="font-size: 0.9em;"></i><span> 相册集</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于本人</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/essay/"><i class="anzhiyufont anzhiyu-icon-lightbulb faa-tada" style="font-size: 0.9em;"></i><span> 闲言碎语</span></a></li></ul></div></div></div><div id="nav-right"><div class="nav-button only-home" id="travellings_button" title="随机前往一个开往项目网站"><a class="site-page" onclick="anzhiyu.totraveling()" title="随机前往一个开往项目网站" href="javascript:void(0);" rel="external nofollow" data-pjax-state="external"><i class="anzhiyufont anzhiyu-icon-train"></i></a></div><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><div class="nav-button" id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" title="搜索🔍" accesskey="s"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span> 搜索</span></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="/img/wx.jpg" target="_blank"><img class="post-qr-code-img" alt="微信" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/wx.jpg"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/zfb.jpg" target="_blank"><img class="post-qr-code-img" alt="支付宝" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/zfb.jpg"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/AI/" style="font-size: 1.05rem;">AI<sup>5</sup></a><a href="/tags/ARP/" style="font-size: 1.05rem;">ARP<sup>1</sup></a><a href="/tags/CSS/" style="font-size: 1.05rem;">CSS<sup>1</sup></a><a href="/tags/CasaOS/" style="font-size: 1.05rem;">CasaOS<sup>1</sup></a><a href="/tags/Docker/" style="font-size: 1.05rem;">Docker<sup>1</sup></a><a href="/tags/ESP32/" style="font-size: 1.05rem;">ESP32<sup>1</sup></a><a href="/tags/HTML/" style="font-size: 1.05rem;">HTML<sup>1</sup></a><a href="/tags/Hexo/" style="font-size: 1.05rem;">Hexo<sup>8</sup></a><a href="/tags/JavaScript/" style="font-size: 1.05rem;">JavaScript<sup>2</sup></a><a href="/tags/KVM/" style="font-size: 1.05rem;">KVM<sup>1</sup></a><a href="/tags/KouriChat/" style="font-size: 1.05rem;">KouriChat<sup>1</sup></a><a href="/tags/Linux/" style="font-size: 1.05rem;">Linux<sup>5</sup></a><a href="/tags/NAS/" style="font-size: 1.05rem;">NAS<sup>2</sup></a><a href="/tags/Python/" style="font-size: 1.05rem;">Python<sup>4</sup></a><a href="/tags/Scrapy/" style="font-size: 1.05rem;">Scrapy<sup>2</sup></a><a href="/tags/TCP/" style="font-size: 1.05rem;">TCP<sup>1</sup></a><a href="/tags/UDP/" style="font-size: 1.05rem;">UDP<sup>1</sup></a><a href="/tags/Ubuntu/" style="font-size: 1.05rem;">Ubuntu<sup>1</sup></a><a href="/tags/VM%E8%99%9A%E6%8B%9F%E6%9C%BA/" style="font-size: 1.05rem;">VM虚拟机<sup>1</sup></a><a href="/tags/WSL2/" style="font-size: 1.05rem;">WSL2<sup>1</sup></a><a href="/tags/macOS/" style="font-size: 1.05rem;">macOS<sup>3</sup></a><a href="/tags/office/" style="font-size: 1.05rem;">office<sup>1</sup></a><a href="/tags/openEuler/" style="font-size: 1.05rem;">openEuler<sup>1</sup></a><a href="/tags/windows%E9%95%9C%E5%83%8F/" style="font-size: 1.05rem;">windows镜像<sup>1</sup></a><a href="/tags/%E4%BA%A4%E6%8D%A2%E6%9C%BA/" style="font-size: 1.05rem;">交换机<sup>1</sup></a><a href="/tags/%E5%85%A5%E9%97%A8/" style="font-size: 1.05rem;">入门<sup>1</sup></a><a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 1.05rem;">前端<sup>1</sup></a><a href="/tags/%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95/" style="font-size: 1.05rem;">压力测试<sup>1</sup></a><a href="/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/" style="font-size: 1.05rem;">命令行<sup>2</sup></a><a href="/tags/%E5%BE%AE%E4%BF%A1/" style="font-size: 1.05rem;">微信<sup>2</sup></a><a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 1.05rem;">爬虫<sup>2</sup></a><a href="/tags/%E7%8E%A9%E5%AE%A2%E4%BA%91/" style="font-size: 1.05rem;">玩客云<sup>1</sup></a><a href="/tags/%E7%AB%AF%E5%8F%A3%E8%81%9A%E5%90%88/" style="font-size: 1.05rem;">端口聚合<sup>1</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96/" style="font-size: 1.05rem;">网络优化<sup>1</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 1.05rem;">网络协议<sup>1</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 1.05rem;">网络安全<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/" style="font-size: 1.05rem;">网络技术<sup>1</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" style="font-size: 1.05rem;">网络配置<sup>1</sup></a><a href="/tags/%E8%AF%AD%E9%9F%B3%E5%8A%A9%E6%89%8B/" style="font-size: 1.05rem;">语音助手<sup>1</sup></a><a href="/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 1.05rem;">运维<sup>3</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="anzhiyufont anzhiyu-icon-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/10/"><span class="card-archive-list-date">十月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/09/"><span class="card-archive-list-date">九月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/07/"><span class="card-archive-list-date">七月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">4</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/06/"><span class="card-archive-list-date">六月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">14</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/05/"><span class="card-archive-list-date">五月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/03/"><span class="card-archive-list-date">三月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/02/"><span class="card-archive-list-date">二月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/11/"><span class="card-archive-list-date">十一月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="post-meta-categories"><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%85%B5%E6%A3%8B%E6%8E%A8%E6%BC%94/" itemprop="url">兵棋推演</a></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E5%85%B5%E6%A3%8B%E6%8E%A8%E6%BC%94/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>兵棋推演</span></a><a class="article-meta__tags" href="/tags/%E7%81%B5%E5%A5%95/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>灵奕</span></a><a class="article-meta__tags" href="/tags/%E5%A2%A8%E5%AD%90/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>墨子</span></a><a class="article-meta__tags" href="/tags/%E6%99%BA%E8%83%BD%E4%BD%93/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>智能体</span></a></span></div></div><h1 class="post-title" itemprop="name headline">从墨子到灵奕：兵棋推演系统学习指南</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2026-10-05T10:00:00.000Z" title="发表于 2026-10-05 18:00:00">2026-10-05</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2026-10-04T17:53:03.148Z" title="更新于 2026-10-05 01:53:03">2026-10-05</time></span></div><div class="meta-secondline"><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为大同"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>大同</span><span class="post-meta-separator"></span><span class="post-meta-commentcount"><i class="anzhiyufont anzhiyu-icon-comments post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/cong-mo-zi-dao-ling-yi-bing-qi-tui-yan-xi-tong-xue-xi-zhi-nan/#post-comment" tabindex="-1"><span id="twikoo-count"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-spin"></i></span></a></span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src=""></div></header><main id="blog-container"><div class="layout hide-aside" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="https://www.tenxiaodao.top/cong-mo-zi-dao-ling-yi-bing-qi-tui-yan-xi-tong-xue-xi-zhi-nan/"><header><a class="post-meta-categories" href="/categories/%E5%85%B5%E6%A3%8B%E6%8E%A8%E6%BC%94/" itemprop="url">兵棋推演</a><a href="/tags/%E5%85%B5%E6%A3%8B%E6%8E%A8%E6%BC%94/" tabindex="-1" itemprop="url">兵棋推演</a><a href="/tags/%E7%81%B5%E5%A5%95/" tabindex="-1" itemprop="url">灵奕</a><a href="/tags/%E5%A2%A8%E5%AD%90/" tabindex="-1" itemprop="url">墨子</a><a href="/tags/%E6%99%BA%E8%83%BD%E4%BD%93/" tabindex="-1" itemprop="url">智能体</a><h1 id="CrawlerTitle" itemprop="name headline">从墨子到灵奕：兵棋推演系统学习指南</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">周言志</span><time itemprop="dateCreated datePublished" datetime="2026-10-05T10:00:00.000Z" title="发表于 2026-10-05 18:00:00">2026-10-05</time><time itemprop="dateCreated datePublished" datetime="2026-10-04T17:53:03.148Z" title="更新于 2026-10-05 01:53:03">2026-10-05</time></header><h1 id="从墨子到灵奕：兵棋推演系统学习指南"><a href="#从墨子到灵奕：兵棋推演系统学习指南" class="headerlink" title="从墨子到灵奕：兵棋推演系统学习指南"></a>从墨子到灵奕：兵棋推演系统学习指南</h1><p>本文将墨子·未来指挥官的作战规则教学与灵奕智能推演系统的新增特性整合在一起，形成一份从「人指挥打仗」到「写程序代替人指挥打仗」的完整学习指南。作战规则部分以墨子教学 PPT 为底，灵奕新增部分（智能体开发、战前规划、编组作战、防作弊鉴权）以学习指南为底，力求一份文档覆盖全部核心知识。</p>
+<hr>
+<h2 id="一、墨子与灵奕是什么关系"><a href="#一、墨子与灵奕是什么关系" class="headerlink" title="一、墨子与灵奕是什么关系"></a>一、墨子与灵奕是什么关系</h2><p><strong>墨子·未来指挥官</strong>（官网 hs-defense.com）是一套纯<strong>人指挥</strong>的兵棋——人建想定、人下命令、人对战或打人机。</p>
+<p><strong>灵奕智能推演系统（APlatformLobby）</strong> 在墨子的作战规则底座上，新增了<strong>两条全新主线</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>墨子（旧）</th>
+<th>灵奕（新）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>对战方式</td>
+<td>人人 &#x2F; 人机</td>
+<td><strong>人人 + 人机 + 智能体（AI 程序）对战</strong></td>
+</tr>
+<tr>
+<td>指挥主体</td>
+<td>人手动指挥</td>
+<td>人指挥 <strong>或</strong> AI 智能体自动指挥</td>
+</tr>
+<tr>
+<td>推演流程</td>
+<td>直接开打</td>
+<td>多了<strong>战前规划阶段</strong>（倒计时，可移动部署）</td>
+</tr>
+<tr>
+<td>单元组织</td>
+<td>单机&#x2F;单舰</td>
+<td>新增<strong>编组</strong>（飞机编组、编组挂载&#x2F;构成）</td>
+</tr>
+<tr>
+<td>防作弊</td>
+<td>弱</td>
+<td><strong>HMAC 签名 + 父进程血缘 + LocalSocket nonce</strong> 鉴权</td>
+</tr>
+<tr>
+<td>单机引擎</td>
+<td>—</td>
+<td>迁移至 <code>Data/lyengine</code>，支持本地离线推演</td>
+</tr>
+<tr>
+<td>态势同步</td>
+<td>单向</td>
+<td>仿真状态（暂停&#x2F;运行）双向同步给客户端</td>
+</tr>
+</tbody></table>
+<p>一句话概括：墨子教你「怎么指挥打仗」，灵奕在此基础上让你「写程序代替人指挥打仗」，并补齐了战前部署、编组作战、防作弊这些专业环节。</p>
+<blockquote>
+<p>学习策略：旧 PPT 里的作战规则（任务规划、航线、开火、侦察干扰）90% 仍适用，只需要重点补「智能体开发 + 战前规划 + 编组」这三块新增内容。</p>
+</blockquote>
+<hr>
+<h2 id="二、平台安装与入门"><a href="#二、平台安装与入门" class="headerlink" title="二、平台安装与入门"></a>二、平台安装与入门</h2><h3 id="2-1-下载安装"><a href="#2-1-下载安装" class="headerlink" title="2.1 下载安装"></a>2.1 下载安装</h3><ol>
+<li>安装包可在官网下载：<a target="_blank" rel="noopener" href="https://www.hs-defense.com/col.jsp?id=105">https://www.hs-defense.com/col.jsp?id=105</a></li>
+<li>若使用 Edge 浏览器可能遇到安全提示，点击「高级 → 继续访问」即可</li>
+<li>也可以在 QQ 群中向老队员索取已下载好的压缩包</li>
+<li>解压到想要存放的文件夹即可</li>
+<li>灵奕用户注意：若 Windows Defender 拦截，使用 <code>APlatform_SecurityFix.bat</code> 处理</li>
+</ol>
+<h3 id="2-2-注册与登录"><a href="#2-2-注册与登录" class="headerlink" title="2.2 注册与登录"></a>2.2 注册与登录</h3><p>打开安装目录下 <code>duizhanpingtai</code> 文件夹，进入第二个子文件夹，找到 <code>RegisterAndLogin.exe</code> 双击运行。点击注册账号，填入个人信息完成注册。</p>
+<h3 id="2-3-添加好友"><a href="#2-3-添加好友" class="headerlink" title="2.3 添加好友"></a>2.3 添加好友</h3><p>点击右下角放大镜图标，输入好友的注册手机号或用户名进行查找，选中目标后点击「添加好友」。</p>
+<h3 id="2-4-创建房间与加载想定"><a href="#2-4-创建房间与加载想定" class="headerlink" title="2.4 创建房间与加载想定"></a>2.4 创建房间与加载想定</h3><ol>
+<li>在「大赛训练营」（非大赛期间为「自由推演专区」）中创建房间，房间上限一般 8~12 个</li>
+<li>点击「创建房间」进入创建页面，房间名称可自由更改</li>
+<li>点击「加载想定」选择想推演的地图，加载后点击右下角确认</li>
+<li>可勾选方框设置房间密码</li>
+<li>双击某一行可切换推演角色</li>
+<li>勾选「开启导演席」可进入导演席位</li>
+<li>点击「对战模式」栏右侧倒三角选择对战模式</li>
+<li>点击「开始对战」即可开启推演</li>
+</ol>
+<h3 id="2-5-想定类型"><a href="#2-5-想定类型" class="headerlink" title="2.5 想定类型"></a>2.5 想定类型</h3><ul>
+<li><strong>公有想定</strong>：所有登录用户均可使用，但不能编辑（可右键存为私有想定）</li>
+<li><strong>私有想定</strong>：用户私有，可编辑更改，可共享给好友</li>
+<li><strong>共享想定</strong>：好友之间互相分享</li>
+</ul>
+<h3 id="2-6-对战模式"><a href="#2-6-对战模式" class="headerlink" title="2.6 对战模式"></a>2.6 对战模式</h3><ul>
+<li><strong>人机对战</strong>：进入人机想定即可与编辑好任务的人机方对战，追求高分、熟悉单元</li>
+<li><strong>人人对战</strong>：进入人人对战想定，邀请好友或等待加入，追求博弈中的最优解</li>
+<li><strong>智能体对战</strong>（灵奕新增）：接入 AI 程序自动指挥，是赛事主流模式</li>
+</ul>
+<blockquote>
+<p>注意：即便是同一张图，人机和人人的想定也会有差别，请勿用人机想定删除任务后开启人人对战。</p>
+</blockquote>
+<hr>
+<h2 id="三、想定编辑"><a href="#三、想定编辑" class="headerlink" title="三、想定编辑"></a>三、想定编辑</h2><p>想定编辑功能既可以创建新想定也可以更改现有想定。在大厅建立房间后新建想定，或选择现有想定建立房间并开启编辑模式即可。想定编辑在导演模式下更加高效方便，创建新想定后应设置想定时间。</p>
+<h3 id="3-1-想定时间与描述"><a href="#3-1-想定时间与描述" class="headerlink" title="3.1 想定时间与描述"></a>3.1 想定时间与描述</h3><p>在编辑模式下进入想定，点击上方「想定编辑」选项：</p>
+<ul>
+<li><strong>想定时间</strong>：点击「想定时间」编辑，确认即可（想定当前时间不得早于想定开始时间）</li>
+<li><strong>想定描述</strong>：点击「想定描述」撰写完成后确认</li>
+<li><strong>任务简报</strong>：在想定编辑窗口中编辑，可通过切换推演方来编辑不同阵营的想定</li>
+</ul>
+<h3 id="3-2-添加和导入单元"><a href="#3-2-添加和导入单元" class="headerlink" title="3.2 添加和导入单元"></a>3.2 添加和导入单元</h3><p><strong>添加单元</strong>：</p>
+<ol>
+<li>在想定编辑窗口中点击「单元操作 → 添加单元」</li>
+<li>在地图上选择一个位置单击左键</li>
+<li>在弹出窗口中选择单元类型、国家和地区缩小查找范围，也可在型号中输入单元型（如 F-16）</li>
+<li>如果添加的是空中单位，需要选择挂载才能添加到地图上</li>
+</ol>
+<p><strong>在载机平台添加飞机</strong>：</p>
+<ol>
+<li>选择一个载机平台（如机场、船舶）</li>
+<li>在想定编辑窗口中点击「单元操作 → 编辑飞机」</li>
+<li>设置国家以缩小检索范围，输入型号 → 选择某型号飞机 → 输入呼号和数量 → 添加所选</li>
+<li>在载机平台的对象信息窗口中点击「载机」，设置飞机挂载，选择「立即出动准备」可省去挂载时间</li>
+</ol>
+<p><strong>导入作战部署</strong>：</p>
+<ol>
+<li>在想定编辑窗口中选择「单元导入&#x2F;导出」</li>
+<li>点击「导入作战部署」，在部署数据中选择国家、地区，勾选需要的军事设施</li>
+<li>点击导入，部署单位即可出现在地图上</li>
+<li>导入作战编制操作同理，但需要在地图上选择作战编制出现的位置</li>
+</ol>
+<h3 id="3-3-单位移位、拷贝、重命名"><a href="#3-3-单位移位、拷贝、重命名" class="headerlink" title="3.3 单位移位、拷贝、重命名"></a>3.3 单位移位、拷贝、重命名</h3><ul>
+<li><strong>位移</strong>：选择单位 → 单元操作 → 移动单元 → 点击地图 → 确认坐标 → 确认</li>
+<li><strong>拷贝</strong>：选择单位 → 单元操作 → 复制单元 → 点击地图</li>
+<li><strong>重命名</strong>：选择单位 → 单元操作 → 调整单元名称 → 输入新名称 → 确认</li>
+</ul>
+<hr>
+<h2 id="四、任务规划"><a href="#四、任务规划" class="headerlink" title="四、任务规划"></a>四、任务规划</h2><p>任务规划是兵棋推演的核心环节，涵盖预警、空战巡逻、地面防空、空对地（海）攻击、地（海）对地攻击、挂载弹药与空中加油等内容。</p>
+<h3 id="4-1-预警"><a href="#4-1-预警" class="headerlink" title="4.1 预警"></a>4.1 预警</h3><p>预警任务规划步骤：</p>
+<ol>
+<li>建立参考点并激活</li>
+<li>建立支援任务</li>
+<li>将预警机添加进任务，并在电磁管控中使雷达处于打开状态</li>
+<li>开始推演后，预警机起飞飞到参考点附近盘旋，利用机载预警雷达监视地空态势</li>
+</ol>
+<h3 id="4-2-空战巡逻（AAW）"><a href="#4-2-空战巡逻（AAW）" class="headerlink" title="4.2 空战巡逻（AAW）"></a>4.2 空战巡逻（AAW）</h3><p>空战巡逻是战机在一定巡逻空域内执行警戒任务的行为。要求尽量出动空优战机执行，必须划定巡逻区域。</p>
+<p>规划步骤：</p>
+<ol>
+<li>建立两个以上参考点并激活</li>
+<li>创建任务 → 巡逻 → 空战巡逻</li>
+<li>激活的参考点会自动添加到巡逻区，形成红色巡逻区域</li>
+<li>分配战机执行任务，战机只会在巡逻区内机动并警戒来犯飞机</li>
+</ol>
+<h3 id="4-3-地面防空"><a href="#4-3-地面防空" class="headerlink" title="4.3 地面防空"></a>4.3 地面防空</h3><p>地面防空是防空单位（如防空导弹、高炮）拦截敌机的行为。地面防空单位要利用雷达、红外等传感器或目视发现敌机才有机会发射武器。注意：地面传感器对低空飞机探测效率不佳。</p>
+<p>规划步骤：</p>
+<ol>
+<li>建立打击 → 空中拦截任务</li>
+<li>将地面防空单位添加到任务（可在任务目标清单中添加某一敌机作为优先攻击目标）</li>
+<li>注意电磁管控设置，大部分地面防空单位需要雷达锁定敌机并引导导弹，要使雷达处于打开状态</li>
+<li>一旦敌机飞入射程且条件允许，防空单位会自动攻击</li>
+</ol>
+<h3 id="4-4-空对地（海）攻击"><a href="#4-4-空对地（海）攻击" class="headerlink" title="4.4 空对地（海）攻击"></a>4.4 空对地（海）攻击</h3><p>利用战机挂载对地（海）打击弹药攻击地面或海上单位。对地（海）攻击之前要<strong>识别敌人的准确位置</strong>，这是精确打击的前提。反辐射武器的被动传感器不需要确定敌人位置，只需敌人开启雷达即可锁定发射。</p>
+<p>规划步骤：</p>
+<ol>
+<li>建立打击 → 对陆打击任务或对海打击任务</li>
+<li>将对地（海）攻击战机添加到任务中，如有需要可添加空优战机护航</li>
+<li>添加敌方地面或海上目标</li>
+<li>我方战机起飞，根据航线飞向目标，当敌人位置被识别并进入武器射程时发射弹药，确认摧毁后返航</li>
+</ol>
+<h3 id="4-5-地（海）对地攻击"><a href="#4-5-地（海）对地攻击" class="headerlink" title="4.5 地（海）对地攻击"></a>4.5 地（海）对地攻击</h3><p>利用陆基或海基平台发射武器打击地面目标。与空对地打击一样，都需要识别敌人准确位置才能攻击。巡航导弹之类的武器可以制定导弹攻击航线。</p>
+<p>规划步骤：</p>
+<ol>
+<li>建立打击 → 对地打击任务</li>
+<li>将我方地面或海上打击平台添加到任务中</li>
+<li>在目标清单中添加敌方地面目标</li>
+<li>如果目标位置明确且在武器射程内，我方将发射弹药攻击目标，直到目标被摧毁</li>
+</ol>
+<h3 id="4-6-挂载与弹药"><a href="#4-6-挂载与弹药" class="headerlink" title="4.6 挂载与弹药"></a>4.6 挂载与弹药</h3><p>战场上战机可以挂载各种类型的弹药以满足任务需求。</p>
+<ul>
+<li><strong>重装时间</strong>：空对空弹药需 3 小时，空对地弹药需 6 小时。有些剧本设置了 30 分钟的快速挂载，最多重装 2 次</li>
+<li><strong>地面&#x2F;海上单位</strong>：武器发射架在发射后也需要装填弹药，各种武器重装时间不同，一般 1 个小时</li>
+</ul>
+<p>更换挂载方法：选择载机平台 → 点击载机 → 展开并选择某型号飞机 → 点击出动准备 → 在出动准备窗口中选择挂载方案 → 确认。</p>
+<p>查看武器重装时间：选择地面或海上目标 → 点击武器。</p>
+<h3 id="4-7-空中加油"><a href="#4-7-空中加油" class="headerlink" title="4.7 空中加油"></a>4.7 空中加油</h3><p>利用加油机为战机装填燃料，增加飞行时间。有的战机是软管输油，有的是硬管输油，加油机必须有对应的输油管才能加油。</p>
+<p>规划步骤：</p>
+<ol>
+<li>新建并激活参考点</li>
+<li>建立支援任务，将加油机添加到任务中</li>
+<li>注意检查任务中的加油选项</li>
+<li>加油机起飞飞到参考点盘旋</li>
+<li>如果战机燃料处于 Bingo 状态，战机会自动飞向最近的加油机进行空中加油</li>
+</ol>
+<hr>
+<h2 id="五、事件、触发器与动作"><a href="#五、事件、触发器与动作" class="headerlink" title="五、事件、触发器与动作"></a>五、事件、触发器与动作</h2><p>一个事件由<strong>触发器</strong>和<strong>动作</strong>组合而成。</p>
+<ul>
+<li><strong>触发器</strong>：玩家设定的特定条件，当想定从不满足变为满足时被触发</li>
+<li><strong>动作</strong>：玩家设定的特定指令，当对应的触发器被触发时执行</li>
+</ul>
+<h3 id="5-1-创建触发器"><a href="#5-1-创建触发器" class="headerlink" title="5.1 创建触发器"></a>5.1 创建触发器</h3><p>点击「想定编辑 → 触发器」，在弹出窗口下方的下拉框中选择触发器类型（如「单元被摧毁」），点击「创建新触发器」。在编辑窗口中为触发器命名，在触发器设置中逐层确认目标单元至最精确分类，点击确认。</p>
+<h3 id="5-2-创建动作"><a href="#5-2-创建动作" class="headerlink" title="5.2 创建动作"></a>5.2 创建动作</h3><p>点击「条令规则 → 动作」，在弹出窗口下方下拉框中选择动作类型（如「得分」），点击「创建新动作」。在编辑窗口中为动作命名，在动作设置中设置对应动作（如设置蓝方得 10 分），点击确认。</p>
+<h3 id="5-3-创建事件"><a href="#5-3-创建事件" class="headerlink" title="5.3 创建事件"></a>5.3 创建事件</h3><p>点击「条令规则 → 事件」，在弹出窗口中点击「创建新事件」。在编辑窗口中为事件命名，勾选「事件启用」使其生效，在下方分别选择对应的触发器和动作并点击添加，完成后确认。</p>
+<hr>
+<h2 id="六、战中干预"><a href="#六、战中干预" class="headerlink" title="六、战中干预"></a>六、战中干预</h2><h3 id="6-1-侦察和干扰"><a href="#6-1-侦察和干扰" class="headerlink" title="6.1 侦察和干扰"></a>6.1 侦察和干扰</h3><p><strong>电子情报设备</strong>可以侦测到敌人的雷达波、通信信号，并估算大致位置。侦测时间越长、距离目标越近，估算位置越准确。</p>
+<p><strong>电子干扰设备</strong>可以干扰敌方传感器，使其无法探测、追踪、锁定我方单位，也会使发射的导弹脱锁或失去引导信号，降低敌人武器命中率。</p>
+<p>注意事项：</p>
+<ul>
+<li>搭载电子情报设备的单位尽量<strong>分散部署</strong>，从多角度探测敌方电磁设备更准确</li>
+<li>电子干扰设备既可干扰敌方传感器，也可能被敌人侦测到干扰源而<strong>暴露自己</strong></li>
+<li>搭载这两种设备的飞机都很重要而且很贵，尽量安排战机护卫</li>
+</ul>
+<p><strong>侦察操作</strong>：</p>
+<ol>
+<li>通过给作战单元规划航线，控制目标向指定方向进行机动侦察</li>
+<li>通过手动打开不同传感器（雷达、声纳等）对不同目标进行侦察</li>
+</ol>
+<p><strong>干扰操作</strong>：</p>
+<ol>
+<li>选中作战单元，点击右侧传感器按钮</li>
+<li>在弹出框中勾选电子干扰选项</li>
+<li>敌方作战单元将被干扰</li>
+</ol>
+<h3 id="6-2-机动与返航"><a href="#6-2-机动与返航" class="headerlink" title="6.2 机动与返航"></a>6.2 机动与返航</h3><p><strong>航线规划</strong>（快捷键 F3）：</p>
+<ol>
+<li>右键单位 → 点击「航线规划」（或选中单位后按 F3）</li>
+<li>鼠标变成十字准星，点击地图生成导航点，可一次设置多个</li>
+<li>规划完成后点击右键，鼠标恢复原样，单位就会向导航点行驶</li>
+<li>清除导航点：再次进入航线规划后点击右键即可清除</li>
+<li>修改导航点：选择单位后点击并拖拽已生成的导航点</li>
+</ol>
+<p><strong>油门与高度</strong>：右键作战单位 → 选择「油门高度&#x2F;深度」→ 在弹出窗口中进行选择</p>
+<p><strong>返航</strong>：右键点击单位 → 点击「返航」。如需更改降落机场，右键点击单位 → 选择新基地 → 选择可降落的机场</p>
+<h3 id="6-3-自动开火与手动开火"><a href="#6-3-自动开火与手动开火" class="headerlink" title="6.3 自动开火与手动开火"></a>6.3 自动开火与手动开火</h3><p><strong>自动开火</strong>（快捷键 F1）：</p>
+<ol>
+<li>右键选中作战单元</li>
+<li>选择「攻击作战目标 → 自动接战」，鼠标变成十字</li>
+<li>左键点击需要攻击的目标，单位会自动飞向攻击目标</li>
+</ol>
+<p><strong>手动开火</strong>（快捷键 Shift+F1）：</p>
+<ol>
+<li>右键选中作战单元</li>
+<li>选择「攻击作战目标 → 手动接战」，鼠标变成十字</li>
+<li>左键点击需要攻击的目标，会弹出窗口</li>
+<li>选择武器、武器数量等</li>
+</ol>
+<p>两者区别：自动开火根据挂载弹药数量自动选择武器；手动开火可以自己调整武器和数量，虽然更麻烦但相较于自动开火更省弹药。</p>
+<p><strong>交战规则</strong>：武器有四种攻击目标——对空、对海、对潜、对地。交战规则分为自由开火、谨慎开火和限制开火。其中自由开火和谨慎开火是自动开火，限制开火必须手动开火。</p>
+<h3 id="6-4-规避"><a href="#6-4-规避" class="headerlink" title="6.4 规避"></a>6.4 规避</h3><p>一般情况下，作战单元将要受到攻击时会自动执行规避。点击作战单位，在右侧信息栏中可自行选择是否自动规避。</p>
+<hr>
+<h2 id="七、评估与复盘"><a href="#七、评估与复盘" class="headerlink" title="七、评估与复盘"></a>七、评估与复盘</h2><h3 id="7-1-消耗和战损"><a href="#7-1-消耗和战损" class="headerlink" title="7.1 消耗和战损"></a>7.1 消耗和战损</h3><p>推演过程中的弹药消耗和单位损失。在「推演控制面板 → 战损+消耗」查看：</p>
+<ul>
+<li><strong>战损表</strong>：显示损失的单位</li>
+<li><strong>消耗表</strong>：显示消耗的弹药</li>
+<li><strong>其他统计</strong>：显示死亡人数和经济损失</li>
+</ul>
+<h3 id="7-2-评分"><a href="#7-2-评分" class="headerlink" title="7.2 评分"></a>7.2 评分</h3><p>推演方的得分、丢分情况。在「推演控制面板 → 评分」查看：</p>
+<ul>
+<li><strong>评估</strong>：显示某方推演成绩</li>
+<li><strong>战损与消耗</strong>：显示推演方的损失单位和消耗弹药情况</li>
+<li><strong>评分记录</strong>：显示推演方得分、丢分的原因</li>
+</ul>
+<h3 id="7-3-存盘"><a href="#7-3-存盘" class="headerlink" title="7.3 存盘"></a>7.3 存盘</h3><p>在推演过程中点击「文件控制」栏下的「保存想定」按钮，可以保存当前态势。</p>
+<hr>
+<h2 id="八、辅助工具"><a href="#八、辅助工具" class="headerlink" title="八、辅助工具"></a>八、辅助工具</h2><h3 id="8-1-距离度量"><a href="#8-1-距离度量" class="headerlink" title="8.1 距离度量"></a>8.1 距离度量</h3><p>按住 <code>Ctrl+D</code>（测量距离快捷键），点击地图上起测点，再点击测量终点，将会出现黄色直线和距离显示框。</p>
+<h3 id="8-2-地图标绘"><a href="#8-2-地图标绘" class="headerlink" title="8.2 地图标绘"></a>8.2 地图标绘</h3><p>在地图标准栏提供了 14 种常用标注符号，可根据需要使用。</p>
+<h3 id="8-3-使用手册与快捷键"><a href="#8-3-使用手册与快捷键" class="headerlink" title="8.3 使用手册与快捷键"></a>8.3 使用手册与快捷键</h3><ul>
+<li><strong>快捷键查询</strong>：点击帮助栏下「热键」按钮</li>
+<li><strong>使用手册查询</strong>：点击帮助栏下「使用手册」（灵奕的智能体 SDK 接入说明也在此处）</li>
+</ul>
+<hr>
+<h2 id="九、灵奕新增特性（重点学习）"><a href="#九、灵奕新增特性（重点学习）" class="headerlink" title="九、灵奕新增特性（重点学习）"></a>九、灵奕新增特性（重点学习）</h2><p>以下内容是灵奕相对于墨子的新增部分，也是从「人指挥」迈向「AI 指挥」的关键。</p>
+<h3 id="9-1-智能体开发框架"><a href="#9-1-智能体开发框架" class="headerlink" title="9.1 智能体开发框架"></a>9.1 智能体开发框架</h3><p>这是灵奕和墨子最大的区别。灵奕允许你<strong>写一个 AI 程序（智能体）</strong>接入推演引擎，让它自动接收态势、自动决策、自动下命令。</p>
+<p>技术要点：</p>
+<ul>
+<li>引擎叫 <strong>lyengine</strong>（单机引擎在 <code>Data/lyengine</code> 目录）</li>
+<li>有「智能体调度」机制：智能体每帧向引擎请求当前帧态势，引擎再回传</li>
+<li>支持比赛进度改变时主动把状态推送给智能体</li>
+<li>启动智能体时需要指定推演引擎默认路径</li>
+</ul>
+<p>开发步骤：</p>
+<ol>
+<li>进软件后找「使用手册」（帮助栏 → 使用手册），里面有智能体 SDK 的接入说明和 API</li>
+<li>智能体一般用 <strong>Python</strong> 开发，核心循环包括：<ul>
+<li><strong>接收态势</strong>：敌我位置、状态、油弹</li>
+<li><strong>态势评估</strong>：威胁判断、目标分配</li>
+<li><strong>决策输出</strong>：下命令（航线、开火、规避、电磁管控）</li>
+<li><strong>状态同步</strong>：处理暂停&#x2F;运行信号</li>
+</ul>
+</li>
+<li>先跑官方示例智能体，再改自己的决策逻辑</li>
+</ol>
+<blockquote>
+<p>具体函数名和 API 务必在软件「使用手册」里查，或问协会老队员要 SDK 包，不要凭猜测写。</p>
+</blockquote>
+<h3 id="9-2-战前规划阶段"><a href="#9-2-战前规划阶段" class="headerlink" title="9.2 战前规划阶段"></a>9.2 战前规划阶段</h3><p>灵奕在「开始对战」和「正式推演」之间插入了一个<strong>战前规划阶段</strong>：</p>
+<ul>
+<li>进入后有一段<strong>倒计时</strong></li>
+<li>倒计时期间可以<strong>移动地面移动装备、调整部署</strong>（墨子开打前不能动）</li>
+<li>倒计时归零后才进入正式推演（<code>getDeduceState()</code> 从战前 <code>E_DS_BEFOREDECUDE</code> → 正式）</li>
+</ul>
+<p>战术意义：你能在开打前抢占有利阵位、把防空前推、把坦克展开。<strong>别浪费这个窗口</strong>，它往往决定开局优劣。</p>
+<blockquote>
+<p>更新日志里反复修过一个 Bug（战前规划结束后仍能移动单元），说明这个阶段边界很重要——倒计时一结束就老老实实进入推演。</p>
+</blockquote>
+<h3 id="9-3-编组（飞机编组）"><a href="#9-3-编组（飞机编组）" class="headerlink" title="9.3 编组（飞机编组）"></a>9.3 编组（飞机编组）</h3><p>灵奕新增了「编组」概念，主要针对飞机编组：</p>
+<ul>
+<li><strong>编组构成</strong>：一个编组由哪些单元组成</li>
+<li><strong>编组挂载</strong>：编组整体的武器挂载方案</li>
+<li><strong>编组类型</strong>：不同类型编组行为不同</li>
+<li>飞机编组的右键菜单特殊：可选择基地、返回基地、取消返航</li>
+<li>编组可设置<strong>禁用手操、禁用右键、禁用空中航线规划</strong>（导演席&#x2F;规则控制）</li>
+</ul>
+<p>和墨子的区别：墨子里飞机一架一架独立指挥；灵奕里把多架飞机编成一个编组统一指挥，<strong>更适合 AI 批量决策</strong>——智能体下发一条编组命令，多机协同执行。</p>
+<h3 id="9-4-防作弊鉴权"><a href="#9-4-防作弊鉴权" class="headerlink" title="9.4 防作弊鉴权"></a>9.4 防作弊鉴权</h3><p>灵奕加了严格的启动鉴权，参加正式比赛必须知道：</p>
+<ul>
+<li><strong>HMAC 签名</strong>：启动参数带签名，篡改就拒</li>
+<li><strong>父进程血缘</strong>：检查是谁拉起你的程序（防止注入）</li>
+<li><strong>LocalSocket nonce</strong>：本地套接字一次性令牌</li>
+<li>检测到<strong>调试器附加</strong>会直接跳过校验并（发布版）弹「启动参数校验失败」</li>
+</ul>
+<p>含义：自己开发智能体时别想着 hook&#x2F;调试绕过引擎，老老实实走 SDK 接口。非发布版（DEV_RELEASE）才提示，正式版静默退出。</p>
+<hr>
+<h2 id="十、推荐学习路径（分三周）"><a href="#十、推荐学习路径（分三周）" class="headerlink" title="十、推荐学习路径（分三周）"></a>十、推荐学习路径（分三周）</h2><h3 id="第一周：把灵奕当墨子用，熟悉差异"><a href="#第一周：把灵奕当墨子用，熟悉差异" class="headerlink" title="第一周：把灵奕当墨子用，熟悉差异"></a>第一周：把灵奕当墨子用，熟悉差异</h3><ol>
+<li>装好灵奕（用 <code>APlatform_SecurityFix.bat</code> 处理 Defender 拦截）</li>
+<li>照旧 PPT 流程：注册 → 加好友 → 建房 → 加载想定 → 开打</li>
+<li>重点体验<strong>战前规划阶段</strong>：观察倒计时、试着移动地面单位</li>
+<li>试用<strong>编组</strong>：把几架飞机编成编组，对比单架指挥的区别</li>
+<li>看一遍软件内「使用手册」和「热键」</li>
+</ol>
+<h3 id="第二周：学智能体开发"><a href="#第二周：学智能体开发" class="headerlink" title="第二周：学智能体开发"></a>第二周：学智能体开发</h3><ol>
+<li>找协会要<strong>智能体 SDK</strong> 和示例代码（Python）</li>
+<li>跑通官方最简智能体：能连上引擎、收一帧态势、打印出来</li>
+<li>逐步加决策：<ul>
+<li>先做「被动决策」：雷达管控、自动规避、限制开火规则</li>
+<li>再做「主动决策」：航线规划、任务分配、目标优先级</li>
+</ul>
+</li>
+<li>用<strong>人机想定</strong>测试你的智能体（追求高分）</li>
+</ol>
+<h3 id="第三周：对抗与优化"><a href="#第三周：对抗与优化" class="headerlink" title="第三周：对抗与优化"></a>第三周：对抗与优化</h3><ol>
+<li>让你的智能体和<strong>人</strong>打，看哪里决策蠢</li>
+<li>让你的智能体和<strong>官方 AI &#x2F; 队友智能体</strong>打</li>
+<li>重点优化：<ul>
+<li><strong>态势评估</strong>：威胁排序、目标价值</li>
+<li><strong>资源管理</strong>：油弹消耗、挂载重装时间（空空 3h &#x2F; 空地 6h，快速挂载 30min × 2 次）</li>
+<li><strong>编组协同</strong>：编组内分工（护航&#x2F;打击&#x2F;电子战）</li>
+<li><strong>战前部署</strong>：利用战前阶段抢占阵位</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="十一、实战要点速查"><a href="#十一、实战要点速查" class="headerlink" title="十一、实战要点速查"></a>十一、实战要点速查</h2><p><strong>通用作战原则</strong>：</p>
+<ul>
+<li><strong>先侦察后打击</strong>：「识别准确位置」是精确打击前提，反辐射武器除外（只需敌人开雷达）</li>
+<li><strong>电磁管控是双刃剑</strong>：开雷达 &#x3D; 看得远 &#x3D; 也容易被电子情报定位；电子干扰 &#x3D; 干扰敌人 &#x3D; 也暴露自己</li>
+<li><strong>电子情报&#x2F;干扰机要分散+护航</strong>：贵且重要，多角度探测更准</li>
+<li><strong>地面防空对低空差</strong>：别指望它拦超低空突防</li>
+<li><strong>挂载重装有时间成本</strong>：空空 3h、空地 6h，关键节点别乱打光弹药；快速挂载只有 2 次</li>
+</ul>
+<p><strong>灵奕特有要点</strong>：</p>
+<ul>
+<li><strong>战前规划别浪费</strong>：开打前把防空前推、飞机挂载就绪（载机平台选「立即出动准备」省挂载时间）</li>
+<li><strong>编组作战</strong>：用编组统一指挥，AI 下发效率高；注意编组禁用规则</li>
+<li><strong>智能体帧率</strong>：请求态势别太频繁（引擎有调度），决策要做<strong>事件驱动+定时</strong>混合</li>
+<li><strong>状态同步</strong>：处理好暂停&#x2F;运行信号，别在暂停时下命令浪费</li>
+<li><strong>防作弊</strong>：比赛环境别调试附加、别改启动参数，会直接踢</li>
+</ul>
+<hr>
+<h2 id="十二、资料获取"><a href="#十二、资料获取" class="headerlink" title="十二、资料获取"></a>十二、资料获取</h2><ol>
+<li><strong>软件内使用手册 + 热键</strong>（最权威，务必先看）：帮助栏</li>
+<li><strong>协会老队员&#x2F;学长</strong>：要智能体 SDK、示例代码、历年赛事想定（QQ 群）</li>
+<li><strong>更新日志</strong> <code>更新日志.txt</code>：每次更新的功能点，反推系统特性</li>
+<li>公开网络资料极少（灵奕是封闭赛事平台），<strong>别浪费时间搜</strong>，以软件内文档和协会内部资料为准</li>
+</ol>
+<hr>
+<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>作战规则看旧 PPT，新增功能（智能体&#x2F;战前&#x2F;编组）看软件手册和更新日志，实战经验靠协会。先把「灵奕当墨子用熟」，再上智能体。兵棋推演的魅力在于——它既考验你对作战规则的理解深度，也考验你将战术思维转化为代码逻辑的能力。从手动指挥到智能体指挥，不只是工具的升级，更是思维方式的跃迁。</p>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/up.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/up.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">周言志</div><div class="post-copyright__author_desc">欢迎来到我的世界</div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="https://www.tenxiaodao.top/cong-mo-zi-dao-ling-yi-bing-qi-tui-yan-xi-tong-xue-xi-zhi-nan/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('https://www.tenxiaodao.top/cong-mo-zi-dao-ling-yi-bing-qi-tui-yan-xi-tong-xue-xi-zhi-nan/')">从墨子到灵奕：兵棋推演系统学习指南</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"></div><div class="shareRight"><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.tenxiaodao.top" target="_blank">言志</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/%E5%85%B5%E6%A3%8B%E6%8E%A8%E6%BC%94/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>兵棋推演<span class="tagsPageCount">1</span></a><a class="post-meta__box__tags" href="/tags/%E7%81%B5%E5%A5%95/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>灵奕<span class="tagsPageCount">1</span></a><a class="post-meta__box__tags" href="/tags/%E5%A2%A8%E5%AD%90/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>墨子<span class="tagsPageCount">1</span></a><a class="post-meta__box__tags" href="/tags/%E6%99%BA%E8%83%BD%E4%BD%93/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>智能体<span class="tagsPageCount">1</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="/img/up.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/xin-xi-an-quan-guan-li-yu-ping-gu-sheng-sai-bei-kao-zi-liao/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2026/06/17/6a3237b29d7d2.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">信息安全管理与评估 - 省赛备考资料</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="anzhiyufont anzhiyu-icon-comments"></i><span> 评论</span></div><div class="comment-randomInfo"><a onclick="anzhiyu.addRandomCommentInfo()" href="javascript:void(0)">匿名评论</a><a href="/privacy" style="margin-left: 4px">隐私政策</a></div><div class="comment-switch"><span class="first-comment">Twikoo</span><span id="switch-btn"></span><span class="second-comment">Waline</span></div><div class="comment-tips" id="comment-tips"><span>✅ 你无需删除空行，直接评论以获取最佳展示效果</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div><div><div id="waline-wrap"></div></div></div></div><div class="comment-barrage"></div></div></div></main><footer id="footer"><div id="footer-wrap"></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">52</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">126</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">15</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">关注我</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://github.com/tenxiaodao/tenxiaodao.github.io" title="Github"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/up.jpg" alt="Github"/><span class="back-menu-item-text">Github</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://space.bilibili.com/1803174585" title="Bilibili"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/up.jpg" alt="Bilibili"/><span class="back-menu-item-text">Bilibili</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">网盘</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://pan.quark.cn/s/c98d1ceee692" title="软件/工具"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="软件/工具"/><span class="back-menu-item-text">软件/工具</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">常用网站</div><div class="back-menu-list"><a class="back-menu-item" href="/nav/" title="导航页"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/up.jpg" alt="导航页"/><span class="back-menu-item-text">导航页</span></a></div></div></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 隧道</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 友链</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><i class="anzhiyufont anzhiyu-icon-link faa-tada" style="font-size: 0.9em;"></i><span> 友人帐</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><i class="anzhiyufont anzhiyu-icon-envelope faa-tada" style="font-size: 0.9em;"></i><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/music/?id=13738866688&amp;server=netease"><i class="anzhiyufont anzhiyu-icon-music faa-tada" style="font-size: 0.9em;"></i><span> 音乐馆</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/album/"><i class="anzhiyufont anzhiyu-icon-images faa-tada" style="font-size: 0.9em;"></i><span> 相册集</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于本人</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/essay/"><i class="anzhiyufont anzhiyu-icon-lightbulb faa-tada" style="font-size: 0.9em;"></i><span> 闲言碎语</span></a></li></ul></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/AI/" style="font-size: 0.88rem;">AI<sup>5</sup></a><a href="/tags/ARP/" style="font-size: 0.88rem;">ARP<sup>1</sup></a><a href="/tags/CSS/" style="font-size: 0.88rem;">CSS<sup>1</sup></a><a href="/tags/CasaOS/" style="font-size: 0.88rem;">CasaOS<sup>1</sup></a><a href="/tags/Docker/" style="font-size: 0.88rem;">Docker<sup>1</sup></a><a href="/tags/ESP32/" style="font-size: 0.88rem;">ESP32<sup>1</sup></a><a href="/tags/HTML/" style="font-size: 0.88rem;">HTML<sup>1</sup></a><a href="/tags/Hexo/" style="font-size: 0.88rem;">Hexo<sup>8</sup></a><a href="/tags/JavaScript/" style="font-size: 0.88rem;">JavaScript<sup>2</sup></a><a href="/tags/KVM/" style="font-size: 0.88rem;">KVM<sup>1</sup></a><a href="/tags/KouriChat/" style="font-size: 0.88rem;">KouriChat<sup>1</sup></a><a href="/tags/Linux/" style="font-size: 0.88rem;">Linux<sup>5</sup></a><a href="/tags/NAS/" style="font-size: 0.88rem;">NAS<sup>2</sup></a><a href="/tags/Python/" style="font-size: 0.88rem;">Python<sup>4</sup></a><a href="/tags/Scrapy/" style="font-size: 0.88rem;">Scrapy<sup>2</sup></a><a href="/tags/TCP/" style="font-size: 0.88rem;">TCP<sup>1</sup></a><a href="/tags/UDP/" style="font-size: 0.88rem;">UDP<sup>1</sup></a><a href="/tags/Ubuntu/" style="font-size: 0.88rem;">Ubuntu<sup>1</sup></a><a href="/tags/VM%E8%99%9A%E6%8B%9F%E6%9C%BA/" style="font-size: 0.88rem;">VM虚拟机<sup>1</sup></a><a href="/tags/WSL2/" style="font-size: 0.88rem;">WSL2<sup>1</sup></a><a href="/tags/macOS/" style="font-size: 0.88rem;">macOS<sup>3</sup></a><a href="/tags/office/" style="font-size: 0.88rem;">office<sup>1</sup></a><a href="/tags/openEuler/" style="font-size: 0.88rem;">openEuler<sup>1</sup></a><a href="/tags/windows%E9%95%9C%E5%83%8F/" style="font-size: 0.88rem;">windows镜像<sup>1</sup></a><a href="/tags/%E4%BA%A4%E6%8D%A2%E6%9C%BA/" style="font-size: 0.88rem;">交换机<sup>1</sup></a><a href="/tags/%E5%85%A5%E9%97%A8/" style="font-size: 0.88rem;">入门<sup>1</sup></a><a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 0.88rem;">前端<sup>1</sup></a><a href="/tags/%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95/" style="font-size: 0.88rem;">压力测试<sup>1</sup></a><a href="/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/" style="font-size: 0.88rem;">命令行<sup>2</sup></a><a href="/tags/%E5%BE%AE%E4%BF%A1/" style="font-size: 0.88rem;">微信<sup>2</sup></a><a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 0.88rem;">爬虫<sup>2</sup></a><a href="/tags/%E7%8E%A9%E5%AE%A2%E4%BA%91/" style="font-size: 0.88rem;">玩客云<sup>1</sup></a><a href="/tags/%E7%AB%AF%E5%8F%A3%E8%81%9A%E5%90%88/" style="font-size: 0.88rem;">端口聚合<sup>1</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96/" style="font-size: 0.88rem;">网络优化<sup>1</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 0.88rem;">网络协议<sup>1</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 0.88rem;">网络安全<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/" style="font-size: 0.88rem;">网络技术<sup>1</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" style="font-size: 0.88rem;">网络配置<sup>1</sup></a><a href="/tags/%E8%AF%AD%E9%9F%B3%E5%8A%A9%E6%89%8B/" style="font-size: 0.88rem;">语音助手<sup>1</sup></a><a href="/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 0.88rem;">运维<sup>3</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="anzhiyufont anzhiyu-icon-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="anzhiyufont anzhiyu-icon-xmark"></i></button></nav><div class="is-center" id="loading-database"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-pulse-icon"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/3251973470&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="https://cdn.jsdelivr.net/npm/hexo-theme-anzhiyu@1.7.0/source/js/utils.min.js"></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-anzhiyu@1.7.0/source/js/main.min.js"></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-anzhiyu@1.7.0/source/js/tw_cn.min.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@6.1.6/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("08/31/2024 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2024 By 安知鱼 V1.7.0",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 周言志 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-anzhiyu@1.7.0/source/js/search/local-search.min.js"></script><div class="js-pjax"><script>(() => {
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://yuhaozhe-twikoo.hf.space',
+      region: 'ap-shanghai',
+      onCommentLoaded: () => {
+        anzhiyu.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') setTimeout(runFn,0)
+    else getScript('https://cdn.cbd.int/twikoo@1.6.44/dist/twikoo.all.min.js').then(runFn)
+  }
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://yuhaozhe-twikoo.hf.space',
+      region: 'ap-shanghai',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const runFn = () => {
+    init();
+    GLOBAL_CONFIG_SITE.isPost && getCount()
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) anzhiyu.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else {
+      loadTwikoo()
+    }
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script><script>(() => {
+  let initFn = window.walineFn || null
+
+  const initWaline = (Fn) => {
+    const waline = Fn(Object.assign({
+      el: '#waline-wrap',
+      serverURL: 'https://waline-test-54hthgju8-yuhaozhes-projects.vercel.app/',
+      pageview: false,
+      dark: 'html[data-theme="dark"]',
+      path: window.location.pathname,
+      comment: true,
+      imageUploader: true,
+    }, null))
+
+    const destroyWaline = () => {
+      waline.destroy()
+    }
+
+    anzhiyu.addGlobalFn('pjax', destroyWaline, 'destroyWaline')
+  }
+
+  const loadWaline = async () => {
+    if (initFn) initWaline(initFn)
+    else {
+      await getCSS('https://cdn.cbd.int/@waline/client@3.8.0/dist/waline.css')
+      if (false) await getCSS('https://cdn.cbd.int/@waline/client@3.8.0/dist/waline-meta.css')
+      const { init } = await import('https://cdn.cbd.int/@waline/client@3.8.0/dist/waline.js')
+      initFn = init || Waline.init
+      initWaline(initFn)
+      window.walineFn = initFn
+    }
+  }
+
+  if ('Twikoo' === 'Waline' || !false) {
+    if (false) anzhiyu.loadComment(document.getElementById('waline-wrap'),loadWaline)
+    else setTimeout(loadWaline, 0)
+  } else {
+    window.loadOtherComment = loadWaline
+  }
+})()</script><input type="hidden" name="page-type" id="page-type" value="post"></div><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getComment = () => {
+    const runTwikoo = () => {
+      twikoo.getRecentComments({
+        envId: 'https://yuhaozhe-twikoo.hf.space',
+        region: 'ap-shanghai',
+        pageSize: 6,
+        includeReply: true
+      }).then(function (res) {
+        const twikooArray = res.map(e => {
+          return {
+            'content': changeContent(e.comment),
+            'avatar': e.avatar,
+            'nick': e.nick,
+            'url': e.url + '#' + e.id,
+            'date': new Date(e.created).toISOString()
+          }
+        })
+
+        saveToLocal.set('twikoo-newest-comments', JSON.stringify(twikooArray), 10/(60*24))
+        generateHtml(twikooArray)
+      }).catch(function (err) {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.textContent= "无法获取评论，请确认相关配置是否正确"
+      })
+    }
+
+    if (typeof twikoo === 'object') {
+      runTwikoo()
+    } else {
+      getScript('https://cdn.cbd.int/twikoo@1.6.44/dist/twikoo.all.min.js').then(runTwikoo)
+    }
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'data-lazy-src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'><div class='name'><span>${array[i].nick} </span></div></a>`
+        }
+        
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}' title='${array[i].content}'>${array[i].content}</a>
+        <time datetime="${array[i].date}">${anzhiyu.diffDate(array[i].date, true)}</time></div>
+        </div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom && ($dom.innerHTML= result)
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('twikoo-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://cdn.cbd.int/qrcodejs@1.0.0/qrcode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-anzhiyu@1.7.0/source/js/anzhiyu/right_click_menu.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["meta[property=\"og:image\"]","meta[property=\"og:title\"]","meta[property=\"og:url\"]","meta[property=\"og:type\"]","meta[property=\"og:site_name\"]","meta[property=\"og:description\"]","head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>
